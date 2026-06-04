@@ -2,9 +2,9 @@
 
 1. POD integration (consider https://github.com/spencerlepine/printify-sdk-js)
 
-- on successful stripe payment, store order in DB as pending, and return 200
-- launch edge function in background async (like generation) to handle printful order, mark order as fulfilled
-  - send email notification or something if printful order submit fails. because that means payment was made but no order was created. or retry w exponential backoff. or both email and retry.
+- launch edge function in background async (like generation) to handle printful order
+  - mark order as fulfilled
+  - send email notification or retry w exponential backoff. or both email and retry.
 
 3. upscale image
 4. ...

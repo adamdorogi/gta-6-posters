@@ -13,6 +13,9 @@ export async function POST(request: Request) {
     submit_type: "pay",
     payment_method_types: ["card"],
     metadata: { generationId },
+    shipping_address_collection: {
+      allowed_countries: ["AU"],
+    },
     line_items: [
       {
         price_data: {
