@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     const session = event.data.object;
     const generationId = session.metadata?.generationId;
 
-    console.log(generationId);
+    console.log("Generation ID:", generationId);
 
     const { data, error } = await supabase
       .from("orders")
