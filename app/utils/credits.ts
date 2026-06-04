@@ -1,8 +1,8 @@
-import { getIpAddress, getOrSetUserId } from "@/app/utils/user";
+import { getIpAddress, getUserId } from "@/app/utils/user";
 import { supabase } from "./supabase";
 
 export async function getCredits() {
-  const userId = await getOrSetUserId();
+  const userId = await getUserId();
   const ipAddress = await getIpAddress();
 
   const { data, error } = await supabase.rpc("get_credits", {
@@ -24,7 +24,7 @@ export async function getCredits() {
 }
 
 export async function consumeCredit() {
-  const userId = await getOrSetUserId();
+  const userId = await getUserId();
   const ipAddress = await getIpAddress();
 
   const { data, error } = await supabase.rpc("consume_credit", {

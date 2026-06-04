@@ -1,7 +1,13 @@
 # TODO
 
-1. POD integration
-2. ...
+1. POD integration (consider https://github.com/spencerlepine/printify-sdk-js)
+
+- on successful stripe payment, store order in DB as pending, and return 200
+- launch edge function in background async (like generation) to handle printful order, mark order as fulfilled
+  - send email notification or something if printful order submit fails. because that means payment was made but no order was created. or retry w exponential backoff. or both email and retry.
+
+3. upscale image
+4. ...
 
 - error handling
   - invalid generationGroupId in preview slug
@@ -12,10 +18,10 @@
 - add /preview to robots.txt
 
 - maybe:
+  - mockups above couch !
+  - size comparison overlays/mockups
   - cart
   - abandoned checkout/ expired session email
-  - portrait mockup above couch
-  - size comparison overlays/mockups
 
 ## TurnMeRoyal
 
@@ -79,3 +85,57 @@
 12 x 16 = $43.77 = $99 = $55.23 profit
 16 x 24 = $59.37 = $119 = $59.63 profit
 30 x 40 = $116.25 = $199 = $82.75 profit
+
+# Image sizes
+
+8 x 12 = 3177 x 4394 px
+12 x 16 = 4406 x 5622 px
+16 x 24 = 5634 x 7961 px
+30 x 40 = 9803 x 12780 px
+
+variant ids
+8x12 80696
+12x16 80698
+16x24 80709
+30x40 80722
+
+```sh
+curl -X POST -H "Authorization: Bearer $PRINTIFY_API_TOKEN" https://api.printify.com/v1/shops/27733486/orders.json -d '{
+  "line_items": [
+    {
+      "print_provider_id": 66,
+      "blueprint_id": 1061,
+      "variant_id": 80696,
+      "print_areas": {
+        "front": [
+          {
+            "src": "https://www.animal.photos/mamm3/dolf-bn_files/dolphin2.jpg",
+            "scale": 1, // TODO: get aspect ratio of canvases INCLUDING sides, and calculate scale factor accordingly
+            "y": 0.5,
+            "x": 0.5,
+            "angle": 0
+          }
+        ]
+      },
+      "print_details": {
+        "print_on_side": "regular"
+      },
+      "quantity": 1
+    }
+  ],
+  "shipping_method": 1,
+  "address_to": {
+    "first_name": "John",
+    "last_name": "Smith",
+    "email": "adam.dorogi@gmail.com",
+    "phone": "0574 69 21 90",
+    "country": "AU",
+    "region": "QLD",
+    "address1": "ExampleBaan 121",
+    "address2": "45",
+    "city": "Brisbane",
+    "zip": "4000"
+  }
+}
+'
+```

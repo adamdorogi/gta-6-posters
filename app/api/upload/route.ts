@@ -1,5 +1,5 @@
 import { supabase } from "@/app/utils/supabase";
-import { getOrSetUserId } from "@/app/utils/user";
+import { getUserId } from "@/app/utils/user";
 import { randomUUID } from "crypto";
 
 export async function POST(request: Request) {
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
   const { data, error } = await supabase.storage
     .from("uploads")
-    .upload(`${await getOrSetUserId()}/${uploadId}${type}`, photos);
+    .upload(`${await getUserId()}/${uploadId}${type}`, photos);
 
   console.log(data, error);
 

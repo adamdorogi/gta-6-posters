@@ -1,8 +1,8 @@
+import { supabase } from "@/app/utils/supabase";
 import { headers } from "next/headers";
 import { Stripe } from "stripe";
 
 export async function POST(request: Request) {
-  // TODO: duplicate events? https://docs.stripe.com/webhooks#handle-duplicate-events
   let event;
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -14,17 +14,41 @@ export async function POST(request: Request) {
       process.env.STRIPE_WEBHOOK_SECRET as string,
     );
   } catch (err) {
-    console.log(`⚠️ Webhook signature verification failed.`, err);
+    console.log("⚠️ Webhook signature verification failed.", err);
     return new Response("Webhook signature verification failed.", {
       status: 400,
     });
   }
 
   if (event.type === "checkout.session.completed") {
-    console.log("Webhook request received:", event);
-    const signature = (await headers()).get("stripe-signature");
-    console.log("Stripe signature:", signature);
+    console.log("Webhook request received:", JSON.stringify(event, null, 2));
+
+    const session = event.data.object;
+    const generationId = "37048f12-b766-49e8-8cba-c2498c7c6492"; // TODO: session.metadata?.generationId;
+
+    console.log(generationId);
+
+    const { data, error } = await supabase
+      .from("orders")
+      .insert({ generation_id: generationId })
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Error creating order:", error);
+      return new Response(
+        JSON.stringify({ error: "Failed to create order." }),
+        {
+          status: 500,
+        },
+      );
+    }
+
+    const orderId = data.id;
+    console.log("Order created successfully:", orderId);
+
+    // TODO: call fulfillment edge function to create order (don't await).
   }
 
-  return Response.json({ received: true });
+  return new Response(null, { status: 204 });
 }

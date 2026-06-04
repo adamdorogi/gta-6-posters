@@ -1,6 +1,6 @@
 import { consumeCredit } from "./credits";
 import { supabase } from "./supabase";
-import { getOrSetUserId } from "./user";
+import { getUserId } from "./user";
 
 export async function generate(generationGroupId: string) {
   const { error: creditsError } = await consumeCredit();
@@ -21,7 +21,7 @@ export async function generate(generationGroupId: string) {
     body: {
       generationId,
       generationGroupId,
-      userId: await getOrSetUserId(),
+      userId: await getUserId(),
     },
   });
 
