@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     console.log("Webhook request received:", JSON.stringify(event, null, 2));
 
     const session = event.data.object;
-    const generationId = "37048f12-b766-49e8-8cba-c2498c7c6492"; // TODO: session.metadata?.generationId;
+    const generationId = session.metadata?.generationId;
 
     console.log(generationId);
 
