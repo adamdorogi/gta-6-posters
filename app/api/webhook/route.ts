@@ -62,11 +62,7 @@ export async function POST(request: Request) {
     const orderId = data.id;
     console.log("Order created successfully:", orderId);
 
-    supabase.functions
-      .invoke("submit_printify_order", { body: { orderId } })
-      .then((data) => {
-        console.log("Printify order submission result:", data);
-      });
+    supabase.functions.invoke("submit-printify-order", { body: { orderId } });
   }
 
   return new Response(null, { status: 204 });
