@@ -54,11 +54,8 @@ export async function POST(request: Request) {
     ],
     success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: referrer,
-    after_expiration: {
-      recovery: {
-        enabled: true,
-        allow_promotion_codes: true,
-      },
+    phone_number_collection: {
+      enabled: true,
     },
   });
 

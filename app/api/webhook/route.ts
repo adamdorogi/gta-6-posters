@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       name,
       address: { city, country, line1, line2, postal_code: postalCode, state },
     } = session.collected_information!.shipping_details!;
-    const email = session.customer_details!.email;
+    const { email, phone } = session.customer_details!;
 
     console.log("Generation ID:", generationId);
 
@@ -38,6 +38,7 @@ export async function POST(request: Request) {
       .insert({
         generation_id: generationId,
         name,
+        phone,
         email,
         city,
         country,
