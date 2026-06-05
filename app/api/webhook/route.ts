@@ -25,12 +25,27 @@ export async function POST(request: Request) {
 
     const session = event.data.object;
     const generationId = session.metadata?.generationId;
+    const {
+      name,
+      address: { city, country, line1, line2, postal_code: postalCode, state },
+    } = session.collected_information!.shipping_details!;
+    const email = session.customer_details!.email;
 
     console.log("Generation ID:", generationId);
 
     const { data, error } = await supabase
       .from("orders")
-      .insert({ generation_id: generationId })
+      .insert({
+        generation_id: generationId,
+        name,
+        email,
+        city,
+        country,
+        line1,
+        line2,
+        postal_code: postalCode,
+        state,
+      })
       .select()
       .single();
 
