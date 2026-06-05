@@ -9,6 +9,8 @@ export async function POST(request: Request) {
   const referrer = headersList.get("referer") as string;
   const { generationId, imageUrl, size } = await request.json();
 
+  // TODO: handle invalid inputs
+
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "payment",
     submit_type: "pay",
