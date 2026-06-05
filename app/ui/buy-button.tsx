@@ -5,10 +5,14 @@ export default function BuyButton({
   generationGroupId,
   generationId,
   imageUrl,
+  size,
+  price,
 }: {
   generationGroupId: string;
   generationId: string;
   imageUrl: string;
+  size: string;
+  price: number;
 }) {
   const router = useRouter();
 
@@ -17,7 +21,12 @@ export default function BuyButton({
       onClick={async (e) => {
         const resp = await fetch("/api/checkout", {
           method: "POST",
-          body: JSON.stringify({ generationId, generationGroupId, imageUrl }),
+          body: JSON.stringify({
+            generationId,
+            generationGroupId,
+            imageUrl,
+            size,
+          }),
         });
         const response = await resp.json();
         const { url } = response;
@@ -25,7 +34,7 @@ export default function BuyButton({
       }}
       className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
     >
-      Buy
+      Buy ({size}, ${price / 100})
     </button>
   );
 }

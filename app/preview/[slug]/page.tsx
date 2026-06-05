@@ -2,6 +2,7 @@ import BuyButton from "@/app/ui/buy-button";
 import RetryButton from "@/app/ui/retry-button";
 import { getCredits } from "@/app/utils/credits";
 import { supabase } from "@/app/utils/supabase";
+import { prices } from "@/app/utils/prices";
 
 import Image from "next/image";
 
@@ -67,15 +68,20 @@ export default async function Home({
                     width={200}
                     height={200}
                   />
-                  <BuyButton
-                    generationGroupId={generationGroupId}
-                    generationId={generation.id}
-                    imageUrl={
-                      supabase.storage
-                        .from("watermarked-generations")
-                        .getPublicUrl(generation.path).data.publicUrl
-                    }
-                  />
+                  {Object.keys(prices).map((size) => (
+                    <BuyButton
+                      key={size}
+                      size={size}
+                      price={prices[size]}
+                      generationGroupId={generationGroupId}
+                      generationId={generation.id}
+                      imageUrl={
+                        supabase.storage
+                          .from("watermarked-generations")
+                          .getPublicUrl(generation.path).data.publicUrl
+                      }
+                    />
+                  ))}
                 </>
               ) : (
                 <label>
