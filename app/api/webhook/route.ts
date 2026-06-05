@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     const orderId = data.id;
     console.log("Order created successfully:", orderId);
 
-    // TODO: call fulfillment edge function to create order (don't await).
+    supabase.functions.invoke("submit_printify_order", { body: { orderId } });
   }
 
   return new Response(null, { status: 204 });
