@@ -5,7 +5,6 @@ import { prices } from "@/app/utils/prices";
 export async function POST(request: Request) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
   const headersList = await headers();
-  const origin = headersList.get("origin") as string;
   const referrer = headersList.get("referer") as string;
   const { generationId, imageUrl, size } = await request.json();
 
@@ -57,7 +56,7 @@ export async function POST(request: Request) {
         quantity: 1,
       },
     ],
-    success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `${referrer}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: referrer,
   });
 

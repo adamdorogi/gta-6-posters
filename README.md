@@ -1,9 +1,8 @@
 # TODO
 
-1. size variants when paying and submitting order to printful
-2. calculate image scaling for printify canvas
-3. upscale generated image
-4. ...
+1. calculate image scaling for printify canvas
+2. upscale generated image
+3. ...
 
 - error handling
   - invalid generationGroupId in preview slug
@@ -12,6 +11,7 @@
 - UX and design
   - on preview page, user can select "edit", which will bring up a popup similar to the generation from on the main page. with the exception of the photo upload (for now). user can edit selected style and prompt.
 - add /preview to robots.txt
+- speed optimisations (await, nested requests, sql functions)
 - try to hack/break
 
 - maybe:
