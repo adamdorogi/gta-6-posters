@@ -54,9 +54,6 @@ export async function POST(request: Request) {
     ],
     success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: referrer,
-    phone_number_collection: {
-      enabled: true,
-    },
   });
 
   return Response.json({
