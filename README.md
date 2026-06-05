@@ -1,12 +1,8 @@
 # TODO
 
-1. POD integration (consider https://github.com/spencerlepine/printify-sdk-js)
-
-- launch edge function in background async (like generation) to handle printful order
-  - mark order as fulfilled
-  - send email notification or retry w exponential backoff. or both email and retry.
-
-3. upscale image
+1. size variants when paying and submitting order to printful
+2. calculate image scaling for printify canvas
+3. upscale generated image
 4. ...
 
 - error handling
