@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     console.log("Webhook request received:", JSON.stringify(event, null, 2));
 
     const session = event.data.object;
-    const generationId = session.metadata?.generationId;
+    const { generationId, size } = session.metadata!;
     const {
       name,
       address: { city, country, line1, line2, postal_code: postalCode, state },
@@ -32,11 +32,13 @@ export async function POST(request: Request) {
     const { email } = session.customer_details!;
 
     console.log("Generation ID:", generationId);
+    console.log("Size:", size);
 
     const { data, error } = await supabase
       .from("orders")
       .insert({
         generation_id: generationId,
+        size,
         name,
         email,
         city,

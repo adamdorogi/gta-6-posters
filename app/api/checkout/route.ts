@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     mode: "payment",
     submit_type: "pay",
     payment_method_types: ["card"],
-    metadata: { generationId },
+    metadata: { generationId, size },
     shipping_address_collection: {
       allowed_countries: ["AU"],
     },
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
           product_data: {
             name: `${size} Canvas + Digital`,
             description: "Free shipping (5-7 business days)",
-            metadata: { generationId },
+            metadata: { generationId, size },
             images: [imageUrl],
           },
           unit_amount: prices[size],
