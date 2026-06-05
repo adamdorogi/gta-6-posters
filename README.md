@@ -22,6 +22,7 @@
   - size comparison overlays/mockups
   - cart
   - abandoned checkout/ expired session email
+  - prefill customer data by storing email into cookies and passing to checkout session
 
 ## TurnMeRoyal
 
