@@ -3,6 +3,7 @@ import RetryButton from "@/app/ui/retry-button";
 import { getCredits } from "@/app/utils/credits";
 import { supabase } from "@/app/utils/supabase";
 import { prices } from "@/app/utils/prices";
+import { redirect } from "next/navigation";
 
 import Image from "next/image";
 
@@ -12,25 +13,25 @@ export default async function Home({
   params: Promise<{ slug: string }>;
 }) {
   const generationGroupId = (await params).slug;
-  const { data, error } = await supabase
-    .from("generations")
-    .select("id, status, path")
-    .eq("generation_group_id", generationGroupId);
+  const [
+    { data: generations, error: generationsError },
+    { data: styles, error: stylesError },
+  ] = await Promise.all([
+    supabase
+      .from("generations")
+      .select("id, status, path, generation_groups(style_id, user_prompt)")
+      .eq("generation_group_id", generationGroupId),
+    supabase.from("styles").select("id, name"),
+  ]);
 
   const credits = await getCredits();
 
-  const { data: generationGroupData, error: generationGroupError } =
-    await supabase
-      .from("generation_groups")
-      .select("style_id, user_prompt")
-      .eq("id", generationGroupId)
-      .single();
-  const styleId = generationGroupData?.style_id;
-  const userPrompt = generationGroupData?.user_prompt;
+  if (!generations || generations.length === 0) {
+    redirect("/");
+  }
 
-  const { data: styles, error: stylesError } = await supabase
-    .from("styles")
-    .select("id, name");
+  const styleId = generations[0].generation_groups.style_id;
+  const userPrompt = generations[0].generation_groups.user_prompt;
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -50,7 +51,7 @@ export default async function Home({
           Credits: {credits.credits}, Next Reset:{credits.nextReset}
         </p>
         <ul>
-          {data?.map((generation) => (
+          {generations?.map((generation) => (
             <li key={generation.id}>
               <p>
                 {" "}
@@ -93,7 +94,7 @@ export default async function Home({
         </ul>
         <RetryButton
           generationGroupId={generationGroupId}
-          generations={data || []}
+          generations={generations || []}
           styles={styles || []}
           styleIdProp={styleId}
           userPromptProp={userPrompt}

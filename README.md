@@ -1,17 +1,18 @@
 # TODO
 
-1. calculate image scaling for printify canvas
-2. upscale generated image
-3. ...
+1. test image gen cost for 1K vs 2K vs 4K
+2. ...
 
 - error handling
-  - invalid generationGroupId in preview slug
   - no provided uploadIds for generation
   - out of credits
 - UX and design
   - on preview page, user can select "edit", which will bring up a popup similar to the generation from on the main page. with the exception of the photo upload (for now). user can edit selected style and prompt.
 - add /preview to robots.txt
 - speed optimisations (await, nested requests, sql functions)
+- improve prompt
+- improve watermark (896x1200 probs)
+- sort styles
 - try to hack/break
 
 - maybe:
@@ -86,10 +87,10 @@
 
 # Image sizes
 
-8 x 12 = 3177 x 4394 px
-12 x 16 = 4406 x 5622 px
-16 x 24 = 5634 x 7961 px
-30 x 40 = 9803 x 12780 px
+8 x 12 = 3177 x 4394 px = 0.7230314065 vs 0.66...
+12 x 16 = 4406 x 5622 px = 0.7837068659 vs 0.75
+16 x 24 = 5634 x 7961 px = 0.7077000377 vs 0.66...
+30 x 40 = 9803 x 12780 px = 0.767057903 vs 0.75
 
 variant ids
 8x12 80696
