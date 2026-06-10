@@ -219,7 +219,19 @@ export type Database = {
       }
       get_credits: {
         Args: { ip_address: string; user_id: string }
-        Returns: Record<string, unknown>
+        Returns: {
+          created_at: string
+          credits: number
+          ip_address: string
+          reset_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "credits"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       init_or_reset_credits: {
         Args: { ip_address: string; user_id: string }

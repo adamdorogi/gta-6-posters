@@ -13,10 +13,7 @@ export default async function Home({
   params: Promise<{ slug: string }>;
 }) {
   const generationGroupId = (await params).slug;
-  const [
-    { data: generations, error: generationsError },
-    { data: styles, error: stylesError },
-  ] = await Promise.all([
+  const [{ data: generations }, { data: styles }] = await Promise.all([
     supabase
       .from("generations")
       .select("id, status, path, generation_groups(style_id, user_prompt)")
@@ -51,46 +48,49 @@ export default async function Home({
           Credits: {credits.credits}, Next Reset:{credits.nextReset}
         </p>
         <ul>
-          {generations?.map((generation) => (
-            <li key={generation.id}>
-              <p>
-                {" "}
-                {generation.id}, {generation.status}
-              </p>
-              {generation.path ? (
-                <>
-                  <Image
-                    src={
-                      supabase.storage
-                        .from("watermarked-generations")
-                        .getPublicUrl(generation.path).data.publicUrl
-                    }
-                    alt="Generated Image"
-                    width={200}
-                    height={200}
-                  />
-                  {Object.keys(prices).map((size) => (
-                    <BuyButton
-                      key={size}
-                      size={size}
-                      price={prices[size]}
-                      generationGroupId={generationGroupId}
-                      generationId={generation.id}
-                      imageUrl={
+          {generations?.map((generation) => {
+            const generationPath = generation.path;
+            return (
+              <li key={generation.id}>
+                <p>
+                  {" "}
+                  {generation.id}, {generation.status}
+                </p>
+                {generationPath ? (
+                  <>
+                    <Image
+                      src={
                         supabase.storage
                           .from("watermarked-generations")
-                          .getPublicUrl(generation.path).data.publicUrl
+                          .getPublicUrl(generationPath).data.publicUrl
                       }
+                      alt="Generated Image"
+                      width={200}
+                      height={200}
                     />
-                  ))}
-                </>
-              ) : (
-                <label>
-                  {generation.status === "failed" ? "Failed:(" : "Loading..."}
-                </label>
-              )}
-            </li>
-          ))}
+                    {Object.keys(prices).map((size) => (
+                      <BuyButton
+                        key={size}
+                        size={size}
+                        price={prices[size]}
+                        generationGroupId={generationGroupId}
+                        generationId={generation.id}
+                        imageUrl={
+                          supabase.storage
+                            .from("watermarked-generations")
+                            .getPublicUrl(generationPath).data.publicUrl
+                        }
+                      />
+                    ))}
+                  </>
+                ) : (
+                  <label>
+                    {generation.status === "failed" ? "Failed:(" : "Loading..."}
+                  </label>
+                )}
+              </li>
+            );
+          })}
         </ul>
         <RetryButton
           generationGroupId={generationGroupId}
