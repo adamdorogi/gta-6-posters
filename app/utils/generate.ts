@@ -6,6 +6,7 @@ export async function generate(generationGroupId: string) {
   const { error: creditsError } = await consumeCredit();
 
   if (creditsError) {
+    // TODO
     return null;
   }
 
@@ -14,6 +15,10 @@ export async function generate(generationGroupId: string) {
     .insert({ generation_group_id: generationGroupId })
     .select()
     .single();
+
+  if (!data || error) {
+    throw new Error(error?.message || "Failed to create generation record.");
+  }
 
   const generationId = data.id;
 

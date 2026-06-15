@@ -73,13 +73,7 @@ export default async function Home({
                         key={size}
                         size={size}
                         price={prices[size]}
-                        generationGroupId={generationGroupId}
                         generationId={generation.id}
-                        imageUrl={
-                          supabase.storage
-                            .from("watermarked-generations")
-                            .getPublicUrl(generationPath).data.publicUrl
-                        }
                       />
                     ))}
                   </>

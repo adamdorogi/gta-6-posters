@@ -3,37 +3,51 @@ import { getUserId } from "@/app/utils/user";
 import { randomUUID } from "crypto";
 
 export async function POST(request: Request) {
-  console.log("Request received.");
-  const formData = await request.formData();
-  const photos = formData.get("photos") as File;
+  try {
+    console.log("Request received.");
+    const formData = await request.formData();
+    const photos = formData.get("photos") as File;
 
-  const uploadId = randomUUID();
+    console.log("Photos:", photos);
 
-  const splitString = photos.name.split(".");
-  const type = splitString.length > 1 ? "." + splitString.pop() : "";
+    if (photos.size < 1) {
+      throw new Error("No file uploaded.");
+    }
 
-  console.log(`NAME: ${uploadId}${type}`);
+    const uploadId = randomUUID();
 
-  const { data, error } = await supabase.storage
-    .from("uploads")
-    .upload(`${await getUserId()}/${uploadId}${type}`, photos);
+    const splitString = photos.name.split(".");
+    const type = splitString.length > 1 ? "." + splitString.pop() : "";
 
-  console.log(data, error);
+    const fileName = `${uploadId}${type}`;
 
-  console.log(photos);
+    const { data, error } = await supabase.storage
+      .from("uploads")
+      .upload(`${await getUserId()}/${fileName}`, photos);
 
-  const { data: uploadData, error: uploadError } = await supabase
-    .from("uploads")
-    .insert({ id: uploadId, path: data?.path })
-    .select()
-    .single();
+    if (!data || error) {
+      throw new Error(error?.message || "Failed to upload file.");
+    }
 
-  if (error || uploadError) {
-    console.error("Error uploading file:", error, uploadError);
+    console.log("Upload data:", data);
+
+    const { data: uploadData, error: uploadError } = await supabase
+      .from("uploads")
+      .insert({ id: uploadId, path: data.path })
+      .select()
+      .single();
+
+    if (!uploadData || uploadError) {
+      throw new Error(
+        uploadError?.message || "Failed to create upload record.",
+      );
+    }
+
+    return Response.json({ uploadId: uploadData.id });
+  } catch (err) {
+    console.error("Error:", err);
     return new Response(JSON.stringify({ error: "Failed to upload file." }), {
       status: 500,
     });
   }
-
-  return Response.json({ uploadId });
 }

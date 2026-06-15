@@ -2,15 +2,11 @@
 import { useRouter } from "next/navigation";
 
 export default function BuyButton({
-  generationGroupId,
   generationId,
-  imageUrl,
   size,
   price,
 }: {
-  generationGroupId: string;
   generationId: string;
-  imageUrl: string;
   size: string;
   price: number;
 }) {
@@ -18,13 +14,11 @@ export default function BuyButton({
 
   return (
     <button
-      onClick={async (e) => {
+      onClick={async () => {
         const resp = await fetch("/api/checkout", {
           method: "POST",
           body: JSON.stringify({
             generationId,
-            generationGroupId,
-            imageUrl,
             size,
           }),
         });

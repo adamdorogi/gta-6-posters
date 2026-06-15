@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import StylePicker from "./style-picker";
 
 export default function GenerationForm({
   styles,
@@ -17,13 +18,11 @@ export default function GenerationForm({
 
   return (
     <>
-      <select value={styleId} onChange={(e) => setStyleId(e.target.value)}>
-        {styles.map((style) => (
-          <option key={style.id} value={style.id}>
-            {style.name}
-          </option>
-        ))}
-      </select>
+      <StylePicker
+        selectedStyleId={styleId}
+        onChange={setStyleId}
+        styles={styles}
+      />
       <input
         type="text"
         placeholder="Optional prompt"
@@ -45,12 +44,7 @@ export default function GenerationForm({
           if (!e.target.files || e.target.files.length === 0) return;
           const files = Array.from(e.target.files);
           setFiles((prev) => [...prev, ...files]);
-          console.log(`Added ${e.target.files.length} files.`);
           for (let i = 0; i < e.target.files.length; i++) {
-            console.log(
-              "Sent request to /api/upload with file:",
-              e.target.files[i].name,
-            );
             const formData = new FormData();
             formData.append("photos", e.target.files[i]);
             fetch("/api/upload", {
@@ -59,7 +53,6 @@ export default function GenerationForm({
             }).then(async (resp) => {
               const result = await resp.json();
               setUploadIds((prev) => [...prev, result.uploadId]);
-              console.log(result);
             });
           }
         }}
@@ -79,7 +72,7 @@ export default function GenerationForm({
 
       <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
         <button
-          onClick={async (e) => {
+          onClick={async () => {
             const resp = await fetch("/api/generate", {
               method: "POST",
               body: JSON.stringify({

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function proxy(request: Request) {
+export async function proxy() {
   const response = NextResponse.next();
 
   const COOKIE_NAME = "user_id";

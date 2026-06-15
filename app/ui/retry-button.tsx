@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import StylePicker from "./style-picker";
 
 export default function RetryButton({
   generationGroupId,
@@ -67,13 +68,11 @@ export default function RetryButton({
 
   return (
     <>
-      <select value={styleId} onChange={(e) => setStyleId(e.target.value)}>
-        {styles.map((style) => (
-          <option key={style.id} value={style.id}>
-            {style.name}
-          </option>
-        ))}
-      </select>
+      <StylePicker
+        selectedStyleId={styleId}
+        onChange={setStyleId}
+        styles={styles}
+      />
       <input
         type="text"
         placeholder="Optional prompt"
@@ -81,7 +80,7 @@ export default function RetryButton({
         onChange={(e) => setUserPrompt(e.target.value)}
       />
       <button
-        onClick={async (e) => {
+        onClick={async () => {
           const resp = await fetch("/api/retry", {
             method: "POST",
             body: JSON.stringify({ generationGroupId, styleId, userPrompt }),

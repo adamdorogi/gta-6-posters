@@ -3,7 +3,7 @@ import GenerationForm from "./ui/generation-form";
 import { supabase } from "./utils/supabase";
 
 export default async function Home() {
-  const { data, error } = await supabase.from("styles").select("id, name");
+  const { data: styles } = await supabase.from("styles").select("id, name");
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -17,7 +17,7 @@ export default async function Home() {
           priority
         />
 
-        <GenerationForm styles={data || []} />
+        <GenerationForm styles={styles || []} />
       </main>
     </div>
   );
