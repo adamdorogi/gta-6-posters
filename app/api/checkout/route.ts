@@ -96,7 +96,7 @@ export async function POST(request: Request) {
     return new Response(
       JSON.stringify({ error: "Failed to create checkout session." }),
       {
-        status: 500,
+        status: 400,
       },
     );
   }

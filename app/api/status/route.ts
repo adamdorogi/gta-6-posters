@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     return new Response(
       JSON.stringify({ error: "Failed to fetch generation statuses." }),
       {
-        status: 500,
+        status: 400,
       },
     );
   }

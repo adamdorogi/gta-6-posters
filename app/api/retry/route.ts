@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     console.error("Error:", err);
     return new Response(
       JSON.stringify({ error: "Failed to retry generation." }),
-      { status: 500 },
+      { status: 400 },
     );
   }
 }

@@ -47,7 +47,7 @@ export async function POST(request: Request) {
   } catch (err) {
     console.error("Error:", err);
     return new Response(JSON.stringify({ error: "Failed to upload file." }), {
-      status: 500,
+      status: 400,
     });
   }
 }

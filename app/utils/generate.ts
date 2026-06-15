@@ -6,8 +6,7 @@ export async function generate(generationGroupId: string) {
   const { error: creditsError } = await consumeCredit();
 
   if (creditsError) {
-    // TODO
-    return null;
+    throw Error("Out of credits.");
   }
 
   const { data, error } = await supabase

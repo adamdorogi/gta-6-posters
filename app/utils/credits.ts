@@ -5,10 +5,12 @@ export async function getCredits() {
   const userId = await getUserId();
   const ipAddress = await getIpAddress();
 
-  const { data } = await supabase.rpc("get_credits", {
-    ip_address: ipAddress,
-    user_id: userId,
-  });
+  const { data } = await supabase
+    .rpc("get_credits", {
+      ip_address: ipAddress,
+      user_id: userId,
+    })
+    .single();
 
   if (!data) {
     return {
@@ -17,16 +19,9 @@ export async function getCredits() {
     };
   }
 
-  const currentTimestamp = Date.now();
-  const resetTimestamp = Date.parse(data.reset_at);
-  // TODO: also change in psql function
-  // const resetInterval = 12 * 60 * 60 * 1000; // 12 hours
-  const resetInterval = 1 * 60 * 1000;
-  const nextReset = (resetTimestamp + resetInterval - currentTimestamp) / 1000;
-
   return {
     credits: data.credits,
-    nextReset,
+    nextReset: data.remaining,
   };
 }
 
