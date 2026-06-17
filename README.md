@@ -3,12 +3,10 @@
 1. test image gen cost for 1K vs 2K vs 4K
 2. ...
 
-- error handling
+- UI error handling
   - out of credits
 - UX and design
   - on preview page, user can select "edit", which will bring up a popup similar to the generation from on the main page. with the exception of the photo upload (for now). user can edit selected style and prompt.
-- add /preview to robots.txt
-- speed optimisations (await, nested requests, sql functions)
 - improve prompt
 - improve watermark (896x1200 probs)
 - sort styles
