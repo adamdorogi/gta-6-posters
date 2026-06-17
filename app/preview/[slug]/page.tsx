@@ -1,10 +1,9 @@
+import Logo from "@/app/ui/logo";
 import PreviewGallery from "@/app/ui/preview-gallery";
 import SuccessHandler from "@/app/ui/success-handler";
 import { getCredits } from "@/app/utils/credits";
 import { supabase } from "@/app/utils/supabase";
 import { redirect } from "next/navigation";
-
-import Image from "next/image";
 
 export default async function Home({
   params,
@@ -43,14 +42,7 @@ export default async function Home({
     <div className="flex flex-col min-h-screen bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col items-center py-12 px-6 bg-white dark:bg-black">
         <div className="flex flex-col items-center gap-4 mb-12">
-          <Image
-            className="dark:invert"
-            src="/next.svg"
-            alt="Next.js logo"
-            width={100}
-            height={20}
-            priority
-          />
+          <Logo />
           <div className="text-center">
             <p className="mt-1 text-zinc-600 dark:text-zinc-300">
               Credits:{" "}

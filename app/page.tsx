@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Logo from "@/app/ui/logo";
 import GenerationForm from "./ui/generation-form";
 import { supabase } from "./utils/supabase";
 
@@ -13,38 +13,8 @@ export default async function Home() {
       {/* Navigation */}
       <nav className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-2">
-          <Image
-            className="dark:invert"
-            src="/next.svg"
-            alt="Logo"
-            width={80}
-            height={16}
-            priority
-          />
+          <Logo />
         </div>
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
-          <a
-            href="#"
-            className="hover:text-zinc-900 dark:hover:text-white transition-colors"
-          >
-            Features
-          </a>
-          <a
-            href="#"
-            className="hover:text-zinc-900 dark:hover:text-white transition-colors"
-          >
-            Gallery
-          </a>
-          <a
-            href="#"
-            className="hover:text-zinc-900 dark:hover:text-white transition-colors"
-          >
-            Pricing
-          </a>
-        </div>
-        <button className="px-4 py-2 text-sm font-medium rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 hover:opacity-90 transition-opacity">
-          Get Started
-        </button>
       </nav>
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-20 max-w-5xl mx-auto w-full text-center">
