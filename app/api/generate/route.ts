@@ -10,6 +10,10 @@ export async function POST(request: Request) {
 
     console.log("Request received:", requestData);
 
+    if (uploadIds.length === 0) {
+      throw new Error("No uploads specified.");
+    }
+
     const { data, error } = await supabase
       .from("generation_groups")
       .insert({ style_id: styleId, user_prompt: userPrompt })
