@@ -9,8 +9,8 @@
   - on preview page, user can select "edit", which will bring up a popup similar to the generation from on the main page. with the exception of the photo upload (for now). user can edit selected style and prompt.
 - improve prompt
 - improve watermark (896x1200 probs)
-- sort styles
 - try to hack/break
+- vercel rate limiting
 
 - maybe:
   - mockups above couch !
