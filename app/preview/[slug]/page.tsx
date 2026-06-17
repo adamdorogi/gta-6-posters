@@ -1,8 +1,7 @@
-import BuyButton from "@/app/ui/buy-button";
-import RetryButton from "@/app/ui/retry-button";
+import PreviewGallery from "@/app/ui/preview-gallery";
+import SuccessHandler from "@/app/ui/success-handler";
 import { getCredits } from "@/app/utils/credits";
 import { supabase } from "@/app/utils/supabase";
-import { prices } from "@/app/utils/prices";
 import { redirect } from "next/navigation";
 
 import Image from "next/image";
@@ -21,6 +20,14 @@ export default async function Home({
     supabase.from("styles").select("id, name"),
   ]);
 
+  const generationsWithUrls = generations?.map((gen) => ({
+    ...gen,
+    publicUrl: gen.path
+      ? supabase.storage.from("watermarked-generations").getPublicUrl(gen.path)
+          .data.publicUrl
+      : null,
+  }));
+
   const credits = await getCredits();
 
   if (!generations || generations.length === 0) {
@@ -31,68 +38,36 @@ export default async function Home({
   const userPrompt = generations[0].generation_groups.user_prompt;
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <p className="mt-3 text-2xl">
-          This is the preview page for slug: {generationGroupId}
-        </p>
-        <p className="mt-3 text-2xl">
-          Credits: {credits.credits}, Next Reset:{credits.nextReset}
-        </p>
-        <ul>
-          {generations?.map((generation) => {
-            const generationPath = generation.path;
-            return (
-              <li key={generation.id}>
-                <p>
-                  {" "}
-                  {generation.id}, {generation.status}
-                </p>
-                {generationPath ? (
-                  <>
-                    <Image
-                      src={
-                        supabase.storage
-                          .from("watermarked-generations")
-                          .getPublicUrl(generationPath).data.publicUrl
-                      }
-                      alt="Generated Image"
-                      width={200}
-                      height={200}
-                    />
-                    {Object.keys(prices).map((size) => (
-                      <BuyButton
-                        key={size}
-                        size={size}
-                        price={prices[size]}
-                        generationId={generation.id}
-                      />
-                    ))}
-                  </>
-                ) : (
-                  <label>
-                    {generation.status === "failed" ? "Failed:(" : "Loading..."}
-                  </label>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-        <RetryButton
-          generationGroupId={generationGroupId}
-          generations={generations || []}
+    <div className="flex flex-col min-h-screen bg-zinc-50 font-sans dark:bg-black">
+      <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col items-center py-12 px-6 bg-white dark:bg-black">
+        <div className="flex flex-col items-center gap-4 mb-12">
+          <Image
+            className="dark:invert"
+            src="/next.svg"
+            alt="Next.js logo"
+            width={100}
+            height={20}
+            priority
+          />
+          <div className="text-center">
+            <p className="mt-1 text-zinc-600 dark:text-zinc-300">
+              Credits:{" "}
+              <span className="font-bold text-zinc-900 dark:text-white">
+                {credits.credits}
+              </span>{" "}
+              • Next Reset: {credits.nextReset}
+            </p>
+          </div>
+        </div>
+
+        <PreviewGallery
+          generations={generationsWithUrls || []}
           styles={styles || []}
+          generationGroupId={generationGroupId}
           styleIdProp={styleId}
           userPromptProp={userPrompt}
         />
+        <SuccessHandler />
       </main>
     </div>
   );

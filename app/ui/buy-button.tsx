@@ -26,9 +26,10 @@ export default function BuyButton({
         const { url } = response;
         router.push(url);
       }}
-      className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
+      className="flex h-14 w-full max-w-md items-center justify-center gap-3 rounded-full bg-zinc-900 dark:bg-white px-8 text-white dark:text-black font-bold text-lg transition-all hover:bg-zinc-800 dark:hover:bg-zinc-100 active:scale-[0.98] shadow-xl"
     >
-      Buy ({size}, ${price / 100})
+      <span>Buy {size}</span>
+      <span className="opacity-70">/ ${(price / 100).toFixed(2)}</span>
     </button>
   );
 }

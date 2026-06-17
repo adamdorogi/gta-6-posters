@@ -1,12 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StylePicker from "./style-picker";
 
 export default function RetryButton({
   generationGroupId,
-  generations,
   styles,
   styleIdProp,
   userPromptProp,
@@ -21,64 +20,30 @@ export default function RetryButton({
   const [styleId, setStyleId] = useState<string>(styleIdProp);
   const [userPrompt, setUserPrompt] = useState<string>(userPromptProp);
 
-  const inProgress = generations.filter(
-    (generation) => generation.status === "in_progress",
-  );
-
-  useEffect(() => {
-    if (inProgress.length === 0) return;
-
-    let cancelled = false;
-
-    async function poll() {
-      try {
-        const res = await fetch("/api/status", {
-          method: "POST",
-          body: JSON.stringify({
-            generationIds: inProgress.map((g) => g.id),
-          }),
-        });
-
-        const json = await res.json();
-        console.log("Polling...", JSON.stringify(json));
-
-        const shouldRefresh = json.status.some(
-          (s: { id: string; status: string }) => s.status !== "in_progress",
-        );
-
-        if (shouldRefresh) {
-          router.refresh();
-          return;
-        }
-      } catch (err) {
-        console.error(err);
-      }
-
-      if (!cancelled) {
-        setTimeout(poll, 2000);
-      }
-    }
-
-    poll();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [router, inProgress]);
-
   return (
-    <>
-      <StylePicker
-        selectedStyleId={styleId}
-        onChange={setStyleId}
-        styles={styles}
-      />
-      <input
-        type="text"
-        placeholder="Optional prompt"
-        value={userPrompt}
-        onChange={(e) => setUserPrompt(e.target.value)}
-      />
+    <div className="flex flex-col gap-6 w-full">
+      <div className="flex flex-col gap-2">
+        <label className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider ml-1">
+          Style
+        </label>
+        <StylePicker
+          selectedStyleId={styleId}
+          onChange={setStyleId}
+          styles={styles}
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <label className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider ml-1">
+          Prompt
+        </label>
+        <input
+          type="text"
+          placeholder="Describe what you want to see..."
+          value={userPrompt}
+          onChange={(e) => setUserPrompt(e.target.value)}
+          className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 transition-all"
+        />
+      </div>
       <button
         onClick={async () => {
           const resp = await fetch("/api/retry", {
@@ -89,9 +54,10 @@ export default function RetryButton({
           console.log(response);
           router.refresh();
         }}
+        className="mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 dark:bg-white px-5 text-white dark:text-black font-semibold transition-all hover:bg-zinc-800 dark:hover:bg-zinc-100 active:scale-[0.98]"
       >
-        Retry
+        Retry Generation
       </button>
-    </>
+    </div>
   );
 }
