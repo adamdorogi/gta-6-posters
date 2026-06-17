@@ -17,7 +17,10 @@ export default async function Home({
       .from("generations")
       .select("id, status, path, generation_groups(style_id, user_prompt)")
       .eq("generation_group_id", generationGroupId),
-    supabase.from("styles").select("id, name"),
+    supabase
+      .from("styles")
+      .select("id, name")
+      .order("rank", { ascending: true }),
     getCredits(),
   ]);
 

@@ -3,7 +3,10 @@ import GenerationForm from "./ui/generation-form";
 import { supabase } from "./utils/supabase";
 
 export default async function Home() {
-  const { data: styles } = await supabase.from("styles").select("id, name");
+  const { data: styles } = await supabase
+    .from("styles")
+    .select("id, name")
+    .order("rank", { ascending: true });
 
   return (
     <div className="flex flex-col min-h-screen bg-zinc-50 font-sans dark:bg-zinc-950">
