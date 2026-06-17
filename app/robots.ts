@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { metadata } from "./layout";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/preview/",
     },
-    // sitemap: "https://acme.com/sitemap.xml", TODO
+    sitemap: `${metadata.metadataBase}/sitemap.xml`,
   };
 }

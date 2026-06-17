@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "AI Canvas",
   description: "Custom AI Canvas Generation",
+  metadataBase: new URL("https://turnroyal.com"),
 };
 
 export default function RootLayout({

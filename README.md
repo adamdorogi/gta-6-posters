@@ -18,6 +18,9 @@
   - cart
   - abandoned checkout/ expired session email
   - prefill customer data by storing email into cookies and passing to checkout session
+  - separate page for each style
+    - maybe dynamically (metadata, description, etc., as stored in DB)
+    - add to sitemap
 
 ## TurnMeRoyal
 
