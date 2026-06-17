@@ -12,12 +12,13 @@ export default async function Home({
   params: Promise<{ slug: string }>;
 }) {
   const generationGroupId = (await params).slug;
-  const [{ data: generations }, { data: styles }] = await Promise.all([
+  const [{ data: generations }, { data: styles }, credits] = await Promise.all([
     supabase
       .from("generations")
       .select("id, status, path, generation_groups(style_id, user_prompt)")
       .eq("generation_group_id", generationGroupId),
     supabase.from("styles").select("id, name"),
+    getCredits(),
   ]);
 
   const generationsWithUrls = generations?.map((gen) => ({
@@ -27,8 +28,6 @@ export default async function Home({
           .data.publicUrl
       : null,
   }));
-
-  const credits = await getCredits();
 
   if (!generations || generations.length === 0) {
     redirect("/");
