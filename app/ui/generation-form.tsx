@@ -54,14 +54,14 @@ export default function GenerationForm({
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    await handleFiles(e.target.files);
+    await handleFiles(Array.from(e.target.files));
     e.target.value = "";
   };
 
   const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    await handleFiles(e.dataTransfer.files);
+    await handleFiles(Array.from(e.dataTransfer.files));
   };
 
   const handleDragOver = (e: React.DragEvent) => {
