@@ -17,9 +17,9 @@ export default function GenerationForm({
   const [userPrompt, setUserPrompt] = useState<string>("");
   const router = useRouter();
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    const newFiles = Array.from(e.target.files);
+  const handleFiles = async (newFilesArray: File[]) => {
+    const newFiles = Array.from(newFilesArray);
+    if (newFiles.length === 0) return;
 
     const startIndex = files.length;
     setFiles((prev) => [...prev, ...newFiles]);
@@ -50,7 +50,23 @@ export default function GenerationForm({
         console.error("Upload failed:", error);
       }
     }
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    await handleFiles(e.target.files);
     e.target.value = "";
+  };
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    await handleFiles(e.dataTransfer.files);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   const removeFile = (index: number) => {
@@ -74,104 +90,86 @@ export default function GenerationForm({
 
       <div className="flex flex-col gap-4">
         <label className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-          Prompt (Optional)
-        </label>
-        <input
-          type="text"
-          placeholder="Describe what you want to see..."
-          value={userPrompt}
-          onChange={(e) => setUserPrompt(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 transition-all"
-        />
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <label className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
           Upload Photos
         </label>
-        <div className="flex flex-col items-center justify-center w-full">
+        <div
+          className="flex flex-col items-center justify-center w-full"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+        >
           <label
             htmlFor="file-input"
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 px-5 text-zinc-900 dark:text-zinc-100 font-medium cursor-pointer transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-700 border-2 border-dashed border-zinc-300 dark:border-zinc-700"
+            className="flex h-32 w-full items-center justify-center gap-2 rounded-2xl bg-zinc-50 dark:bg-zinc-900 px-5 text-zinc-900 dark:text-zinc-100 font-medium cursor-pointer transition-all hover:bg-zinc-100 dark:hover:bg-zinc-800 border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600"
           >
-            <span>Select Files</span>
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-lg">📸</span>
+              <span>Click to upload or drag and drop</span>
+            </div>
           </label>
           <input
             id="file-input"
             type="file"
+            multiple
+            accept="image/*"
             className="hidden"
-            multiple={true}
             onChange={handleFileChange}
           />
         </div>
+      </div>
 
-        {files.length > 0 && (
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-4">
-            {files.map((file, index) => (
+      {files.length > 0 && (
+        <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="grid grid-cols-3 gap-4">
+            {previews.map((src, idx) => (
               <div
-                key={index}
-                className="relative group aspect-square rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800"
+                key={idx}
+                className="relative aspect-square rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800"
               >
-                <Image
-                  src={previews[index]}
-                  alt={file.name}
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
-                {!uploadIds[index] && (
+                <Image src={src} alt="Preview" fill className="object-cover" />
+                {!uploadIds[idx] && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm">
                     <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   </div>
                 )}
-                {uploadIds[index] && (
-                  <button
-                    onClick={() => removeFile(index)}
-                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M18 6 6 18" />
-                      <path d="m6 6 12 12" />
-                    </svg>
-                  </button>
-                )}
+                <button
+                  onClick={() => removeFile(idx)}
+                  className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center hover:bg-red-600 transition-colors"
+                >
+                  ✕
+                </button>
               </div>
             ))}
           </div>
-        )}
-      </div>
 
-      <div className="flex justify-center pt-4">
-        <button
-          onClick={async () => {
-            const resp = await fetch("/api/generate", {
-              method: "POST",
-              body: JSON.stringify({
-                uploadIds,
-                styleId,
-                userPrompt,
-              }),
-            });
-            const response = await resp.json();
-            const generationGroupId = response.generationGroupId;
-            router.push(`/preview/${generationGroupId}`);
-          }}
-          disabled={!uploadIds.some((id) => id !== null)}
-          className="flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-bold text-lg transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Generate Magic
-        </button>
-      </div>
+          <div className="flex flex-col gap-4">
+            <label className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+              Prompt (Optional)
+            </label>
+            <input
+              type="text"
+              placeholder="Describe what you want to see..."
+              value={userPrompt}
+              onChange={(e) => setUserPrompt(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 transition-all"
+            />
+          </div>
+
+          <button
+            onClick={() => {
+              if (uploadIds.some((id) => id === null)) {
+                alert("Please wait for all images to upload");
+                return;
+              }
+              router.push(
+                `/generate?style=${styleId}&prompt=${encodeURIComponent(userPrompt)}&photos=${uploadIds.join(",")}`,
+              );
+            }}
+            className="w-full py-4 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-lg hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-all shadow-lg active:scale-[0.98]"
+          >
+            Create My Portrait
+          </button>
+        </div>
+      )}
     </div>
   );
 }

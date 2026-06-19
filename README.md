@@ -22,6 +22,14 @@
     - maybe dynamically (metadata, description, etc., as stored in DB)
     - add to sitemap
 
+styles:
+
+- royal
+- viking
+- godfather
+- cowboy
+- super hero
+
 ## TurnMeRoyal
 
 8x10: $109 (from $316)
