@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Canvas",
-  description: "Custom AI Canvas Generation",
+  title: "Turn Royal",
+  description: "Customized Canvas Printing",
   metadataBase: new URL("https://turnroyal.com"),
 };
 

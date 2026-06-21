@@ -182,7 +182,7 @@ export default async function Home() {
             </a>
           </div>
           <p>
-            © {new Date().getFullYear()} AI Canvas. Crafting timeless memories.
+            © {new Date().getFullYear()} Turn Royal. Crafting timeless memories.
           </p>
         </div>
       </footer>
