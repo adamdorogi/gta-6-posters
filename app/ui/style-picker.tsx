@@ -13,7 +13,7 @@ export default function StylePicker({
     <select
       value={selectedStyleId}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 transition-all appearance-none cursor-pointer"
+      className="w-full px-4 py-3 rounded-xl border border-border bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-all appearance-none cursor-pointer"
     >
       {styles.map((style) => (
         <option key={style.id} value={style.id}>

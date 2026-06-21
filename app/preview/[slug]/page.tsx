@@ -39,14 +39,14 @@ export default async function Home({
   const userPrompt = generations[0].generation_groups.user_prompt;
 
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col items-center py-12 px-6 bg-white dark:bg-black">
+    <div className="flex flex-col min-h-screen bg-background font-sans">
+      <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col items-center py-12 px-6 bg-background">
         <div className="flex flex-col items-center gap-4 mb-12">
           <Logo />
           <div className="text-center">
-            <p className="mt-1 text-zinc-600 dark:text-zinc-300">
+            <p className="mt-1 text-muted-foreground">
               Credits:{" "}
-              <span className="font-bold text-zinc-900 dark:text-white">
+              <span className="font-bold text-foreground">
                 {credits.credits}
               </span>{" "}
               • Next Reset: {credits.nextReset}

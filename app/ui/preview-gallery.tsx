@@ -89,7 +89,7 @@ export default function PreviewGallery({
   return (
     <div className="flex flex-col items-center gap-12 w-full max-w-4xl mx-auto py-12 px-4">
       {/* Main Image Container */}
-      <div className="relative group w-full max-w-xl overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-900 shadow-2xl border border-zinc-200 dark:border-zinc-800">
+      <div className="relative group w-full max-w-xl overflow-hidden rounded-3xl bg-muted shadow-2xl border border-border">
         {selectedGeneration?.path && selectedGeneration?.publicUrl ? (
           <>
             <Image
@@ -104,13 +104,13 @@ export default function PreviewGallery({
             {/* Edit Button Overlay */}
             <button
               onClick={() => setIsEditModalOpen(true)}
-              className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-white/90 dark:bg-black/90 backdrop-blur-md text-zinc-900 dark:text-white rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105 shadow-xl border border-zinc-200 dark:border-zinc-800"
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-background/90 backdrop-blur-md text-foreground rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105 shadow-xl border border-border"
             >
               Edit
             </button>
           </>
         ) : (
-          <div className="flex items-center justify-center h-full text-zinc-500 font-medium">
+          <div className="flex items-center justify-center h-full text-muted-foreground font-medium">
             {selectedGeneration?.status === "failed"
               ? "Failed to generate"
               : "Loading..."}
@@ -126,7 +126,7 @@ export default function PreviewGallery({
             onClick={() => setSelectedIndex(idx)}
             className={`relative w-16 rounded-xl overflow-hidden border-2 transition-all duration-200 ${
               selectedIndex === idx
-                ? "border-zinc-900 dark:border-white scale-110 shadow-md"
+                ? "border-primary scale-110 shadow-md"
                 : "border-transparent opacity-50 hover:opacity-100"
             }`}
           >
@@ -139,7 +139,7 @@ export default function PreviewGallery({
                 style={{ width: "96px", height: "auto" }}
               />
             ) : (
-              <div className="w-full h-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-[10px] text-center p-1 font-medium text-zinc-500">
+              <div className="w-full h-full bg-muted flex items-center justify-center text-[10px] text-center p-1 font-medium text-muted-foreground">
                 {gen.status === "failed" ? "Failed" : "Loading"}
               </div>
             )}
@@ -150,10 +150,10 @@ export default function PreviewGallery({
       {/* Buy Buttons */}
       <div className="flex flex-col items-center gap-6 w-full max-w-2xl">
         <div className="text-center space-y-2">
-          <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+          <h3 className="text-xl font-bold text-foreground">
             Purchase High-Res Image
           </h3>
-          <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+          <p className="text-muted-foreground text-sm">
             Select a size to download your generation without watermarks
           </p>
         </div>
@@ -165,14 +165,14 @@ export default function PreviewGallery({
                 onClick={() => setSelectedSize(size)}
                 className={`flex flex-col items-center justify-center gap-1 p-4 rounded-2xl border transition-all active:scale-[0.98] ${
                   selectedSize === size
-                    ? "border-zinc-900 dark:border-white bg-zinc-100 dark:bg-zinc-800 shadow-sm"
-                    : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 opacity-60 hover:opacity-100"
+                    ? "border-primary bg-muted shadow-sm"
+                    : "border-border bg-background opacity-60 hover:opacity-100"
                 }`}
               >
-                <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   {size}
                 </span>
-                <span className="text-lg font-bold text-zinc-900 dark:text-white">
+                <span className="text-lg font-bold text-foreground">
                   ${(prices[size] / 100).toFixed(2)}
                 </span>
               </button>
@@ -190,14 +190,14 @@ export default function PreviewGallery({
       {/* Edit Modal */}
       {isEditModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 w-full max-w-md shadow-2xl border border-zinc-200 dark:border-zinc-800 animate-in zoom-in-95 duration-200">
+          <div className="bg-background rounded-3xl p-8 w-full max-w-md shadow-2xl border border-border animate-in zoom-in-95 duration-200">
             <div className="flex justify-between items-center mb-8">
-              <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">
+              <h3 className="text-2xl font-bold text-foreground">
                 Edit Generation
               </h3>
               <button
                 onClick={() => setIsEditModalOpen(false)}
-                className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-500"
+                className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground"
               >
                 <span className="text-xl">✕</span>
               </button>

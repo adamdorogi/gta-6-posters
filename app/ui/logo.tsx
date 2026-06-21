@@ -3,7 +3,6 @@ import Image from "next/image";
 export default function Logo() {
   return (
     <Image
-      className="dark:invert"
       src="/logo.svg"
       alt="Turn Royal Logo"
       width={150}
