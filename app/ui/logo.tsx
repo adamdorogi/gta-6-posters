@@ -5,8 +5,8 @@ export default function Logo() {
     <Image
       src="/logo.svg"
       alt="Turn Royal Logo"
-      width={150}
-      height={48}
+      width={125}
+      height={40}
       priority
     />
   );

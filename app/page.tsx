@@ -15,31 +15,17 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans text-foreground">
       {/* Navigation */}
-      <nav className="flex items-center justify-between px-6 py-6 max-w-7xl mx-auto w-full">
+      <nav className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto w-full">
         <div className="flex items-center gap-2">
           <Logo />
-        </div>
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
-          <a
-            href="#how-it-works"
-            className="hover:text-primary transition-colors"
-          >
-            How it Works
-          </a>
-          <a href="#reviews" className="hover:text-primary transition-colors">
-            Reviews
-          </a>
-          <a href="#faq" className="hover:text-primary transition-colors">
-            FAQ
-          </a>
         </div>
       </nav>
 
       <main className="flex-1">
         {/* Hero Section */}
         <div className="bg-primary text-white">
-          <section className="px-6 max-w-5xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-stretch">
-            <div className="flex flex-col gap-8 justify-center py-16 md:py-20">
+          <section className="px-6 max-w-5xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-stretch">
+            <div className="flex flex-col gap-8 justify-center py-16 md:py-20 lg:col-span-7">
               <div className="flex flex-col gap-6">
                 <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white leading-tight">
                   Turn your loved ones into a<br />
@@ -50,9 +36,7 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="w-full p-6 md:p-8 rounded-3xl bg-muted border border-border shadow-sm">
-                <GenerationForm styles={styles || []} />
-              </div>
+              <GenerationForm styles={styles || []} />
 
               <div className="flex flex-wrap gap-6 justify-center md:justify-start">
                 {[
@@ -71,7 +55,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="hidden lg:block relative overflow-hidden">
+            <div className="hidden lg:block relative overflow-hidden lg:col-span-5">
               <div className="absolute inset-0">
                 <ShowcaseCarousel images={showcaseImages} />
               </div>
