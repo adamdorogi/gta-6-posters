@@ -1,4 +1,5 @@
 import Logo from "@/app/ui/logo";
+import PromoBanner from "./ui/promo-banner";
 import GenerationForm from "./ui/generation-form";
 import ShowcaseCarousel from "./ui/showcase-carousel";
 import { supabase } from "./utils/supabase";
@@ -14,6 +15,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans text-foreground">
+      <PromoBanner />
       {/* Navigation */}
       <nav className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto w-full">
         <div className="flex items-center gap-2">
@@ -25,7 +27,7 @@ export default async function Home() {
         {/* Hero Section */}
         <div className="bg-primary text-white">
           <section className="px-6 max-w-5xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-stretch">
-            <div className="flex flex-col gap-8 justify-center py-16 md:py-20 lg:col-span-7">
+            <div className="flex flex-col gap-8 justify-center py-6 md:py-10 lg:col-span-7">
               <div className="flex flex-col gap-6">
                 <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white leading-tight">
                   Turn your loved ones into a<br />

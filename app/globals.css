@@ -5,13 +5,13 @@
   --foreground: #2d2a26;
   --primary: #392f5a;
   --primary-foreground: #fdfbf7;
-  --accent: #d4af37;
+  --accent: #fec84b;
   --accent-foreground: #2d2a26;
   --muted: #f3eee4;
   --muted-foreground: #7a746d;
   --border: #e5ddd0;
   --input: #f3eee4;
-  --ring: #d4af37;
+  --ring: #fec84b;
   --radius: 0.75rem;
 }
 
