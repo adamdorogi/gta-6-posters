@@ -8,11 +8,18 @@ export default function ShowcaseCarousel({
   const col1 = images.filter((_, i) => i % 2 === 0);
   const col2 = images.filter((_, i) => i % 2 !== 0);
 
+  const SECONDS_PER_IMAGE = 10;
+  const duration1 = col1.length * SECONDS_PER_IMAGE;
+  const duration2 = col2.length * SECONDS_PER_IMAGE;
+
   return (
     <div className="grid grid-cols-2 gap-4 h-full">
       {/* Column 1 */}
-      <div className="relative overflow-hidden rounded-2xl">
-        <div className="flex flex-col animate-vertical-slide">
+      <div className="relative overflow-hidden">
+        <div
+          className="flex flex-col"
+          style={{ animation: `vertical-slide ${duration1}s linear infinite` }}
+        >
           {[...col1, ...col1].map((src, idx) => (
             <div
               key={idx}
@@ -33,8 +40,13 @@ export default function ShowcaseCarousel({
       </div>
 
       {/* Column 2 */}
-      <div className="relative overflow-hidden rounded-2xl">
-        <div className="flex flex-col animate-vertical-slide-reverse">
+      <div className="relative overflow-hidden">
+        <div
+          className="flex flex-col"
+          style={{
+            animation: `vertical-slide ${duration2}s linear infinite reverse`,
+          }}
+        >
           {[...col2, ...col2].map((src, idx) => (
             <div
               key={idx}

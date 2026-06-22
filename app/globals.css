@@ -30,17 +30,15 @@
   --radius-xl: var(--radius);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
 
-  @keyframes vertical-slide {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(-50%);
-    }
+@keyframes vertical-slide {
+  from {
+    transform: translateY(0);
   }
-  --animate-vertical-slide: vertical-slide 60s linear infinite;
-  --animate-vertical-slide-reverse: vertical-slide 60s linear infinite reverse;
+  to {
+    transform: translateY(-50%);
+  }
 }
 
 body {

@@ -37,45 +37,47 @@ export default async function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="px-6 py-12 md:py-24 max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-6">
-              <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight text-primary leading-tight">
-                Turn Your Loved Ones <br />
-                <span className="text-accent italic">into Royalty</span>
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-xl leading-relaxed">
-                The perfect unique gift for any occasion. We transform your
-                favorite photos into museum-quality royal portraits on canvas
-                that capture the essence of your loved ones in regal splendor.
-              </p>
+        <div className="bg-primary text-white">
+          <section className="px-6 max-w-5xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-stretch">
+            <div className="flex flex-col gap-8 justify-center py-16 md:py-20">
+              <div className="flex flex-col gap-6">
+                <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white leading-tight">
+                  Turn your loved ones into a<br />
+                  <span className="text-accent italic">masterpiece!</span>
+                </h1>
+                <p className="text-lg text-white/80 max-w-xl leading-relaxed">
+                  Free Preview · No credit card or registration required
+                </p>
+              </div>
+
+              <div className="w-full p-6 md:p-8 rounded-3xl bg-muted border border-border shadow-sm">
+                <GenerationForm styles={styles || []} />
+              </div>
+
+              <div className="flex flex-wrap gap-6 justify-center md:justify-start">
+                {[
+                  { text: "Free preview", icon: "✅" },
+                  { text: "No signup", icon: "✅" },
+                  { text: "Private & secure", icon: "✅" },
+                ].map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 text-white/80 font-medium"
+                  >
+                    <span className="text-xl">{benefit.icon}</span>
+                    <span>{benefit.text}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="w-full p-6 md:p-8 rounded-3xl bg-muted border border-border shadow-sm">
-              <GenerationForm styles={styles || []} />
+            <div className="hidden lg:block relative overflow-hidden">
+              <div className="absolute inset-0">
+                <ShowcaseCarousel images={showcaseImages} />
+              </div>
             </div>
-
-            <div className="flex flex-wrap gap-6 justify-center md:justify-start">
-              {[
-                { text: "Museum Quality Canvas", icon: "✨" },
-                { text: "Hand-Finished Details", icon: "🎨" },
-                { text: "Secure Global Shipping", icon: "📦" },
-              ].map((benefit, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-3 text-muted-foreground font-medium"
-                >
-                  <span className="text-xl">{benefit.icon}</span>
-                  <span>{benefit.text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="hidden lg:block h-[600px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
-            <ShowcaseCarousel images={showcaseImages} />
-          </div>
-        </section>
+          </section>
+        </div>
 
         {/* Trust Bar */}
         <section className="bg-primary text-white py-8">

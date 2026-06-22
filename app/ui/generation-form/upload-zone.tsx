@@ -36,7 +36,7 @@ export default function UploadZone({ onFilesSelected }: UploadZoneProps) {
       >
         <div className="flex flex-col items-center gap-2">
           <span className="text-lg">📸</span>
-          <span>Click to upload or drag and drop</span>
+          <span>Drag a photo or click to upload</span>
         </div>
       </label>
       <input
