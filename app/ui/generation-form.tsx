@@ -6,7 +6,6 @@ import StylePicker from "./style-picker";
 import UploadZone from "./generation-form/upload-zone";
 import PreviewGrid from "./generation-form/preview-grid";
 import PromptField from "./generation-form/prompt-field";
-import FormField from "./form-field";
 
 export default function GenerationForm({
   styles,
@@ -63,17 +62,13 @@ export default function GenerationForm({
 
   return (
     <div className="flex flex-col gap-8 w-full">
-      <FormField label="Choose a Style">
-        <StylePicker
-          selectedStyleId={styleId}
-          onChange={setStyleId}
-          styles={styles}
-        />
-      </FormField>
+      <StylePicker
+        selectedStyleId={styleId}
+        onChange={setStyleId}
+        styles={styles}
+      />
 
-      <FormField label="Upload Photos">
-        <UploadZone onFilesSelected={handleFiles} />
-      </FormField>
+      <UploadZone onFilesSelected={handleFiles} />
 
       {files.length > 0 && (
         <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
