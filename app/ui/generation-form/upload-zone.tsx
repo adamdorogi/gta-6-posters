@@ -4,9 +4,15 @@ import React from "react";
 
 interface UploadZoneProps {
   onFilesSelected: (files: File[]) => void;
+  children?: React.ReactNode;
+  clickable?: boolean;
 }
 
-export default function UploadZone({ onFilesSelected }: UploadZoneProps) {
+const UploadZone = ({
+  onFilesSelected,
+  children,
+  clickable = true,
+}: UploadZoneProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     onFilesSelected(Array.from(e.target.files));
@@ -30,15 +36,18 @@ export default function UploadZone({ onFilesSelected }: UploadZoneProps) {
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <label
-        htmlFor="file-input"
-        className="flex h-32 w-full items-center justify-center gap-2 rounded-2xl bg-muted px-5 text-foreground font-medium cursor-pointer transition-all hover:opacity-80 border-2 border-dashed border-border hover:border-ring"
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-lg">📸</span>
-          <span>Drag a photo or click to upload</span>
+      {clickable ? (
+        <label
+          htmlFor="file-input"
+          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-muted px-5 text-foreground font-medium transition-all border-2 border-dashed border-border cursor-pointer hover:opacity-80 hover:border-ring"
+        >
+          <div className="flex flex-col items-center gap-2">{children}</div>
+        </label>
+      ) : (
+        <div className="flex w-full items-center justify-center gap-2 rounded-2xl bg-muted px-5 text-foreground font-medium transition-all border-2 border-dashed border-border">
+          <div className="flex flex-col items-center gap-2">{children}</div>
         </div>
-      </label>
+      )}
       <input
         id="file-input"
         type="file"
@@ -49,4 +58,6 @@ export default function UploadZone({ onFilesSelected }: UploadZoneProps) {
       />
     </div>
   );
-}
+};
+
+export default UploadZone;

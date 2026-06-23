@@ -68,36 +68,42 @@ export default function GenerationForm({
         styles={styles}
       />
 
-      <UploadZone onFilesSelected={handleFiles} />
+      <UploadZone onFilesSelected={handleFiles} clickable={files.length === 0}>
+        {files.length > 0 ? (
+          <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <PreviewGrid
+              items={previews.map((preview, idx) => ({
+                preview,
+                uploadId: uploadIds[idx],
+              }))}
+              onRemove={removeFile}
+              onAdd={() => document.getElementById("file-input")?.click()}
+            />
 
-      {files.length > 0 && (
-        <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <PreviewGrid
-            items={previews.map((preview, idx) => ({
-              preview,
-              uploadId: uploadIds[idx],
-            }))}
-            onRemove={removeFile}
-          />
+            {uploadIds.some((id) => id !== null) && (
+              <>
+                <PromptField value={userPrompt} onChange={setUserPrompt} />
 
-          <PromptField value={userPrompt} onChange={setUserPrompt} />
-
-          <button
-            onClick={() => {
-              if (uploadIds.some((id) => id === null)) {
-                alert("Please wait for all images to upload");
-                return;
-              }
-              router.push(
-                `/generate?style=${styleId}&prompt=${encodeURIComponent(userPrompt)}&photos=${uploadIds.join(",")}`,
-              );
-            }}
-            className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98]"
-          >
-            Create My Portrait
-          </button>
-        </div>
-      )}
+                <button
+                  onClick={() => {
+                    router.push(
+                      `/generate?style=${styleId}&prompt=${encodeURIComponent(userPrompt)}&photos=${uploadIds.join(",")}`,
+                    );
+                  }}
+                  className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98]"
+                >
+                  Create my masterpiece
+                </button>
+              </>
+            )}
+          </div>
+        ) : (
+          <>
+            <span className="text-lg">📸</span>
+            <span>Drag a photo or click to upload</span>
+          </>
+        )}
+      </UploadZone>
     </div>
   );
 }
