@@ -48,7 +48,7 @@ export default function PreviewGrid({
       ))}
       <button
         onClick={onAdd}
-        className="relative aspect-square rounded-lg border-2 border-dashed border-border flex items-center justify-center text-muted-foreground hover:border-ring hover:text-ring transition-all"
+        className="relative aspect-square rounded-lg border-3 border-dashed border-border flex items-center justify-center text-muted-foreground hover:border-ring hover:text-ring transition-all"
       >
         <span className="text-2xl font-bold">+</span>
       </button>

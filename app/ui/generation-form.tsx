@@ -6,6 +6,7 @@ import StylePicker from "./style-picker";
 import UploadZone from "./generation-form/upload-zone";
 import PreviewGrid from "./generation-form/preview-grid";
 import PromptField from "./generation-form/prompt-field";
+import Image from "next/image";
 
 export default function GenerationForm({
   styles,
@@ -99,8 +100,18 @@ export default function GenerationForm({
           </div>
         ) : (
           <>
-            <span className="text-lg">📸</span>
-            <span>Drag a photo or click to upload</span>
+            <div className="flex flex-col items-center gap-3 text-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-border text-primary">
+                <Image
+                  src="/upload.svg"
+                  alt="Upload Icon"
+                  width={24}
+                  height={24}
+                  priority
+                />
+              </div>
+              <span className="font-bold">Drag a photo or click to upload</span>
+            </div>
           </>
         )}
       </UploadZone>

@@ -4,6 +4,7 @@ import GenerationForm from "./ui/generation-form";
 import ShowcaseCarousel from "./ui/showcase-carousel";
 import { supabase } from "./utils/supabase";
 import { getShowcaseImages } from "./utils/showcase";
+import Image from "next/image";
 
 export default async function Home() {
   const { data: styles } = await supabase
@@ -41,19 +42,23 @@ export default async function Home() {
               <GenerationForm styles={styles || []} />
 
               <div className="flex flex-wrap gap-6 justify-center md:justify-start">
-                {[
-                  { text: "Free preview", icon: "✅" },
-                  { text: "No signup", icon: "✅" },
-                  { text: "Private & secure", icon: "✅" },
-                ].map((benefit, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-3 text-white/80 font-medium"
-                  >
-                    <span className="text-xl">{benefit.icon}</span>
-                    <span>{benefit.text}</span>
-                  </div>
-                ))}
+                {["Free preview", "No signup", "Private & secure"].map(
+                  (benefit, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 text-white/80 font-medium"
+                    >
+                      <Image
+                        src="/tick.svg"
+                        alt="Tick Icon"
+                        width={12}
+                        height={12}
+                        priority
+                      />
+                      <span>{benefit}</span>
+                    </div>
+                  ),
+                )}
               </div>
             </div>
 
