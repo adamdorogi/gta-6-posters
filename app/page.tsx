@@ -27,11 +27,11 @@ export default async function Home() {
       <main className="flex-1">
         {/* Hero Section */}
         <div className="bg-primary text-white">
-          <section className="px-6 max-w-5xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-stretch">
-            <div className="flex flex-col gap-8 justify-center py-6 md:py-10 lg:col-span-7">
-              <div className="flex flex-col gap-6">
-                <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white leading-tight">
-                  Turn your loved ones into a<br />
+          <section className="max-w-5xl mx-auto w-full grid lg:grid-cols-12 items-stretch">
+            <div className="flex flex-col gap-8 justify-center items-center text-center py-6 md:py-10 lg:col-span-7 lg:items-start lg:text-left">
+              <div className="pl-12 flex flex-col gap-6 items-center lg:items-start">
+                <h1 className="text-4xl lg:text-6xl font-serif font-bold tracking-tight text-white leading-tight">
+                  Turn your loved ones into a{" "}
                   <span className="text-accent italic">masterpiece!</span>
                 </h1>
                 <p className="text-lg text-white/80 max-w-xl leading-relaxed">
@@ -41,7 +41,16 @@ export default async function Home() {
 
               <GenerationForm styles={styles || []} />
 
-              <div className="flex flex-wrap gap-6 justify-center md:justify-start">
+              <div className="lg:hidden relative h-[220px] overflow-hidden w-full">
+                <div className="absolute inset-0">
+                  <ShowcaseCarousel
+                    images={showcaseImages}
+                    layout="horizontal"
+                  />
+                </div>
+              </div>
+
+              <div className="px-12 flex flex-wrap gap-6 justify-center lg:justify-start">
                 {["Free preview", "No signup", "Private & secure"].map(
                   (benefit, i) => (
                     <div
@@ -63,7 +72,7 @@ export default async function Home() {
             </div>
 
             <div className="hidden lg:block relative overflow-hidden lg:col-span-5">
-              <div className="absolute inset-0">
+              <div className="pr-12 absolute inset-0">
                 <ShowcaseCarousel images={showcaseImages} />
               </div>
             </div>
@@ -145,18 +154,6 @@ export default async function Home() {
                 </p>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Final CTA / Showcase for Mobile */}
-        <section className="px-6 py-12 lg:hidden max-w-7xl mx-auto w-full">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-serif font-bold text-primary">
-              See the Magic
-            </h2>
-          </div>
-          <div className="h-[400px] rounded-3xl overflow-hidden shadow-lg">
-            <ShowcaseCarousel images={showcaseImages} />
           </div>
         </section>
       </main>
