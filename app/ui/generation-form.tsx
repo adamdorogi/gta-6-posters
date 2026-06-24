@@ -71,7 +71,7 @@ export default function GenerationForm({
 
       <UploadZone onFilesSelected={handleFiles} clickable={files.length === 0}>
         {files.length > 0 ? (
-          <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="flex flex-col gap-4 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
             <PreviewGrid
               items={previews.map((preview, idx) => ({
                 preview,
@@ -91,8 +91,15 @@ export default function GenerationForm({
                       `/generate?style=${styleId}&prompt=${encodeURIComponent(userPrompt)}&photos=${uploadIds.join(",")}`,
                     );
                   }}
-                  className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98]"
+                  className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98] cursor-pointer"
                 >
+                  <Image
+                    src="/sparkle.svg"
+                    alt="Sparkle Icon"
+                    width={24}
+                    height={24}
+                    priority
+                  />
                   Create my masterpiece
                 </button>
               </>

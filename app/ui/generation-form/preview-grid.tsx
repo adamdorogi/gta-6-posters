@@ -19,11 +19,11 @@ export default function PreviewGrid({
   onAdd,
 }: PreviewGridProps) {
   return (
-    <div className="grid h-16 grid-cols-3 gap-4">
+    <div className="flex -mx-4 gap-4 overflow-x-auto px-4">
       {items.map((item, idx) => (
         <div
           key={idx}
-          className="group relative aspect-square rounded-lg overflow-hidden border border-border"
+          className="group relative h-24 w-24 shrink-0 overflow-hidden rounded-lg border border-border"
         >
           <Image
             src={item.preview}
@@ -35,9 +35,15 @@ export default function PreviewGrid({
           {item.uploadId ? (
             <button
               onClick={() => onRemove(idx)}
-              className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center hover:bg-red-600 transition-all opacity-0 group-hover:opacity-100"
+              className="absolute top-1 right-1 bg-black/50 text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center hover:bg-black/75 transition-all opacity-0 group-hover:opacity-100"
             >
-              ✕
+              <Image
+                src="/cross.svg"
+                alt="Remove Icon"
+                width={12}
+                height={12}
+                priority
+              />
             </button>
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm">
@@ -48,9 +54,17 @@ export default function PreviewGrid({
       ))}
       <button
         onClick={onAdd}
-        className="relative aspect-square rounded-lg border-3 border-dashed border-border flex items-center justify-center text-muted-foreground hover:border-ring hover:text-ring transition-all"
+        className="flex items-center justify-center h-24 w-24 shrink-0 rounded-lg bg-border/50 hover:bg-border/75 transition-all cursor-pointer"
       >
-        <span className="text-2xl font-bold">+</span>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-border text-primary">
+          <Image
+            src="/add.svg"
+            alt="Add Icon"
+            width={24}
+            height={24}
+            priority
+          />
+        </div>
       </button>
     </div>
   );
