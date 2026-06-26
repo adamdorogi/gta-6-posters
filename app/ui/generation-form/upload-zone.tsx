@@ -39,14 +39,14 @@ const UploadZone = ({
       {clickable ? (
         <label
           htmlFor="file-input"
-          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-muted p-4 text-foreground font-medium transition-all border-3 border-dashed border-border hover:border-ring cursor-pointer"
+          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-background p-4 text-foreground font-medium transition-all border-3 border-dashed border-border hover:border-ring cursor-pointer"
         >
           <div className="flex w-full flex-col items-center gap-2">
             {children}
           </div>
         </label>
       ) : (
-        <div className="flex w-full items-center justify-center gap-2 rounded-2xl bg-muted p-4 text-foreground font-medium transition-all border-3 border-dashed border-border">
+        <div className="flex w-full items-center justify-center gap-2 rounded-2xl bg-background p-4 text-foreground font-medium transition-all border-3 border-dashed border-border">
           <div className="flex w-full flex-col items-center gap-2">
             {children}
           </div>
