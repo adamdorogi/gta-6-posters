@@ -29,7 +29,7 @@ export default async function Home() {
         <div className="bg-primary text-white">
           <section className="max-w-5xl mx-auto w-full grid lg:grid-cols-12 items-stretch">
             <div className="flex flex-col gap-8 justify-center items-center text-center py-6 md:py-10 lg:col-span-7 lg:items-start lg:text-left">
-              <div className="pl-12 flex flex-col gap-6 items-center lg:items-start">
+              <div className="px-12 flex flex-col gap-6 items-center lg:items-start">
                 <h1 className="text-4xl lg:text-6xl font-serif font-bold tracking-tight text-white leading-tight">
                   Turn your loved ones into a{" "}
                   <span className="text-accent italic">masterpiece!</span>
