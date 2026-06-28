@@ -18,6 +18,7 @@ export default function GenerationForm({
   const [previews, setPreviews] = useState<string[]>([]);
   const [styleId, setStyleId] = useState<string | undefined>(styles[0]?.id);
   const [userPrompt, setUserPrompt] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleFiles = async (newFilesArray: File[]) => {
@@ -86,29 +87,42 @@ export default function GenerationForm({
                 <PromptField value={userPrompt} onChange={setUserPrompt} />
 
                 <button
+                  disabled={isLoading}
                   onClick={async () => {
-                    const resp = await fetch("/api/generate", {
-                      method: "POST",
-                      body: JSON.stringify({
-                        uploadIds,
-                        styleId,
-                        userPrompt,
-                      }),
-                    });
-                    const response = await resp.json();
-                    const generationGroupId = response.generationGroupId;
-                    router.push(`/preview/${generationGroupId}`);
+                    setIsLoading(true);
+                    try {
+                      const resp = await fetch("/api/generate", {
+                        method: "POST",
+                        body: JSON.stringify({
+                          uploadIds,
+                          styleId,
+                          userPrompt,
+                        }),
+                      });
+                      const response = await resp.json();
+                      const generationGroupId = response.generationGroupId;
+                      router.push(`/preview/${generationGroupId}`);
+                    } catch (error) {
+                      console.error("Generation failed:", error);
+                      setIsLoading(false);
+                    }
                   }}
-                  className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98] cursor-pointer"
+                  className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <Image
-                    src="/sparkle.svg"
-                    alt="Sparkle Icon"
-                    width={24}
-                    height={24}
-                    priority
-                  />
-                  Create my masterpiece
+                  {isLoading ? (
+                    <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                  ) : (
+                    <>
+                      <Image
+                        src="/sparkle.svg"
+                        alt="Sparkle Icon"
+                        width={24}
+                        height={24}
+                        priority
+                      />
+                      Create my masterpiece
+                    </>
+                  )}
                 </button>
               </>
             )}
