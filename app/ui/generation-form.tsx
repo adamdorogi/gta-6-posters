@@ -86,10 +86,18 @@ export default function GenerationForm({
                 <PromptField value={userPrompt} onChange={setUserPrompt} />
 
                 <button
-                  onClick={() => {
-                    router.push(
-                      `/generate?style=${styleId}&prompt=${encodeURIComponent(userPrompt)}&photos=${uploadIds.join(",")}`,
-                    );
+                  onClick={async () => {
+                    const resp = await fetch("/api/generate", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        uploadIds,
+                        styleId,
+                        userPrompt,
+                      }),
+                    });
+                    const response = await resp.json();
+                    const generationGroupId = response.generationGroupId;
+                    router.push(`/preview/${generationGroupId}`);
                   }}
                   className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98] cursor-pointer"
                 >
