@@ -164,18 +164,21 @@ export type Database = {
           id: string
           name: string
           prompt: string
+          rank: number
         }
         Insert: {
           created_at?: string
           id?: string
           name: string
           prompt: string
+          rank?: number
         }
         Update: {
           created_at?: string
           id?: string
           name?: string
           prompt?: string
+          rank?: number
         }
         Relationships: []
       }
@@ -221,12 +224,12 @@ export type Database = {
         Args: { ip_address: string; user_id: string }
         Returns: {
           credits: number
-          remaining: string
+          remaining: number
         }[]
       }
       init_or_reset_credits: {
         Args: { ip_address: string; user_id: string }
-        Returns: string
+        Returns: number
       }
     }
     Enums: {

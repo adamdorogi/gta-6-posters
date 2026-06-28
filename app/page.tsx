@@ -1,10 +1,11 @@
-import Logo from "@/app/ui/logo";
 import PromoBanner from "./ui/promo-banner";
 import GenerationForm from "./ui/generation-form";
 import ShowcaseCarousel from "./ui/showcase-carousel";
 import { supabase } from "./utils/supabase";
 import { getShowcaseImages } from "./utils/showcase";
 import Image from "next/image";
+import NavBar from "./ui/nav-bar";
+import Footer from "./ui/footer";
 
 export default async function Home() {
   const { data: styles } = await supabase
@@ -17,12 +18,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans text-foreground">
       <PromoBanner />
-      {/* Navigation */}
-      <nav className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto w-full">
-        <div className="flex items-center gap-2">
-          <Logo />
-        </div>
-      </nav>
+      <NavBar />
 
       <main className="flex-1">
         {/* Hero Section */}
@@ -157,25 +153,7 @@ export default async function Home() {
           </div>
         </section>
       </main>
-
-      <footer className="py-12 px-6 border-t border-border text-center text-sm text-muted-foreground">
-        <div className="max-w-7xl mx-auto flex flex-col gap-4">
-          <div className="flex justify-center gap-6 mb-4 font-medium text-muted-foreground">
-            <a href="#" className="hover:text-primary">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-primary">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-primary">
-              Shipping Info
-            </a>
-          </div>
-          <p>
-            © {new Date().getFullYear()} Turn Royal. Crafting timeless memories.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

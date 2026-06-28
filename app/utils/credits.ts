@@ -15,13 +15,13 @@ export async function getCredits() {
   if (!data) {
     return {
       credits: 0,
-      nextReset: 0,
+      remainingSeconds: 0,
     };
   }
 
   return {
     credits: data.credits,
-    nextReset: data.remaining,
+    remainingSeconds: data.remaining,
   };
 }
 

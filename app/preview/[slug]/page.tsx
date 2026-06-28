@@ -1,7 +1,6 @@
-import Logo from "@/app/ui/logo";
+import NavBar from "@/app/ui/nav-bar";
 import PreviewGallery from "@/app/ui/preview-gallery";
 import SuccessHandler from "@/app/ui/success-handler";
-import { getCredits } from "@/app/utils/credits";
 import { supabase } from "@/app/utils/supabase";
 import { redirect } from "next/navigation";
 
@@ -11,7 +10,7 @@ export default async function Home({
   params: Promise<{ slug: string }>;
 }) {
   const generationGroupId = (await params).slug;
-  const [{ data: generations }, { data: styles }, credits] = await Promise.all([
+  const [{ data: generations }, { data: styles }] = await Promise.all([
     supabase
       .from("generations")
       .select("id, status, path, generation_groups(style_id, user_prompt)")
@@ -20,7 +19,6 @@ export default async function Home({
       .from("styles")
       .select("id, name")
       .order("rank", { ascending: true }),
-    getCredits(),
   ]);
 
   const generationsWithUrls = generations?.map((gen) => ({
@@ -39,21 +37,9 @@ export default async function Home({
   const userPrompt = generations[0].generation_groups.user_prompt;
 
   return (
-    <div className="flex flex-col min-h-screen bg-background font-sans">
+    <div className="flex flex-col min-h-screen bg-background font-sans text-foreground">
+      <NavBar />
       <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col items-center py-12 px-6 bg-background">
-        <div className="flex flex-col items-center gap-4 mb-12">
-          <Logo />
-          <div className="text-center">
-            <p className="mt-1 text-muted-foreground">
-              Credits:{" "}
-              <span className="font-bold text-foreground">
-                {credits.credits}
-              </span>{" "}
-              • Next Reset: {credits.nextReset}
-            </p>
-          </div>
-        </div>
-
         <PreviewGallery
           generations={generationsWithUrls || []}
           styles={styles || []}
