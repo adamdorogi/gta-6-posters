@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import Stripe from "stripe";
-import { prices } from "@/app/utils/prices";
+import { prices } from "@/app/utils/pricing";
 import { supabase } from "@/app/utils/supabase";
 
 export async function POST(request: Request) {

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import BuyButton from "./buy-button";
 import RetryButton from "./retry-button";
-import { prices } from "@/app/utils/prices";
+import { prices } from "@/app/utils/pricing";
 
 type Generation = {
   publicUrl: string | null;
