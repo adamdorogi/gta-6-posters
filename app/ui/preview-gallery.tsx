@@ -106,8 +106,15 @@ export default function PreviewGallery({
               {/* Edit Button Overlay */}
               <button
                 onClick={() => setIsEditModalOpen(true)}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-ring/90 backdrop-blur-md text-foreground rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 shadow-xl border border-ring cursor-pointer"
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-ring text-foreground rounded-full text-md font-semibold transition-all duration-300 hover:scale-105 shadow-xl border border-ring cursor-pointer flex items-center gap-1"
               >
+                <Image
+                  src="/edit.svg"
+                  alt="Edit Icon"
+                  width={16}
+                  height={16}
+                  priority
+                />
                 Edit
               </button>
             </>
@@ -295,6 +302,8 @@ export default function PreviewGallery({
               price={products[selectedSize].price}
               generationId={selectedGeneration.id}
               text="Download now + Canvas"
+              iconPath="/box.svg"
+              iconAlt="Buy Icon"
             />
           )}
         </div>
@@ -357,6 +366,8 @@ export default function PreviewGallery({
               price={products["Digital"].price}
               generationId={selectedGeneration.id}
               text="Download"
+              iconPath="/download.svg"
+              iconAlt="Download Icon"
             />
           )}
         </div>
