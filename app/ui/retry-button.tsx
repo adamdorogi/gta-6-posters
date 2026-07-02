@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StylePicker from "./style-picker";
+import PromptField from "./generation-form/prompt-field";
+import Image from "next/image";
 
 export default function RetryButton({
   generationGroupId,
@@ -19,44 +21,50 @@ export default function RetryButton({
   const router = useRouter();
   const [styleId, setStyleId] = useState<string>(styleIdProp);
   const [userPrompt, setUserPrompt] = useState<string>(userPromptProp);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <div className="flex flex-col gap-6 w-full">
-      <div className="flex flex-col gap-2">
-        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider ml-1">
-          Style
-        </label>
+    <div className="flex flex-col gap-4 w-full">
+      <div className="-m-4 -mt-8">
         <StylePicker
           selectedStyleId={styleId}
           onChange={setStyleId}
           styles={styles}
         />
       </div>
-      <div className="flex flex-col gap-2">
-        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider ml-1">
-          Prompt
-        </label>
-        <input
-          type="text"
-          placeholder="Describe what you want to see..."
-          value={userPrompt}
-          onChange={(e) => setUserPrompt(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl border border-border bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-all"
-        />
-      </div>
+      <PromptField value={userPrompt} onChange={setUserPrompt} />
       <button
         onClick={async () => {
-          const resp = await fetch("/api/retry", {
-            method: "POST",
-            body: JSON.stringify({ generationGroupId, styleId, userPrompt }),
-          });
-          const response = await resp.json();
-          console.log(response);
-          router.refresh();
+          setIsLoading(true);
+          try {
+            const resp = await fetch("/api/retry", {
+              method: "POST",
+              body: JSON.stringify({ generationGroupId, styleId, userPrompt }),
+            });
+            const response = await resp.json();
+            console.log(response);
+            router.refresh();
+          } catch (error) {
+            console.error("Generation failed:", error);
+            setIsLoading(false);
+          }
         }}
-        className="mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
+        className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
       >
-        Retry Generation
+        {isLoading ? (
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
+        ) : (
+          <>
+            <Image
+              src="/sparkle.svg"
+              alt="Sparkle Icon"
+              width={24}
+              height={24}
+              priority
+            />
+            Create new version
+          </>
+        )}
       </button>
     </div>
   );

@@ -106,7 +106,7 @@ export default function PreviewGallery({
               {/* Edit Button Overlay */}
               <button
                 onClick={() => setIsEditModalOpen(true)}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-background/90 backdrop-blur-md text-foreground rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105 shadow-xl border border-border"
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-ring/90 backdrop-blur-md text-foreground rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 shadow-xl border border-ring cursor-pointer"
               >
                 Edit
               </button>
@@ -364,28 +364,26 @@ export default function PreviewGallery({
 
       {/* Edit Modal */}
       {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-background rounded-3xl p-8 w-full max-w-md shadow-2xl border border-border animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-background rounded-3xl p-4 w-full max-w-md shadow-2xl border border-border animate-in zoom-in-95 duration-200">
             <div className="flex justify-between items-center mb-8">
               <h3 className="text-2xl font-bold text-foreground">
-                Edit Generation
+                Edit your portrait
               </h3>
               <button
                 onClick={() => setIsEditModalOpen(false)}
-                className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground"
+                className="p-2 w-11 rounded-full hover:bg-muted transition-colors text-muted-foreground cursor-pointer"
               >
                 <span className="text-xl">✕</span>
               </button>
             </div>
-            <div className="flex flex-col gap-6">
-              <RetryButton
-                generationGroupId={generationGroupId}
-                generations={generations}
-                styles={styles}
-                styleIdProp={styleIdProp}
-                userPromptProp={userPromptProp}
-              />
-            </div>
+            <RetryButton
+              generationGroupId={generationGroupId}
+              generations={generations}
+              styles={styles}
+              styleIdProp={styleIdProp}
+              userPromptProp={userPromptProp}
+            />
           </div>
         </div>
       )}

@@ -28,7 +28,7 @@ export default function BuyButton({
         const { url } = response;
         router.push(url);
       }}
-      className="flex h-14 w-full items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground font-bold text-lg transition-all hover:opacity-90 active:scale-[0.98] shadow-xl cursor-pointer"
+      className="flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-bold text-lg transition-all hover:opacity-90 active:scale-[0.98] shadow-xl cursor-pointer"
     >
       <span>{text}</span>
       <span className="opacity-70">•</span>
