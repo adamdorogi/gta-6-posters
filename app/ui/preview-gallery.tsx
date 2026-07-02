@@ -34,6 +34,7 @@ export default function PreviewGallery({
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [unit, setUnit] = useState<"in" | "cm">("in");
   const [selectedSize, setSelectedSize] = useState<string>(
     Object.keys(products)[0],
   );
@@ -124,7 +125,7 @@ export default function PreviewGallery({
           <button
             key={gen.id}
             onClick={() => setSelectedIndex(idx)}
-            className={`relative w-16 rounded-xl overflow-hidden border-2 transition-all duration-200 ${
+            className={`relative w-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
               selectedIndex === idx
                 ? "border-primary scale-110 shadow-md"
                 : "border-transparent opacity-50 hover:opacity-100"
@@ -189,28 +190,63 @@ export default function PreviewGallery({
               purchase
             </p>
           </div>
-          <div className="grid grid-cols-4 gap-2 w-full">
-            {selectedGeneration?.path &&
-              Object.keys(products)
-                .filter((size) => size !== "Digital")
-                .map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl border transition-all active:scale-[0.98] cursor-pointer ${
-                      selectedSize === size
-                        ? "border-primary bg-muted shadow-sm"
-                        : "border-border bg-background opacity-60 hover:opacity-100"
-                    }`}
-                  >
-                    <span className="text-sm font-bold text-foreground">
-                      {products[size].width} × {products[size].height}
-                    </span>
-                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                      ${products[size].price / 100}
-                    </span>
-                  </button>
-                ))}
+          <div className="flex flex-col gap-2 w-full">
+            <div className="flex gap-1 justify-between items-center w-full">
+              <span className="text-muted-foreground text-md">
+                Choose a size:
+              </span>
+              <div className="flex self-end justify-center p-1 rounded-full bg-muted">
+                <button
+                  onClick={() => setUnit("in")}
+                  className={`px-3 py-1 text-xs font-bold rounded-full transition-colors cursor-pointer ${
+                    unit === "in"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  in
+                </button>
+                <button
+                  onClick={() => setUnit("cm")}
+                  className={`px-3 py-1 text-xs font-bold rounded-full transition-colors cursor-pointer ${
+                    unit === "cm"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  cm
+                </button>
+              </div>
+            </div>
+            <div className="grid grid-cols-4 gap-2 w-full">
+              {selectedGeneration?.path &&
+                Object.keys(products)
+                  .filter((size) => size !== "Digital")
+                  .map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl border transition-all active:scale-[0.98] cursor-pointer ${
+                        selectedSize === size
+                          ? "border-primary bg-muted shadow-sm"
+                          : "border-border bg-background opacity-60 hover:opacity-100"
+                      }`}
+                    >
+                      <span className="text-sm font-bold text-foreground">
+                        {unit === "in"
+                          ? products[size].width
+                          : Math.floor(products[size].width * 2.54)}{" "}
+                        ×{" "}
+                        {unit === "in"
+                          ? products[size].height
+                          : Math.floor(products[size].height * 2.54)}
+                      </span>
+                      <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                        ${products[size].price / 100}
+                      </span>
+                    </button>
+                  ))}
+            </div>
           </div>
           <ul className="flex flex-col gap-2 w-full max-w-xs mx-auto text-left">
             {[
