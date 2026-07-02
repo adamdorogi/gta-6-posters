@@ -3,9 +3,8 @@
 1. test image gen cost for 1K vs 2K vs 4K
 2. try generation flow, retry flow, digital purchase flow.
 3. add generation progress indicator. & error indicator
-4. out of credits error
-5. upscaling
-6. done.
+4. upscaling
+5. done.
 
 - digital purchase; make sure email is sent and POD is not triggered.
 - improve prompt

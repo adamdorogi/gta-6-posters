@@ -22,6 +22,7 @@ export default function RetryButton({
   const [styleId, setStyleId] = useState<string>(styleIdProp);
   const [userPrompt, setUserPrompt] = useState<string>(userPromptProp);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -33,19 +34,29 @@ export default function RetryButton({
         />
       </div>
       <PromptField value={userPrompt} onChange={setUserPrompt} />
+      {error && (
+        <div className="text-destructive text-sm text-center animate-in fade-in slide-in-from-top-2 duration-300">
+          {error}
+        </div>
+      )}
       <button
+        disabled={isLoading}
         onClick={async () => {
           setIsLoading(true);
+          setError(null);
           try {
             const resp = await fetch("/api/retry", {
               method: "POST",
               body: JSON.stringify({ generationGroupId, styleId, userPrompt }),
             });
             const response = await resp.json();
-            console.log(response);
+            if (!response.ok) {
+              throw new Error(response);
+            }
             router.refresh();
           } catch (error) {
             console.error("Generation failed:", error);
+            setError("Out of credits. Please try again later.");
             setIsLoading(false);
           }
         }}

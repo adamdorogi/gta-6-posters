@@ -19,6 +19,7 @@ export default function GenerationForm({
   const [styleId, setStyleId] = useState<string | undefined>(styles[0]?.id);
   const [userPrompt, setUserPrompt] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleFiles = async (newFilesArray: File[]) => {
@@ -86,10 +87,17 @@ export default function GenerationForm({
               <>
                 <PromptField value={userPrompt} onChange={setUserPrompt} />
 
+                {error && (
+                  <div className="text-destructive text-sm text-center animate-in fade-in slide-in-from-top-2 duration-300">
+                    {error}
+                  </div>
+                )}
+
                 <button
                   disabled={isLoading}
                   onClick={async () => {
                     setIsLoading(true);
+                    setError(null);
                     try {
                       const resp = await fetch("/api/generate", {
                         method: "POST",
@@ -100,10 +108,14 @@ export default function GenerationForm({
                         }),
                       });
                       const response = await resp.json();
+                      if (!response.ok) {
+                        throw new Error(response);
+                      }
                       const generationGroupId = response.generationGroupId;
                       router.push(`/preview/${generationGroupId}`);
                     } catch (error) {
                       console.error("Generation failed:", error);
+                      setError("Out of credits. Please try again later.");
                       setIsLoading(false);
                     }
                   }}
