@@ -6,12 +6,14 @@ export default async function NavBar() {
   const credits = await getCredits();
 
   return (
-    <nav className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto w-full">
-      <Logo />
-      <CreditsCountdown
-        initialCredits={credits.credits}
-        initialRemainingSeconds={credits.remainingSeconds}
-      />
+    <nav className="max-w-full border-b border-border">
+      <div className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto w-full">
+        <Logo />
+        <CreditsCountdown
+          initialCredits={credits.credits}
+          initialRemainingSeconds={credits.remainingSeconds}
+        />
+      </div>
     </nav>
   );
 }
