@@ -216,7 +216,7 @@ export default function PreviewGallery({
             {[
               "Museum quality canvas print",
               `Free digital download worth $${prices["Digital"] / 100}`,
-              "No watermark",
+              "No watermarks",
               "Ready to hang - kit included",
               "Free shipping",
             ].map((item) => (
