@@ -212,6 +212,35 @@ export default function PreviewGallery({
                   </button>
                 ))}
           </div>
+          <ul className="flex flex-col gap-2 w-full max-w-xs mx-auto text-left">
+            {[
+              "Museum quality canvas print",
+              `Free digital download worth $${prices["Digital"] / 100}`,
+              "No watermark",
+              "Ready to hang - kit included",
+              "Free shipping",
+            ].map((item) => (
+              <li
+                key={item}
+                className="flex items-center gap-2 text-md text-foreground"
+              >
+                <svg
+                  className="w-4 h-4 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={3}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
           {selectedGeneration?.path && (
             <BuyButton
               size={selectedSize}
@@ -247,6 +276,33 @@ export default function PreviewGallery({
               No physical print — digital file only
             </p>
           </div>
+          <ul className="flex flex-col gap-2 w-full max-w-xs mx-auto text-left">
+            {[
+              "No watermarks",
+              "Instant download",
+              "High-resolution digital file",
+            ].map((item) => (
+              <li
+                key={item}
+                className="flex items-center gap-2 text-md text-foreground"
+              >
+                <svg
+                  className="w-4 h-4 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={3}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
           {selectedGeneration?.path && (
             <BuyButton
               size="Digital"
