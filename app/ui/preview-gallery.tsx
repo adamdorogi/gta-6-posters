@@ -159,7 +159,10 @@ export default function PreviewGallery({
       {/* Buy Sections */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
         {/* Physical Canvas Section */}
-        <div className="flex flex-col items-center gap-6 p-8 rounded-3xl border border-border bg-background/50 shadow-sm">
+        <div className="relative flex flex-col items-center gap-6 p-8 rounded-3xl border border-border bg-background/50 shadow-sm">
+          <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-ring text-foreground text-md font-bold rounded-full shadow-sm">
+            {sale.name} - {sale.discount}% OFF
+          </div>
           <div className="text-center space-y-2">
             <h3 className="text-2xl font-serif font-bold text-foreground">
               Canvas + Digital Download
@@ -220,7 +223,10 @@ export default function PreviewGallery({
         </div>
 
         {/* Digital Download Section */}
-        <div className="flex flex-col items-center gap-6 p-8 rounded-3xl border border-border bg-background/50 shadow-sm h-fit">
+        <div className="relative flex flex-col items-center gap-6 p-8 rounded-3xl border border-border bg-background/50 shadow-sm h-fit">
+          <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-primary text-primary-foreground text-sm font-bold rounded-full shadow-sm">
+            Prefer digital only?
+          </div>
           <div className="text-center space-y-2">
             <h3 className="text-2xl font-serif font-bold text-foreground">
               Digital Download
