@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import Stripe from "stripe";
-import { prices } from "@/app/utils/pricing";
+import { products } from "@/app/utils/pricing";
 import { supabase } from "@/app/utils/supabase";
 
 export async function POST(request: Request) {
@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const referrer = headersList.get("referer") as string;
     const { generationId, size } = await request.json();
 
-    if (prices[size] === undefined) {
+    if (products[size] === undefined) {
       return new Response(JSON.stringify({ error: "Invalid size." }), {
         status: 400,
       });
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
               metadata: { generationId, size },
               images: [imageUrl],
             },
-            unit_amount: prices[size],
+            unit_amount: products[size].price,
             currency: "aud",
           },
           quantity: 1,

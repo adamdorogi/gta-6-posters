@@ -1,17 +1,16 @@
 # TODO
 
 1. test image gen cost for 1K vs 2K vs 4K
-2. ...
+2. try generation flow, retry flow, digital purchase flow.
+3. add generation progress indicator. & error indicator
+4. out of credits error
+5. upscaling
+6. done.
 
-- UI error handling
-  - out of credits
-- UX and design
-  - on preview page, user can select "edit", which will bring up a popup similar to the generation from on the main page. with the exception of the photo upload (for now). user can edit selected style and prompt.
+- digital purchase; make sure email is sent and POD is not triggered.
 - improve prompt
-- improve watermark (896x1200 probs)
 - try to hack/break
 - vercel rate limiting
-- digital purchase; make sure email is sent and POD is not triggered.
 
 - maybe:
   - mockups above couch !
