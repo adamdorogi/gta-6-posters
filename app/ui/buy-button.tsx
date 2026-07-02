@@ -5,10 +5,12 @@ export default function BuyButton({
   generationId,
   size,
   price,
+  text,
 }: {
   generationId: string;
   size: string;
   price: number;
+  text: string;
 }) {
   const router = useRouter();
 
@@ -26,10 +28,11 @@ export default function BuyButton({
         const { url } = response;
         router.push(url);
       }}
-      className="flex h-14 w-full max-w-md items-center justify-center gap-3 rounded-full bg-primary text-primary-foreground font-bold text-lg transition-all hover:opacity-90 active:scale-[0.98] shadow-xl"
+      className="flex h-14 w-full max-w-md items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground font-bold text-lg transition-all hover:opacity-90 active:scale-[0.98] shadow-xl cursor-pointer"
     >
-      <span>Buy {size}</span>
-      <span className="opacity-70">/ ${(price / 100).toFixed(2)}</span>
+      <span>{text}</span>
+      <span className="opacity-70">•</span>
+      <span className="opacity-70">${price / 100}</span>
     </button>
   );
 }

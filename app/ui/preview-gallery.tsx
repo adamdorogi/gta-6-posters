@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import BuyButton from "./buy-button";
 import RetryButton from "./retry-button";
-import { prices } from "@/app/utils/pricing";
+import { prices, sale } from "@/app/utils/pricing";
 
 type Generation = {
   publicUrl: string | null;
@@ -147,44 +147,109 @@ export default function PreviewGallery({
         ))}
       </div>
 
-      {/* Buy Buttons */}
-      <div className="flex flex-col items-center gap-6 w-full max-w-2xl">
-        <div className="text-center space-y-2">
-          <h3 className="text-xl font-bold text-foreground">
-            Purchase High-Res Image
-          </h3>
-          <p className="text-muted-foreground text-sm">
-            Select a size to download your generation without watermarks
-          </p>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
-          {selectedGeneration?.path &&
-            Object.keys(prices).map((size) => (
-              <button
-                key={size}
-                onClick={() => setSelectedSize(size)}
-                className={`flex flex-col items-center justify-center gap-1 p-4 rounded-2xl border transition-all active:scale-[0.98] ${
-                  selectedSize === size
-                    ? "border-primary bg-muted shadow-sm"
-                    : "border-border bg-background opacity-60 hover:opacity-100"
-                }`}
-              >
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  {size}
+      <div className="text-center space-y-2">
+        <h2 className="text-4xl lg:text-5xl font-serif font-bold tracking-tight text-foreground leading-tight">
+          Get Your Portrait Now
+        </h2>
+        <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
+          No watermark • Instant download
+        </p>
+      </div>
+
+      {/* Buy Sections */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+        {/* Physical Canvas Section */}
+        <div className="flex flex-col items-center gap-6 p-8 rounded-3xl border border-border bg-background/50 shadow-sm">
+          <div className="text-center space-y-2">
+            <h3 className="text-2xl font-serif font-bold text-foreground">
+              Canvas + Digital Download
+            </h3>
+            <div className="flex-1 flex gap-3 py-2 items-center justify-center">
+              <div className="text-center">
+                <span className="text-2xl font-bold text-muted-foreground line-through">
+                  $
+                  {Math.round(
+                    prices[selectedSize] / (100 - sale.discount) / 10,
+                  ) *
+                    10 -
+                    1}
                 </span>
-                <span className="text-lg font-bold text-foreground">
-                  ${(prices[size] / 100).toFixed(2)}
+              </div>
+              <div className="text-center">
+                <span className="text-3xl font-bold text-foreground">
+                  ${prices[selectedSize] / 100}
                 </span>
-              </button>
-            ))}
+              </div>
+            </div>
+            <p className="text-muted-foreground text-md">
+              Canvas delivered to your wall & instant digital download after
+              purchase
+            </p>
+          </div>
+          <div className="grid grid-cols-4 gap-2 w-full">
+            {selectedGeneration?.path &&
+              Object.keys(prices)
+                .filter((size) => size !== "Digital")
+                .map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`flex flex-col items-center justify-center gap-1 p-4 rounded-2xl border transition-all active:scale-[0.98] cursor-pointer ${
+                      selectedSize === size
+                        ? "border-primary bg-muted shadow-sm"
+                        : "border-border bg-background opacity-60 hover:opacity-100"
+                    }`}
+                  >
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      {size}
+                    </span>
+                    <span className="text-lg font-bold text-foreground">
+                      ${prices[size] / 100}
+                    </span>
+                  </button>
+                ))}
+          </div>
+          {selectedGeneration?.path && (
+            <BuyButton
+              size={selectedSize}
+              price={prices[selectedSize]}
+              generationId={selectedGeneration.id}
+              text="Download now + Canvas"
+            />
+          )}
         </div>
-        {selectedGeneration?.path && (
-          <BuyButton
-            size={selectedSize}
-            price={prices[selectedSize]}
-            generationId={selectedGeneration.id}
-          />
-        )}
+
+        {/* Digital Download Section */}
+        <div className="flex flex-col items-center gap-6 p-8 rounded-3xl border border-border bg-background/50 shadow-sm h-fit">
+          <div className="text-center space-y-2">
+            <h3 className="text-2xl font-serif font-bold text-foreground">
+              Digital Download
+            </h3>
+            <div className="flex-1 flex gap-3 py-2 items-center justify-center">
+              <div className="text-center">
+                <span className="text-2xl font-bold text-muted-foreground line-through">
+                  ${prices["Digital"] / 100 + 10}
+                </span>
+              </div>
+              <div className="text-center">
+                <span className="text-3xl font-bold text-foreground">
+                  ${prices["Digital"] / 100}
+                </span>
+              </div>
+            </div>
+            <p className="text-muted-foreground text-sm">
+              No physical print — digital file only
+            </p>
+          </div>
+          {selectedGeneration?.path && (
+            <BuyButton
+              size="Digital"
+              price={prices["Digital"]}
+              generationId={selectedGeneration.id}
+              text="Download"
+            />
+          )}
+        </div>
       </div>
 
       {/* Edit Modal */}
