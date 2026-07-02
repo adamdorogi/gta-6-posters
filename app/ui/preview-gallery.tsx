@@ -88,64 +88,66 @@ export default function PreviewGallery({
   const selectedGeneration = generations[selectedIndex];
 
   return (
-    <div className="flex flex-col items-center gap-12 w-full max-w-4xl mx-auto py-12 px-4">
-      {/* Main Image Container */}
-      <div className="relative group w-full max-w-xl overflow-hidden rounded-3xl bg-muted shadow-2xl border border-border">
-        {selectedGeneration?.path && selectedGeneration?.publicUrl ? (
-          <>
-            <Image
-              src={selectedGeneration.publicUrl}
-              alt="Generated Image"
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{ width: "100%", height: "auto" }}
-              priority
-            />
-            {/* Edit Button Overlay */}
-            <button
-              onClick={() => setIsEditModalOpen(true)}
-              className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-background/90 backdrop-blur-md text-foreground rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105 shadow-xl border border-border"
-            >
-              Edit
-            </button>
-          </>
-        ) : (
-          <div className="flex items-center justify-center h-full text-muted-foreground font-medium">
-            {selectedGeneration?.status === "failed"
-              ? "Failed to generate"
-              : "Loading..."}
-          </div>
-        )}
-      </div>
-
-      {/* Thumbnails */}
-      <div className="flex gap-4 overflow-x-auto p-2 w-full justify-center no-scrollbar">
-        {generations.map((gen, idx) => (
-          <button
-            key={gen.id}
-            onClick={() => setSelectedIndex(idx)}
-            className={`relative w-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-              selectedIndex === idx
-                ? "border-primary scale-110 shadow-md"
-                : "border-transparent opacity-50 hover:opacity-100"
-            }`}
-          >
-            {gen.publicUrl ? (
+    <div className="flex flex-col items-center gap-12 w-full max-w-4xl mx-auto">
+      <div className="flex flex-col items-center gap-4 w-full">
+        {/* Main Image Container */}
+        <div className="relative group w-full max-w-xl overflow-hidden rounded-2xl bg-muted shadow-2xl border border-border">
+          {selectedGeneration?.path && selectedGeneration?.publicUrl ? (
+            <>
               <Image
-                src={gen.publicUrl}
-                alt={`Thumbnail ${idx}`}
-                width={96}
+                src={selectedGeneration.publicUrl}
+                alt="Generated Image"
+                width={0}
                 height={0}
-                style={{ width: "96px", height: "auto" }}
+                sizes="100vw"
+                style={{ width: "100%", height: "auto" }}
+                priority
               />
-            ) : (
-              <div className="w-full h-full bg-muted flex items-center justify-center text-[10px] text-center p-1 font-medium text-muted-foreground">
-                {gen.status === "failed" ? "Failed" : "Loading"}
-              </div>
-            )}
-          </button>
-        ))}
+              {/* Edit Button Overlay */}
+              <button
+                onClick={() => setIsEditModalOpen(true)}
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-background/90 backdrop-blur-md text-foreground rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105 shadow-xl border border-border"
+              >
+                Edit
+              </button>
+            </>
+          ) : (
+            <div className="flex items-center justify-center h-full text-muted-foreground font-medium">
+              {selectedGeneration?.status === "failed"
+                ? "Failed to generate"
+                : "Loading..."}
+            </div>
+          )}
+        </div>
+
+        {/* Thumbnails */}
+        <div className="flex gap-4 overflow-x-auto p-2 w-full justify-center no-scrollbar">
+          {generations.map((gen, idx) => (
+            <button
+              key={gen.id}
+              onClick={() => setSelectedIndex(idx)}
+              className={`relative w-16 rounded-md overflow-hidden border-2 transition-all duration-200 ${
+                selectedIndex === idx
+                  ? "border-primary scale-110 shadow-md"
+                  : "border-transparent opacity-50 hover:opacity-100"
+              }`}
+            >
+              {gen.publicUrl ? (
+                <Image
+                  src={gen.publicUrl}
+                  alt={`Thumbnail ${idx}`}
+                  width={96}
+                  height={0}
+                  style={{ width: "96px", height: "auto" }}
+                />
+              ) : (
+                <div className="w-full h-full bg-muted flex items-center justify-center text-[10px] text-center p-1 font-medium text-muted-foreground">
+                  {gen.status === "failed" ? "Failed" : "Loading"}
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="text-center space-y-2">
@@ -158,9 +160,9 @@ export default function PreviewGallery({
       </div>
 
       {/* Buy Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[720px]">
         {/* Physical Canvas Section */}
-        <div className="relative flex flex-col items-center gap-6 p-8 rounded-3xl border border-border bg-background/50 shadow-sm">
+        <div className="relative flex flex-col items-center gap-6 p-4 pt-8 rounded-2xl border border-border bg-background/50 shadow-sm h-fit">
           <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-ring text-foreground text-md font-bold rounded-full shadow-sm">
             {sale.name} - {sale.discount}% OFF
           </div>
@@ -248,7 +250,7 @@ export default function PreviewGallery({
                   ))}
             </div>
           </div>
-          <ul className="flex flex-col gap-2 w-full max-w-xs mx-auto text-left">
+          <ul className="flex flex-col gap-2 w-full mx-auto text-left">
             {[
               "Museum quality canvas print",
               `Free digital download worth $${products["Digital"].price / 100}`,
@@ -288,7 +290,7 @@ export default function PreviewGallery({
         </div>
 
         {/* Digital Download Section */}
-        <div className="relative flex flex-col items-center gap-6 p-8 rounded-3xl border border-border bg-background/50 shadow-sm h-fit">
+        <div className="relative flex flex-col items-center gap-6 p-4 pt-8 rounded-2xl border border-border bg-background/50 shadow-sm h-fit">
           <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-primary text-primary-foreground text-sm font-bold rounded-full shadow-sm">
             Prefer digital only?
           </div>
@@ -312,7 +314,7 @@ export default function PreviewGallery({
               No physical print — digital file only
             </p>
           </div>
-          <ul className="flex flex-col gap-2 w-full max-w-xs mx-auto text-left">
+          <ul className="flex flex-col gap-2 w-full mx-auto text-left">
             {[
               "No watermarks",
               "Instant download",
