@@ -228,12 +228,22 @@ export default function PreviewGallery({
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl border transition-all active:scale-[0.98] cursor-pointer ${
+                      className={`relative flex flex-col items-center justify-center px-2 py-3 rounded-lg border transition-all active:scale-[0.98] cursor-pointer ${
                         selectedSize === size
                           ? "border-primary bg-muted shadow-sm"
-                          : "border-border bg-background opacity-60 hover:opacity-100"
+                          : "border-border bg-background"
                       }`}
                     >
+                      {size === "Medium" && (
+                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full whitespace-nowrap shadow-sm">
+                          Popular
+                        </span>
+                      )}
+                      {size === "Large" && (
+                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-ring text-foreground text-[10px] font-bold rounded-full whitespace-nowrap shadow-sm">
+                          Best Value
+                        </span>
+                      )}
                       <span className="text-sm font-bold text-foreground">
                         {unit === "in"
                           ? products[size].width
