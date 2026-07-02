@@ -11,6 +11,7 @@
 - improve watermark (896x1200 probs)
 - try to hack/break
 - vercel rate limiting
+- digital purchase; make sure email is sent and POD is not triggered.
 
 - maybe:
   - mockups above couch !

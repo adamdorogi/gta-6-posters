@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import BuyButton from "./buy-button";
 import RetryButton from "./retry-button";
-import { prices, sale } from "@/app/utils/pricing";
+import { products, sale } from "@/app/utils/pricing";
 
 type Generation = {
   publicUrl: string | null;
@@ -35,7 +35,7 @@ export default function PreviewGallery({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedSize, setSelectedSize] = useState<string>(
-    Object.keys(prices)[0],
+    Object.keys(products)[0],
   );
   const router = useRouter();
 
@@ -172,7 +172,7 @@ export default function PreviewGallery({
                 <span className="text-2xl font-bold text-muted-foreground line-through">
                   $
                   {Math.round(
-                    prices[selectedSize] / (100 - sale.discount) / 10,
+                    products[selectedSize].price / (100 - sale.discount) / 10,
                   ) *
                     10 -
                     1}
@@ -180,7 +180,7 @@ export default function PreviewGallery({
               </div>
               <div className="text-center">
                 <span className="text-3xl font-bold text-foreground">
-                  ${prices[selectedSize] / 100}
+                  ${products[selectedSize].price / 100}
                 </span>
               </div>
             </div>
@@ -191,23 +191,23 @@ export default function PreviewGallery({
           </div>
           <div className="grid grid-cols-4 gap-2 w-full">
             {selectedGeneration?.path &&
-              Object.keys(prices)
+              Object.keys(products)
                 .filter((size) => size !== "Digital")
                 .map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`flex flex-col items-center justify-center gap-1 p-4 rounded-2xl border transition-all active:scale-[0.98] cursor-pointer ${
+                    className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl border transition-all active:scale-[0.98] cursor-pointer ${
                       selectedSize === size
                         ? "border-primary bg-muted shadow-sm"
                         : "border-border bg-background opacity-60 hover:opacity-100"
                     }`}
                   >
-                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                      {size}
+                    <span className="text-sm font-bold text-foreground">
+                      {products[size].width} × {products[size].height}
                     </span>
-                    <span className="text-lg font-bold text-foreground">
-                      ${prices[size] / 100}
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      ${products[size].price / 100}
                     </span>
                   </button>
                 ))}
@@ -215,7 +215,7 @@ export default function PreviewGallery({
           <ul className="flex flex-col gap-2 w-full max-w-xs mx-auto text-left">
             {[
               "Museum quality canvas print",
-              `Free digital download worth $${prices["Digital"] / 100}`,
+              `Free digital download worth $${products["Digital"].price / 100}`,
               "No watermarks",
               "Ready to hang - kit included",
               "Free shipping",
@@ -244,7 +244,7 @@ export default function PreviewGallery({
           {selectedGeneration?.path && (
             <BuyButton
               size={selectedSize}
-              price={prices[selectedSize]}
+              price={products[selectedSize].price}
               generationId={selectedGeneration.id}
               text="Download now + Canvas"
             />
@@ -263,12 +263,12 @@ export default function PreviewGallery({
             <div className="flex-1 flex gap-3 py-2 items-center justify-center">
               <div className="text-center">
                 <span className="text-2xl font-bold text-muted-foreground line-through">
-                  ${prices["Digital"] / 100 + 10}
+                  ${products["Digital"].price / 100 + 10}
                 </span>
               </div>
               <div className="text-center">
                 <span className="text-3xl font-bold text-foreground">
-                  ${prices["Digital"] / 100}
+                  ${products["Digital"].price / 100}
                 </span>
               </div>
             </div>
@@ -306,7 +306,7 @@ export default function PreviewGallery({
           {selectedGeneration?.path && (
             <BuyButton
               size="Digital"
-              price={prices["Digital"]}
+              price={products["Digital"].price}
               generationId={selectedGeneration.id}
               text="Download"
             />
