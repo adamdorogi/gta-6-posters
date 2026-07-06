@@ -133,7 +133,7 @@ export default function PreviewGallery({
                 Edit
               </button>
             </>
-          ) : (
+          ) : selectedGeneration?.status === "in_progress" ? (
             <>
               <Image
                 src={"/placeholder.webp"}
@@ -149,6 +149,10 @@ export default function PreviewGallery({
                 </div>
               </div>
             </>
+          ) : (
+            <span className="absolute inset-0 flex items-center justify-center text-md text-center font-medium text-muted-foreground">
+              Generation failed.
+            </span>
           )}
         </div>
 
