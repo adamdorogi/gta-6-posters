@@ -102,7 +102,10 @@ export default function PreviewGallery({
     <div className="flex flex-col items-center gap-12 w-full max-w-4xl mx-auto">
       <div className="flex flex-col items-center gap-4 w-full">
         {/* Main Image Container */}
-        <div className="relative aspect-[3/4] group w-full max-w-xl overflow-hidden rounded-2xl bg-muted shadow-2xl border border-border">
+        <div
+          onContextMenu={(e) => e.preventDefault()}
+          className="relative aspect-[3/4] group w-full max-w-xl overflow-hidden rounded-2xl bg-muted shadow-2xl border border-border"
+        >
           {selectedGeneration?.path && selectedGeneration?.publicUrl ? (
             <>
               <Image
@@ -154,6 +157,7 @@ export default function PreviewGallery({
             <button
               key={gen.id}
               onClick={() => setSelectedIndex(idx)}
+              onContextMenu={(e) => e.preventDefault()}
               className={`relative w-16 aspect-[3/4] rounded-md overflow-hidden border-2 transition-all duration-200 cursor-pointer ${
                 selectedIndex === idx
                   ? "border-primary scale-110 shadow-md"
