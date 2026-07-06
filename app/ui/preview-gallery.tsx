@@ -99,7 +99,7 @@ export default function PreviewGallery({
                 alt="Generated Image"
                 width={0}
                 height={0}
-                sizes="100vw"
+                sizes="580px"
                 style={{ width: "100%", height: "auto" }}
                 priority
               />
@@ -119,11 +119,15 @@ export default function PreviewGallery({
               </button>
             </>
           ) : (
-            <div className="flex items-center justify-center h-full text-muted-foreground font-medium">
-              {selectedGeneration?.status === "failed"
-                ? "Failed to generate"
-                : "Loading..."}
-            </div>
+            <Image
+              src={"/placeholder.webp"}
+              alt="Placeholder Image"
+              width={0}
+              height={0}
+              sizes="580px"
+              style={{ width: "100%", height: "auto" }}
+              priority
+            />
           )}
         </div>
 
@@ -133,7 +137,7 @@ export default function PreviewGallery({
             <button
               key={gen.id}
               onClick={() => setSelectedIndex(idx)}
-              className={`relative w-16 rounded-md overflow-hidden border-2 transition-all duration-200 ${
+              className={`relative w-16 aspect-[3/4] rounded-md overflow-hidden border-2 transition-all duration-200 cursor-pointer ${
                 selectedIndex === idx
                   ? "border-primary scale-110 shadow-md"
                   : "border-transparent opacity-50 hover:opacity-100"
@@ -147,10 +151,23 @@ export default function PreviewGallery({
                   height={0}
                   style={{ width: "96px", height: "auto" }}
                 />
-              ) : (
+              ) : gen.status === "failed" ? (
                 <div className="w-full h-full bg-muted flex items-center justify-center text-[10px] text-center p-1 font-medium text-muted-foreground">
-                  {gen.status === "failed" ? "Failed" : "Loading"}
+                  Failed.
                 </div>
+              ) : (
+                <>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="h-6 w-6 animate-spin rounded-full border-2 border-foreground border-t-transparent" />
+                  </div>
+                  <Image
+                    src={"/placeholder.webp"}
+                    alt="Placeholder Image"
+                    width={96}
+                    height={0}
+                    style={{ width: "96px", height: "auto" }}
+                  />
+                </>
               )}
             </button>
           ))}
@@ -394,6 +411,7 @@ export default function PreviewGallery({
               styles={styles}
               styleIdProp={styleIdProp}
               userPromptProp={userPromptProp}
+              onDone={() => setIsEditModalOpen(false)}
             />
           </div>
         </div>

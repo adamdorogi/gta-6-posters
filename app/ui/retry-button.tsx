@@ -11,12 +11,14 @@ export default function RetryButton({
   styles,
   styleIdProp,
   userPromptProp,
+  onDone,
 }: {
   generationGroupId: string;
   generations: { id: string; status: string }[];
   styles: { id: string; name: string }[];
   styleIdProp: string;
   userPromptProp: string;
+  onDone: () => void;
 }) {
   const router = useRouter();
   const [styleId, setStyleId] = useState<string>(styleIdProp);
@@ -50,10 +52,11 @@ export default function RetryButton({
               body: JSON.stringify({ generationGroupId, styleId, userPrompt }),
             });
             const response = await resp.json();
-            if (!response.ok) {
+            if (!resp.ok) {
               throw new Error(response);
             }
             router.refresh();
+            onDone();
           } catch (error) {
             console.error("Generation failed:", error);
             setError("Out of credits. Please try again later.");

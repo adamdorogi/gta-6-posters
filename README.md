@@ -1,10 +1,11 @@
 # TODO
 
-1. test image gen cost for 1K vs 2K vs 4K
-2. try generation flow, retry flow, digital purchase flow.
-3. add generation progress indicator. & error indicator
-4. upscaling
-5. done.
+1. add generation progress indicator. circle or linear.
+2. automatic selection for new generations. maybe setIndex to item that has no genId?
+3. test image gen cost for 1K vs 2K vs 4K
+4. try digital purchase flow.
+5. upscaling
+6. done.
 
 - digital purchase; make sure email is sent and POD is not triggered.
 - improve prompt

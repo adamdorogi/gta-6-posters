@@ -108,7 +108,8 @@ export default function GenerationForm({
                         }),
                       });
                       const response = await resp.json();
-                      if (!response.ok) {
+                      console.log(response);
+                      if (!resp.ok) {
                         throw new Error(response);
                       }
                       const generationGroupId = response.generationGroupId;
