@@ -14,7 +14,8 @@ export default async function Home({
     supabase
       .from("generations")
       .select("id, status, path, generation_groups(style_id, user_prompt)")
-      .eq("generation_group_id", generationGroupId),
+      .eq("generation_group_id", generationGroupId)
+      .order("created_at", { ascending: true }),
     supabase
       .from("styles")
       .select("id, name")

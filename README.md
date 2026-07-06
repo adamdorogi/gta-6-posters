@@ -1,7 +1,7 @@
 # TODO
 
 1. add generation progress indicator. circle or linear.
-2. automatic selection for new generations. maybe setIndex to item that has no genId?
+2. performance on edit popup
 3. test image gen cost for 1K vs 2K vs 4K
 4. try digital purchase flow.
 5. upscaling

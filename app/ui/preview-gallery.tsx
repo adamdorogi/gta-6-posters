@@ -32,13 +32,24 @@ export default function PreviewGallery({
   styleIdProp: string;
   userPromptProp: string;
 }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(generations.length - 1);
+  const [prevGenerations, setPrevGenerations] = useState(generations);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [unit, setUnit] = useState<"in" | "cm">("in");
   const [selectedSize, setSelectedSize] = useState<string>(
     Object.keys(products)[0],
   );
   const router = useRouter();
+
+  if (generations !== prevGenerations) {
+    setPrevGenerations(generations);
+    const inProgressIndex = generations.findLastIndex(
+      (g) => g.status === "in_progress",
+    );
+    if (inProgressIndex !== -1) {
+      setSelectedIndex(inProgressIndex);
+    }
+  }
 
   const inProgress = generations.filter(
     (generation) => generation.status === "in_progress",
@@ -91,17 +102,17 @@ export default function PreviewGallery({
     <div className="flex flex-col items-center gap-12 w-full max-w-4xl mx-auto">
       <div className="flex flex-col items-center gap-4 w-full">
         {/* Main Image Container */}
-        <div className="relative group w-full max-w-xl overflow-hidden rounded-2xl bg-muted shadow-2xl border border-border">
+        <div className="relative aspect-[3/4] group w-full max-w-xl overflow-hidden rounded-2xl bg-muted shadow-2xl border border-border">
           {selectedGeneration?.path && selectedGeneration?.publicUrl ? (
             <>
               <Image
                 src={selectedGeneration.publicUrl}
                 alt="Generated Image"
-                width={0}
-                height={0}
                 sizes="580px"
-                style={{ width: "100%", height: "auto" }}
+                fill
+                className="object-cover"
                 priority
+                loading="eager"
               />
               {/* Edit Button Overlay */}
               <button
@@ -119,15 +130,21 @@ export default function PreviewGallery({
               </button>
             </>
           ) : (
-            <Image
-              src={"/placeholder.webp"}
-              alt="Placeholder Image"
-              width={0}
-              height={0}
-              sizes="580px"
-              style={{ width: "100%", height: "auto" }}
-              priority
-            />
+            <>
+              <Image
+                src={"/placeholder.webp"}
+                alt="Placeholder Image"
+                sizes="580px"
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-3/4 h-3 bg-muted rounded-full overflow-hidden border-2 border-muted">
+                  <div className="h-full bg-primary animate-progress" />
+                </div>
+              </div>
+            </>
           )}
         </div>
 
@@ -147,9 +164,9 @@ export default function PreviewGallery({
                 <Image
                   src={gen.publicUrl}
                   alt={`Thumbnail ${idx}`}
-                  width={96}
-                  height={0}
-                  style={{ width: "96px", height: "auto" }}
+                  fill
+                  className="object-cover"
+                  sizes="96px"
                 />
               ) : gen.status === "failed" ? (
                 <div className="w-full h-full bg-muted flex items-center justify-center text-[10px] text-center p-1 font-medium text-muted-foreground">
@@ -158,14 +175,14 @@ export default function PreviewGallery({
               ) : (
                 <>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="h-6 w-6 animate-spin rounded-full border-2 border-foreground border-t-transparent" />
+                    <div className="h-6 w-6 z-1 animate-spin rounded-full border-2 border-muted border-t-transparent" />
                   </div>
                   <Image
                     src={"/placeholder.webp"}
                     alt="Placeholder Image"
-                    width={96}
-                    height={0}
-                    style={{ width: "96px", height: "auto" }}
+                    fill
+                    className="object-cover"
+                    sizes="96px"
                   />
                 </>
               )}

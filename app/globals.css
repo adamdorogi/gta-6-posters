@@ -50,6 +50,19 @@
   }
 }
 
+@keyframes progress-linear {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 95%;
+  }
+}
+
+.animate-progress {
+  animation: progress-linear 30s ease-out forwards;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

@@ -48,7 +48,10 @@ export default function CreditsCountdown({
   return (
     <div className="flex opacity-80 items-center gap-1 px-3 py-1 rounded-full bg-border text-primary text-xs font-medium">
       <span className="font-bold">{credits}</span>
-      <span className="opacity-80"> credits left</span>
+      <span className="opacity-80">
+        {" "}
+        {credits == 1 ? "credit" : "credits"} left
+      </span>
       {remainingSeconds > 0 && credits < 5 && (
         <>
           <span className="w-1 h-1 rounded-full bg-primary opacity-80" />
