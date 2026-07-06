@@ -116,6 +116,7 @@ export default function PreviewGallery({
                 className="object-cover"
                 priority
                 loading="eager"
+                draggable={false}
               />
               {/* Edit Button Overlay */}
               <button
@@ -171,6 +172,7 @@ export default function PreviewGallery({
                   fill
                   className="object-cover"
                   sizes="96px"
+                  draggable={false}
                 />
               ) : gen.status === "failed" ? (
                 <div className="w-full h-full bg-muted flex items-center justify-center text-[10px] text-center p-1 font-medium text-muted-foreground">
