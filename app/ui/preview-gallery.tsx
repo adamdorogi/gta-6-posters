@@ -175,7 +175,7 @@ export default function PreviewGallery({
               ) : (
                 <>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="h-6 w-6 z-1 animate-spin rounded-full border-2 border-muted border-t-transparent" />
+                    <div className="w-1/2 aspect-square z-1 animate-spin rounded-full border-2 border-muted border-t-transparent" />
                   </div>
                   <Image
                     src={"/placeholder.webp"}
