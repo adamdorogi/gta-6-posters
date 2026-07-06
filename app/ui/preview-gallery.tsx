@@ -150,9 +150,18 @@ export default function PreviewGallery({
               </div>
             </>
           ) : (
-            <span className="absolute inset-0 flex items-center justify-center text-md text-center font-medium text-muted-foreground">
-              Generation failed.
-            </span>
+            <>
+              <span className="absolute inset-0 flex items-center justify-center text-md text-center font-medium text-muted-foreground">
+                Generation failed.
+              </span>
+              {/* Retry Button Overlay */}
+              <button
+                onClick={() => setIsEditModalOpen(true)}
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-md font-semibold transition-all duration-300 hover:scale-105 shadow-xl border border-primary cursor-pointer flex items-center gap-1"
+              >
+                Retry
+              </button>
+            </>
           )}
         </div>
 

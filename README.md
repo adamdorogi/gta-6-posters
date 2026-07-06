@@ -1,16 +1,12 @@
 # TODO
 
-1. add generation progress indicator. circle or linear.
-2. performance on edit popup
-3. test image gen cost for 1K vs 2K vs 4K
-4. try digital purchase flow.
-5. upscaling
-6. done.
-
-- digital purchase; make sure email is sent and POD is not triggered.
-- improve prompt
-- try to hack/break
-- vercel rate limiting
+1. credit values not updated
+2. try digital purchase flow/digital download. make sure email is sent and POD is not triggered.
+3. confirmation emails.
+4. upscaling
+5. domain name https://turnroyal.com
+6. improve prompt
+7. done.
 
 - maybe:
   - mockups above couch !
@@ -93,7 +89,15 @@ styles:
 16 x 24 = $59.37 = $119 = $59.63 profit
 30 x 40 = $116.25 = $199 = $82.75 profit
 
-# Image sizes
+## Upscaling Prices (https://replicate.com/topazlabs/image-upscale)
+
+- 1x to 6x (6x upscale): $0.16
+- 6x to 12x (2x upscale): $0.56
+- total: $0.72
+
+maybe try: https://github.com/upscayl/upscayl
+
+## Image sizes
 
 8 x 12 = 3177 x 4394 px = 0.7230314065 vs 0.66...
 12 x 16 = 4406 x 5622 px = 0.7837068659 vs 0.75
