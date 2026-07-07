@@ -1,12 +1,18 @@
 # TODO
 
-1. credit values not updated
+1. order tracking page? shipment tracking?
 2. try digital purchase flow/digital download. make sure email is sent and POD is not triggered.
 3. confirmation emails.
-4. upscaling
-5. domain name https://turnroyal.com
-6. improve prompt
-7. done.
+4. tracking emails
+5. upscaling
+6. domain name https://turnroyal.com
+7. improve prompt
+8. favicon
+9. done.
+
+10. order confirmation email
+11. digital download is ready email (1. + 2. could be in 1 email/page. do whatever is simpler.)
+12. shipment created email
 
 - maybe:
   - mockups above couch !
