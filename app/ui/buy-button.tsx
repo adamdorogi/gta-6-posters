@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function BuyButton({
   generationId,
@@ -17,11 +18,14 @@ export default function BuyButton({
   iconPath: string;
   iconAlt: string;
 }) {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   return (
     <button
+      disabled={isLoading}
       onClick={async () => {
+        setIsLoading(true);
         const resp = await fetch("/api/checkout", {
           method: "POST",
           body: JSON.stringify({
@@ -33,12 +37,18 @@ export default function BuyButton({
         const { url } = response;
         router.push(url);
       }}
-      className="flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-bold text-md transition-all hover:opacity-90 active:scale-[0.98] shadow-xl cursor-pointer"
+      className="flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-bold text-md transition-all hover:opacity-90 active:scale-[0.98] shadow-xl cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
     >
-      <Image src={iconPath} alt={iconAlt} width={20} height={20} priority />
-      <span>{text}</span>
-      <span className="opacity-70">•</span>
-      <span className="opacity-70">${price / 100}</span>
+      {isLoading ? (
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
+      ) : (
+        <>
+          <Image src={iconPath} alt={iconAlt} width={20} height={20} priority />
+          <span>{text}</span>
+          <span className="opacity-70">•</span>
+          <span className="opacity-70">${price / 100}</span>
+        </>
+      )}
     </button>
   );
 }
