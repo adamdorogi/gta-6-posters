@@ -8,6 +8,7 @@ specifiers:
   '@types/react': ^19
   '@types/react-dom': ^19
   '@vercel/analytics': ^2.0.1
+  '@vercel/speed-insights': ^2.0.0
   eslint: ^9
   eslint-config-next: 16.2.6
   next: 16.2.6
@@ -21,6 +22,7 @@ dependencies:
   '@stripe/stripe-js': 9.7.0
   '@supabase/supabase-js': 2.106.0
   '@vercel/analytics': 2.0.1_next@16.2.6+react@19.2.4
+  '@vercel/speed-insights': 2.0.0_next@16.2.6+react@19.2.4
   next: 16.2.6_ju5i5k46jjvnblsfiwqzrn6cj4
   react: 19.2.4
   react-dom: 19.2.4_react@19.2.4
@@ -1286,6 +1288,36 @@ packages:
     peerDependenciesMeta:
       '@remix-run/react':
         optional: true
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      nuxt:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
+    dependencies:
+      next: 16.2.6_ju5i5k46jjvnblsfiwqzrn6cj4
+      react: 19.2.4
+    dev: false
+
+  /@vercel/speed-insights/2.0.0_next@16.2.6+react@19.2.4:
+    resolution: {integrity: sha512-jwkNcrTeafWxjmWq4AHBaptSqZiJkYU5adLC9QBSqeim0GcqDMgN5Ievh8OG1rJ6W3A4l1oiP7qr9CWxGuzu3w==}
+    peerDependencies:
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      nuxt: '>= 3'
+      react: ^18 || ^19 || ^19.0.0-rc
+      svelte: '>= 4'
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
       '@sveltejs/kit':
         optional: true
       next:
