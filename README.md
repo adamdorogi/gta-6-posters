@@ -1,18 +1,13 @@
 # TODO
 
-1. order tracking page? shipment tracking?
+1. order tracking page? shipment tracking? tracking emails?
 2. try digital purchase flow/digital download. make sure email is sent and POD is not triggered.
 3. confirmation emails.
-4. tracking emails
-5. upscaling
-6. domain name https://turnroyal.com
-7. improve prompt
-8. favicon
-9. done.
-
-10. order confirmation email
-11. digital download is ready email (1. + 2. could be in 1 email/page. do whatever is simpler.)
-12. shipment created email
+4. improve prompt
+5. favicon
+6. SEO descriptions, og links, metadata/titles, etc.
+7. FAQ, videos, and other aesthetics
+8. done.
 
 - maybe:
   - mockups above couch !
