@@ -30,7 +30,7 @@ export default function ShowcaseCarousel({
                 }
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="220px"
+                sizes="182px"
               />
             </div>
           ))}
