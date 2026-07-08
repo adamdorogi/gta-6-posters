@@ -43,9 +43,12 @@ export async function POST(request: Request) {
       submit_type: "pay",
       payment_method_types: ["card"],
       metadata: { generationId, size },
-      shipping_address_collection: {
-        allowed_countries: ["AU"],
-      },
+      shipping_address_collection:
+        size === "Digital"
+          ? undefined
+          : {
+              allowed_countries: ["AU"],
+            },
       // Shrinks image preview
       // shipping_options: [
       //   {
@@ -73,8 +76,14 @@ export async function POST(request: Request) {
         {
           price_data: {
             product_data: {
-              name: `${size} Canvas + Digital`,
-              description: "Free shipping (5-7 business days)",
+              name:
+                size === "Digital"
+                  ? "Digital Download"
+                  : `${products[size].width}" × ${products[size].height}" Canvas + Digital`,
+              description:
+                size === "Digital"
+                  ? undefined
+                  : "Free shipping (5-7 business days)",
               metadata: { generationId, size },
               images: [imageUrl],
             },
