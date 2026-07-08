@@ -1,12 +1,12 @@
 # TODO
 
-1. order tracking page? shipment tracking? tracking emails?
-2. try digital purchase flow/digital download. make sure email is sent and POD is not triggered.
-3. confirmation emails.
+1. order confirmation emails
+2. digital download emails: try digital purchase flow/digital download. make sure email is sent and POD is not triggered.
+3. tracking emails: order tracking page? shipment tracking?
 4. improve prompt
-5. favicon
-6. SEO descriptions, og links, metadata/titles, etc.
-7. FAQ, videos, and other aesthetics
+5. SEO descriptions, og links, metadata/titles, etc.
+6. FAQ, videos, and other aesthetics
+7. meta/tiktok pixel
 8. done.
 
 - maybe:
