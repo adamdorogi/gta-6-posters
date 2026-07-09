@@ -93,7 +93,7 @@ export async function POST(request: Request) {
           quantity: 1,
         },
       ],
-      success_url: `${referrer}?success={CHECKOUT_SESSION_ID}`,
+      success_url: referrer,
       cancel_url: referrer,
     });
 
