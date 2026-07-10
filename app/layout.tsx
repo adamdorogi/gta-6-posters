@@ -37,16 +37,12 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <Script src="/meta-pixel.js" />
-        <Head>
-          <noscript>
-            <img
-              height="1"
-              width="1"
-              style={{ display: "none" }}
-              src="https://www.facebook.com/tr?id=1725434085130628&ev=PageView&noscript=1"
-            />
-          </noscript>
-        </Head>
+        <img
+          height="1"
+          width="1"
+          style={{ display: "none" }}
+          src="https://www.facebook.com/tr?id=1725434085130628&ev=PageView&noscript=1"
+        />
       </body>
     </html>
   );
