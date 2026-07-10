@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,16 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <Script src="/meta-pixel.js" />
+        <Head>
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style="display:none"
+              src="https://www.facebook.com/tr?id=1725434085130628&ev=PageView&noscript=1"
+            />
+          </noscript>
+        </Head>
       </body>
     </html>
   );
