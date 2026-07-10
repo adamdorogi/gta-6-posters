@@ -15,11 +15,7 @@ const MetaPixel = () => {
     pixel.pageView();
   }, [pathname, loaded]);
 
-  return (
-    <div>
-      <Script src="/scripts/meta-pixel.js" onLoad={() => setLoaded(true)} />
-    </div>
-  );
+  return <Script src="/scripts/meta-pixel.js" onLoad={() => setLoaded(true)} />;
 };
 
 export default MetaPixel;
