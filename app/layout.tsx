@@ -35,7 +35,7 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
-        <Script src="/meta-pixel.js" strategy="afterInteractive" />
+        <Script src="/meta-pixel.js" />
       </body>
     </html>
   );
