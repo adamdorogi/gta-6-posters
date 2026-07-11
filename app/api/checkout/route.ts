@@ -51,7 +51,7 @@ export async function POST(request: Request) {
       ],
     };
 
-    const req = await fetch(
+    fetch(
       `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${process.env.META_ACCESS_TOKEN}`,
       {
         method: "POST",
@@ -61,11 +61,6 @@ export async function POST(request: Request) {
         body: JSON.stringify(payload),
       },
     );
-
-    console.log("Payload");
-    console.log(JSON.stringify(payload));
-    console.log("Request");
-    console.log(await req.json());
 
     const { data: generationData, error: generationError } = await supabase
       .from("generations")
