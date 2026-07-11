@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { event } from "@/app/utils/meta-pixel-events";
 
 export default function BuyButton({
   generationId,
@@ -26,6 +27,14 @@ export default function BuyButton({
       disabled={isLoading}
       onClick={async () => {
         setIsLoading(true);
+        event("InitiateCheckout", {
+          content_ids: ["personalised-canvas"],
+          content_name: "Personalised Canvas",
+          content_type: "product",
+          currency: "AUD",
+          value: price / 100,
+          num_items: 1,
+        });
         const resp = await fetch("/api/checkout", {
           method: "POST",
           body: JSON.stringify({
