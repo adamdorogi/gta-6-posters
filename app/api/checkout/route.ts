@@ -25,40 +25,47 @@ export async function POST(request: Request) {
       getFbp(),
     ]);
 
-    fetch(
+    const payload = {
+      data: [
+        {
+          event_name: "InitiateCheckout",
+          event_time: Math.floor(Date.now() / 1000),
+          action_source: "website",
+          event_source_url: referrer,
+          event_id: eventId,
+          user_data: {
+            client_ip_address: ipAddress,
+            client_user_agent: userAgent,
+            fbc,
+            fbp,
+          },
+          custom_data: {
+            content_ids: ["personalised-canvas"],
+            content_name: "Personalised Canvas",
+            content_type: "product",
+            currency: "AUD",
+            value: products[size].price / 100,
+            num_items: 1,
+          },
+        },
+      ],
+    };
+
+    const req = fetch(
       `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${process.env.META_ACCESS_TOKEN}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          data: [
-            {
-              event_name: "InitiateCheckout",
-              event_time: Math.floor(Date.now() / 1000),
-              action_source: "website",
-              event_source_url: referrer,
-              event_id: eventId,
-              user_data: {
-                client_ip_address: ipAddress,
-                client_user_agent: userAgent,
-                fbc,
-                fbp,
-              },
-              custom_data: {
-                content_ids: ["personalised-canvas"],
-                content_name: "Personalised Canvas",
-                content_type: "product",
-                currency: "AUD",
-                value: products[size].price / 100,
-                num_items: 1,
-              },
-            },
-          ],
-        }),
+        body: JSON.stringify(payload),
       },
     );
+
+    console.log("Payload");
+    console.log(payload);
+    console.log("Request");
+    console.log((await req).json());
 
     const { data: generationData, error: generationError } = await supabase
       .from("generations")
