@@ -86,7 +86,14 @@ export async function POST(request: Request) {
       mode: "payment",
       submit_type: "pay",
       payment_method_types: ["card"],
-      metadata: { generationId, size },
+      metadata: {
+        generationId,
+        size,
+        userAgent,
+        ipAddress,
+        fbc: fbc || null,
+        fbp: fbp || null,
+      },
       shipping_address_collection:
         size === "Digital"
           ? undefined
