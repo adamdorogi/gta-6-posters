@@ -12,7 +12,15 @@ const MetaPixel = () => {
   useEffect(() => {
     if (!loaded) return;
 
-    event("PageView", {}, { eventID: "testId" });
+    event("PageView");
+
+    if (pathname.startsWith("/preview/")) {
+      event("ViewContent", {
+        content_name: "Canvas Print",
+        content_type: "product",
+        currency: "AUD",
+      });
+    }
   }, [pathname, loaded]);
 
   return <Script src="/scripts/meta-pixel.js" onLoad={() => setLoaded(true)} />;
