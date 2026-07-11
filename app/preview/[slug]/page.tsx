@@ -3,6 +3,7 @@ import PreviewGallery from "@/app/ui/preview-gallery";
 import SuccessHandler from "@/app/ui/success-handler";
 import { supabase } from "@/app/utils/supabase";
 import { redirect } from "next/navigation";
+import ViewContentPixel from "./view-content-pixel";
 
 export default async function Home({
   params,
@@ -39,6 +40,7 @@ export default async function Home({
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans text-foreground">
+      <ViewContentPixel />
       <NavBar />
       <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col items-center py-4 px-6 bg-background">
         <PreviewGallery

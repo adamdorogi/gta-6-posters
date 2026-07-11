@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { useEffect, useState } from "react";
-import * as pixel from "./meta-pixel-events";
+import { event } from "./meta-pixel-events";
 
 const MetaPixel = () => {
   const [loaded, setLoaded] = useState(false);
@@ -12,7 +12,7 @@ const MetaPixel = () => {
   useEffect(() => {
     if (!loaded) return;
 
-    pixel.pageView();
+    event("PageView");
   }, [pathname, loaded]);
 
   return <Script src="/scripts/meta-pixel.js" onLoad={() => setLoaded(true)} />;
