@@ -27,19 +27,25 @@ export default function BuyButton({
       disabled={isLoading}
       onClick={async () => {
         setIsLoading(true);
-        event("InitiateCheckout", {
-          content_ids: ["personalised-canvas"],
-          content_name: "Personalised Canvas",
-          content_type: "product",
-          currency: "AUD",
-          value: price / 100,
-          num_items: 1,
-        });
+        const eventId = crypto.randomUUID();
+        event(
+          "InitiateCheckout",
+          {
+            content_ids: ["personalised-canvas"],
+            content_name: "Personalised Canvas",
+            content_type: "product",
+            currency: "AUD",
+            value: price / 100,
+            num_items: 1,
+          },
+          { eventID: eventId },
+        );
         const resp = await fetch("/api/checkout", {
           method: "POST",
           body: JSON.stringify({
             generationId,
             size,
+            eventId,
           }),
         });
         const response = await resp.json();

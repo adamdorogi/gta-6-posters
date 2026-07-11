@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
     const headersList = await headers();
     const referrer = headersList.get("referer") as string;
-    const { generationId, size } = await request.json();
+    const { generationId, size, eventId } = await request.json();
 
     if (products[size] === undefined) {
       return new Response(JSON.stringify({ error: "Invalid size." }), {
