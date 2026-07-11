@@ -1,11 +1,7 @@
 // https://developers.facebook.com/docs/facebook-pixel/advanced/
-export const event = (name, options = {}) => {
+export const event = (name, options = {}, customData = {}) => {
   if (typeof window === "undefined") return;
   if (typeof window.fbq !== "function") return;
 
-  window.fbq("track", name, options);
+  window.fbq("track", name, options, customData);
 };
-
-// fbq('track', 'ViewContent');
-// fbq('track', 'InitiateCheckout');
-// fbq('track', 'Purchase', {value: 0.00, currency: 'GBP'});
