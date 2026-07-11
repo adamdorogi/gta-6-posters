@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 import { products } from "@/app/utils/pricing";
 import { supabase } from "@/app/utils/supabase";
-import { getIpAddress, getUserAgent } from "@/app/utils/user";
+import { getFbp, getFbc, getIpAddress, getUserAgent } from "@/app/utils/user";
 
 export async function POST(request: Request) {
   try {
@@ -18,9 +18,15 @@ export async function POST(request: Request) {
     }
 
     // Send the InitiateCheckout event to Conversions API
-    const ipAddress = await getIpAddress();
-    const userAgent = await getUserAgent();
-    const res = await fetch(
+    const [ipAddress, userAgent, fbc, fbp] = await Promise.all([
+      getIpAddress(),
+      getUserAgent(),
+      getFbc(),
+      getFbp(),
+    ]);
+    console.log("FBC:", fbc);
+    console.log("FBP:", fbp);
+    fetch(
       `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${process.env.META_ACCESS_TOKEN}`,
       {
         method: "POST",
@@ -38,6 +44,8 @@ export async function POST(request: Request) {
               user_data: {
                 client_ip_address: ipAddress,
                 client_user_agent: userAgent,
+                fbc,
+                fbp,
               },
               custom_data: {
                 content_ids: ["personalised-canvas"],
@@ -52,9 +60,6 @@ export async function POST(request: Request) {
         }),
       },
     );
-
-    console.log("Response");
-    console.log(await res.json());
 
     const { data: generationData, error: generationError } = await supabase
       .from("generations")
