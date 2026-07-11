@@ -16,7 +16,8 @@ const MetaPixel = () => {
 
     if (pathname.startsWith("/preview/")) {
       event("ViewContent", {
-        content_name: "Canvas Print",
+        content_ids: ["personalised-canvas"],
+        content_name: "Personalised Canvas",
         content_type: "product",
         currency: "AUD",
       });
