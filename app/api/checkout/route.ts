@@ -24,8 +24,7 @@ export async function POST(request: Request) {
       getFbc(),
       getFbp(),
     ]);
-    console.log("FBC:", fbc);
-    console.log("FBP:", fbp);
+
     fetch(
       `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${process.env.META_ACCESS_TOKEN}`,
       {
