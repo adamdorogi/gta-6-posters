@@ -11,3 +11,8 @@ export async function getIpAddress() {
   const headersList = await headers();
   return headersList.get("x-forwarded-for") || "";
 }
+
+export async function getUserAgent() {
+  const headersList = await headers();
+  return headersList.get("user-agent") || "";
+}

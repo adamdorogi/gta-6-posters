@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 import { products } from "@/app/utils/pricing";
 import { supabase } from "@/app/utils/supabase";
+import { getIpAddress, getUserAgent } from "@/app/utils/user";
 
 export async function POST(request: Request) {
   try {
@@ -15,6 +16,31 @@ export async function POST(request: Request) {
         status: 400,
       });
     }
+
+    // Send the InitiateCheckout event to Conversions API
+    const ipAddress = await getIpAddress();
+    const userAgent = await getUserAgent();
+    fetch(
+      `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${process.env.META_ACCESS_TOKEN}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          data: [
+            {
+              event_name: "InitiateCheckout",
+              event_time: Math.floor(Date.now() / 1000),
+              action_source: "website",
+              event_source_url: referrer,
+              event_id: eventId,
+              user_data: {
+                client_ip_address: ipAddress,
+                client_user_agent: userAgent,
+              },
+            },
+          ],
+        }),
+      },
+    );
 
     const { data: generationData, error: generationError } = await supabase
       .from("generations")
