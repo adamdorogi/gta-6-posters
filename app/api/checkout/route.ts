@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     // Send the InitiateCheckout event to Conversions API
     const ipAddress = await getIpAddress();
     const userAgent = await getUserAgent();
-    fetch(
+    const res = await fetch(
       `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${process.env.META_ACCESS_TOKEN}`,
       {
         method: "POST",
@@ -36,11 +36,22 @@ export async function POST(request: Request) {
                 client_ip_address: ipAddress,
                 client_user_agent: userAgent,
               },
+              custom_data: {
+                content_ids: ["personalised-canvas"],
+                content_name: "Personalised Canvas",
+                content_type: "product",
+                currency: "AUD",
+                value: products[size].price / 100,
+                num_items: 1,
+              },
             },
           ],
         }),
       },
     );
+
+    console.log("Response");
+    console.log(await res.json());
 
     const { data: generationData, error: generationError } = await supabase
       .from("generations")
