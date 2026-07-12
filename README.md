@@ -2,12 +2,14 @@
 
 1. design order confirmation email
 2. design digital download email
-3. tracking emails: order tracking page? shipment tracking? (https://developers.printify.com/#payload-examples)
-4. improve prompt
-5. email account (namecheap?)
-6. SEO descriptions, og links, metadata/titles, etc.
-7. FAQ, videos, and other aesthetics
-8. done.
+3. design shipment created email
+4. design shipment delivered email
+5. improve prompt
+6. create and test email account (namecheap?) (reply to order confirmation)
+7. SEO descriptions, og links, og images, metadata/titles, etc.
+8. FAQ, videos, and other aesthetics
+9. uncomment image upscale
+10. done.
 
 - maybe:
   - mockups above couch !
@@ -248,4 +250,40 @@ GET https://turnmeroyal.com/api/generation/09cc4364-3749-450b-8c2d-0869ef129a33/
 
 https://bktibfdhkrzhefvybtlo.supabase.co/storage/v1/object/public/watermarked/admin/e584e0ed-248b-4be9-96c0-716973704d49.jpg
 https://bktibfdhkrzhefvybtlo.supabase.co/storage/v1/object/public/reviews/loox-reviews/HlKAJUN6FL.jpg
+```
+
+## Printify Webhook Tests
+
+Shipment Created
+
+```
+curl -X POST https://api.printify.com/v1/shops/27733486/webhooks/6a53d2023e2bf118070f53f7/simulate -H "Authorization: Bearer $PRINTIFY_API_TOKEN" -H "Content-Type: application/json" -d '{
+  "shop_id": 815256,
+  "shipped_at": "2022-05-17 15:00:00+00:00",
+  "carrier": {
+    "code": "USPS",
+    "tracking_number": "9400110200828911663274",
+    "tracking_url": "https://example.com/track/9400110200828911663274"
+  },
+  "skus": [
+    "6202"
+  ]
+}'
+```
+
+Shipment Delivered
+
+```
+curl -X POST https://api.printify.com/v1/shops/27733486/webhooks/6a53d2356593a903980dcd14/simulate -H "Authorization: Bearer $PRINTIFY_API_TOKEN" -H "Content-Type: application/json" -d '{
+  "shop_id": 815256,
+  "delivered_at": "2022-05-17 15:00:00+00:00",
+  "carrier": {
+    "code": "USPS",
+    "tracking_number": "9400110200828911663274",
+    "tracking_url": "https://example.com/track/9400110200828911663274"
+  },
+  "skus": [
+    "6202"
+  ]
+}'
 ```
