@@ -25,7 +25,7 @@ export async function POST(request: Request) {
       });
     }
 
-    // Send the InitiateCheckout event to Conversions API
+    // Send events to Meta and TikTok
     const [ipAddress, userAgent, fbc, fbp, ttp, ttclid] = await Promise.all([
       getIpAddress(),
       getUserAgent(),
@@ -35,6 +35,7 @@ export async function POST(request: Request) {
       getTtclid(),
     ]);
 
+    // Meta event
     const metaPayload = {
       data: [
         {
@@ -71,6 +72,7 @@ export async function POST(request: Request) {
       },
     );
 
+    // TikTok event
     const tikTokPayload = {
       event_source: "web",
       event_source_id: "D99O34JC77U7PB56ORFG",
@@ -106,56 +108,14 @@ export async function POST(request: Request) {
         },
       ],
     };
-    // const tikTokPayload = {
-    //   event_source: "web",
-    //   event_source_id: "D99O34JC77U7PB56ORFG",
-    //   data: [
-    //     {
-    //       event: "InitiateCheckout",
-    //       event_time: 1783861110,
-    //       event_id: "abcd",
-    //       user: {
-    //         email:
-    //           "82244417f956ac7c599f191593f7e441a4fafa20a4158fd52e154f1dc4c8ed92",
-    //         ttclid: "aaa",
-    //         ttp: "aaa",
-    //         ip: "aaa",
-    //         user_agent: "aaa",
-    //       },
-    //       properties: {
-    //         contents: [
-    //           {
-    //             price: 3,
-    //             quantity: 1,
-    //             content_id: "aaaa",
-    //             content_category: null,
-    //             content_name: "aaaa",
-    //             brand: null,
-    //           },
-    //         ],
-    //         currency: "AUD",
-    //         value: 2,
-    //         content_type: "product",
-    //       },
-    //       page: {
-    //         url: "aa",
-    //         referrer: "aa",
-    //       },
-    //     },
-    //   ],
-    // };
-    const resp = await fetch(
-      `https://business-api.tiktok.com/open_api/v1.3/event/track/`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Token": process.env.TIKTOK_ACCESS_TOKEN as string,
-        },
-        body: JSON.stringify(tikTokPayload),
+    fetch(`https://business-api.tiktok.com/open_api/v1.3/event/track/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Token": process.env.TIKTOK_ACCESS_TOKEN as string,
       },
-    );
-    console.log("TikTok response:", await resp.json());
+      body: JSON.stringify(tikTokPayload),
+    });
 
     const { data: generationData, error: generationError } = await supabase
       .from("generations")
