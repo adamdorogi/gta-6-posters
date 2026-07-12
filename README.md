@@ -1,12 +1,12 @@
 # TODO
 
-1. order confirmation emails
-2. digital download emails: try digital purchase flow/digital download. make sure email is sent and POD is not triggered.
-3. tracking emails: order tracking page? shipment tracking?
+1. design order confirmation email
+2. design digital download email
+3. tracking emails: order tracking page? shipment tracking? (https://developers.printify.com/#payload-examples)
 4. improve prompt
-5. SEO descriptions, og links, metadata/titles, etc.
-6. FAQ, videos, and other aesthetics
-7. meta/tiktok pixel
+5. email account (namecheap?)
+6. SEO descriptions, og links, metadata/titles, etc.
+7. FAQ, videos, and other aesthetics
 8. done.
 
 - maybe:
