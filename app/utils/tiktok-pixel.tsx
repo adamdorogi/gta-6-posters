@@ -26,7 +26,7 @@ const TikTokPixel = () => {
   }, [pathname, loaded]);
 
   return (
-    <Script src="/scripts/tiktokt-pixel.js" onLoad={() => setLoaded(true)} />
+    <Script src="/scripts/tiktok-pixel.js" onLoad={() => setLoaded(true)} />
   );
 };
 
