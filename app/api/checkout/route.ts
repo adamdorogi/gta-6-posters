@@ -145,7 +145,7 @@ export async function POST(request: Request) {
     //   ],
     // };
     const resp = await fetch(
-      `https://business-api.tiktok.com/open_api/v1.3/event/track`,
+      `https://business-api.tiktok.com/open_api/v1.3/event/track/`,
       {
         method: "POST",
         headers: {
