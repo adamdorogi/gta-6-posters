@@ -30,3 +30,17 @@ export async function getFbp() {
 
   return cookieStore.get(COOKIE_NAME)?.value;
 }
+
+export async function getTtp() {
+  const COOKIE_NAME = "_ttp";
+  const cookieStore = await cookies();
+
+  return cookieStore.get(COOKIE_NAME)?.value;
+}
+
+export async function getTtclid() {
+  const COOKIE_NAME = "ttclid";
+  const cookieStore = await cookies();
+
+  return cookieStore.get(COOKIE_NAME)?.value;
+}

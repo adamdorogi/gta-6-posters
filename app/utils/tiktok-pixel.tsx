@@ -19,6 +19,7 @@ const TikTokPixel = () => {
             content_id: "personalised-canvas",
             content_type: "product",
             content_name: "Personalised Canvas",
+            brand: "Turn Royal",
           },
         ],
       });

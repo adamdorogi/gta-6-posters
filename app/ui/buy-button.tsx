@@ -55,6 +55,7 @@ export default function BuyButton({
                 content_name: "Personalised Canvas",
                 price: price / 100,
                 quantity: 1,
+                brand: "Turn Royal",
               },
             ],
             value: price / 100,

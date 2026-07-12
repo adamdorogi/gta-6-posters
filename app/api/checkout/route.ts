@@ -2,7 +2,14 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 import { products } from "@/app/utils/pricing";
 import { supabase } from "@/app/utils/supabase";
-import { getFbp, getFbc, getIpAddress, getUserAgent } from "@/app/utils/user";
+import {
+  getFbp,
+  getFbc,
+  getIpAddress,
+  getUserAgent,
+  getTtp,
+  getTtclid,
+} from "@/app/utils/user";
 
 export async function POST(request: Request) {
   try {
@@ -19,14 +26,16 @@ export async function POST(request: Request) {
     }
 
     // Send the InitiateCheckout event to Conversions API
-    const [ipAddress, userAgent, fbc, fbp] = await Promise.all([
+    const [ipAddress, userAgent, fbc, fbp, ttp, ttclid] = await Promise.all([
       getIpAddress(),
       getUserAgent(),
       getFbc(),
       getFbp(),
+      getTtp(),
+      getTtclid(),
     ]);
 
-    const payload = {
+    const metaPayload = {
       data: [
         {
           event_name: "InitiateCheckout",
@@ -51,7 +60,6 @@ export async function POST(request: Request) {
         },
       ],
     };
-
     fetch(
       `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${process.env.META_ACCESS_TOKEN}`,
       {
@@ -59,9 +67,95 @@ export async function POST(request: Request) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(metaPayload),
       },
     );
+
+    const tikTokPayload = {
+      event_source: "web",
+      event_source_id: "D99O34JC77U7PB56ORFG",
+      data: [
+        {
+          event: "InitiateCheckout",
+          event_time: Math.floor(Date.now() / 1000),
+          event_id: tikTokEventId,
+          user: {
+            ttclid,
+            ttp,
+            ip: ipAddress,
+            user_agent: userAgent,
+          },
+          properties: {
+            contents: [
+              {
+                price: products[size].price / 100,
+                quantity: 1,
+                content_id: "personalised-canvas",
+                content_name: "Personalised Canvas",
+                brand: "Turn Royal",
+              },
+            ],
+            currency: "AUD",
+            value: products[size].price / 100,
+            content_type: "product",
+          },
+          page: {
+            url: referrer,
+            referrer,
+          },
+        },
+      ],
+    };
+    // const tikTokPayload = {
+    //   event_source: "web",
+    //   event_source_id: "D99O34JC77U7PB56ORFG",
+    //   data: [
+    //     {
+    //       event: "InitiateCheckout",
+    //       event_time: 1783861110,
+    //       event_id: "abcd",
+    //       user: {
+    //         email:
+    //           "82244417f956ac7c599f191593f7e441a4fafa20a4158fd52e154f1dc4c8ed92",
+    //         ttclid: "aaa",
+    //         ttp: "aaa",
+    //         ip: "aaa",
+    //         user_agent: "aaa",
+    //       },
+    //       properties: {
+    //         contents: [
+    //           {
+    //             price: 3,
+    //             quantity: 1,
+    //             content_id: "aaaa",
+    //             content_category: null,
+    //             content_name: "aaaa",
+    //             brand: null,
+    //           },
+    //         ],
+    //         currency: "AUD",
+    //         value: 2,
+    //         content_type: "product",
+    //       },
+    //       page: {
+    //         url: "aa",
+    //         referrer: "aa",
+    //       },
+    //     },
+    //   ],
+    // };
+    const resp = await fetch(
+      `https://business-api.tiktok.com/open_api/v1.3/event/track`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Token:": process.env.TIKTOK_ACCESS_TOKEN as string,
+        },
+        body: JSON.stringify(tikTokPayload),
+      },
+    );
+    console.log("TikTok response:", await resp.json());
 
     const { data: generationData, error: generationError } = await supabase
       .from("generations")
@@ -96,6 +190,8 @@ export async function POST(request: Request) {
         ipAddress,
         fbc: fbc || null,
         fbp: fbp || null,
+        ttp: ttp || null,
+        ttclid: ttclid || null,
       },
       shipping_address_collection:
         size === "Digital"
