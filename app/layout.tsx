@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import MetaPixel from "./utils/meta-pixel";
+import TikTokPixel from "./utils/tiktok-pixel";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <MetaPixel />
+        <TikTokPixel />
       </body>
     </html>
   );
