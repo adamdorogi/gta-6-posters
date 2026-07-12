@@ -42,24 +42,28 @@ export default function BuyButton({
           },
           { eventID: metaEventId },
         );
-        tikTokEvent("InitiateCheckout", {
-          content_ids: ["personalised-canvas"],
-          content_name: "Personalised Canvas",
-          content_type: "product",
-          contents: [
-            {
-              content_id: "personalised-canvas",
-              content_type: "product",
-              content_name: "Personalised Canvas",
-              price: price / 100,
-              quantity: 1,
-            },
-          ],
-          value: price / 100,
-          currency: "AUD",
-          num_items: 1,
-          event_id: tikTokEventId,
-        });
+        tikTokEvent(
+          "InitiateCheckout",
+          {
+            content_ids: ["personalised-canvas"],
+            content_name: "Personalised Canvas",
+            content_type: "product",
+            contents: [
+              {
+                content_id: "personalised-canvas",
+                content_type: "product",
+                content_name: "Personalised Canvas",
+                price: price / 100,
+                quantity: 1,
+              },
+            ],
+            value: price / 100,
+            currency: "AUD",
+            num_items: 1,
+            event_id: tikTokEventId,
+          },
+          { event_id: tikTokEventId },
+        );
         const resp = await fetch("/api/checkout", {
           method: "POST",
           body: JSON.stringify({
