@@ -2,7 +2,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { event } from "@/app/utils/meta-pixel-events";
+import { event as metaEvent } from "@/app/utils/meta-pixel-events";
+import { event as tikTokEvent } from "@/app/utils/tiktok-pixel-events";
 
 export default function BuyButton({
   generationId,
@@ -27,8 +28,8 @@ export default function BuyButton({
       disabled={isLoading}
       onClick={async () => {
         setIsLoading(true);
-        const eventId = crypto.randomUUID();
-        event(
+        const metaEventId = crypto.randomUUID();
+        metaEvent(
           "InitiateCheckout",
           {
             content_ids: ["personalised-canvas"],
@@ -38,14 +39,31 @@ export default function BuyButton({
             value: price / 100,
             num_items: 1,
           },
-          { eventID: eventId },
+          { eventID: metaEventId },
         );
+        tikTokEvent("InitiateCheckout", {
+          content_ids: ["personalised-canvas"],
+          content_name: "Personalised Canvas",
+          content_type: "product",
+          contents: [
+            {
+              content_id: "personalised-canvas",
+              content_type: "product",
+              content_name: "Personalised Canvas",
+              price: price / 100,
+              quantity: 1,
+            },
+          ],
+          value: price / 100,
+          currency: "AUD",
+          num_items: 1,
+        });
         const resp = await fetch("/api/checkout", {
           method: "POST",
           body: JSON.stringify({
             generationId,
             size,
-            eventId,
+            eventId: metaEventId,
           }),
         });
         const response = await resp.json();
