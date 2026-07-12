@@ -9,7 +9,8 @@ export async function POST(request: Request) {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
     const headersList = await headers();
     const referrer = headersList.get("referer") as string;
-    const { generationId, size, eventId } = await request.json();
+    const { generationId, size, metaEventId, tikTokEventId } =
+      await request.json();
 
     if (products[size] === undefined) {
       return new Response(JSON.stringify({ error: "Invalid size." }), {
@@ -32,7 +33,7 @@ export async function POST(request: Request) {
           event_time: Math.floor(Date.now() / 1000),
           action_source: "website",
           event_source_url: referrer,
-          event_id: eventId,
+          event_id: metaEventId,
           user_data: {
             client_ip_address: ipAddress,
             client_user_agent: userAgent,

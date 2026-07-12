@@ -29,6 +29,7 @@ export default function BuyButton({
       onClick={async () => {
         setIsLoading(true);
         const metaEventId = crypto.randomUUID();
+        const tikTokEventId = crypto.randomUUID();
         metaEvent(
           "InitiateCheckout",
           {
@@ -57,13 +58,15 @@ export default function BuyButton({
           value: price / 100,
           currency: "AUD",
           num_items: 1,
+          event_id: tikTokEventId,
         });
         const resp = await fetch("/api/checkout", {
           method: "POST",
           body: JSON.stringify({
             generationId,
             size,
-            eventId: metaEventId,
+            metaEventId,
+            tikTokEventId,
           }),
         });
         const response = await resp.json();
