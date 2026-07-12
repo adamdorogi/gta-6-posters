@@ -1,4 +1,3 @@
-// https://developers.facebook.com/docs/facebook-pixel/advanced/
 export const event = (name, options, customData) => {
 if (typeof window === "undefined") return;
   if (typeof window.ttq === "undefined") return;
