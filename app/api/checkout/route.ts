@@ -150,7 +150,7 @@ export async function POST(request: Request) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Access-Token:": process.env.TIKTOK_ACCESS_TOKEN as string,
+          "Access-Token": process.env.TIKTOK_ACCESS_TOKEN as string,
         },
         body: JSON.stringify(tikTokPayload),
       },
