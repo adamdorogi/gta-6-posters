@@ -10,16 +10,17 @@ type Style = {
 const SHOWCASE_PREVIEWS: Record<string, string> = {
   royal: "/showcase/royal/Sample royal portrait of a woman.webp",
   cowboy: "/showcase/cowboy/Sample cowboy portrait of a girl.webp",
-  godfather: "/showcase/godfather/Sample godfather portrait of a couple.webp",
+  mafiaBoss: "/showcase/mafia-boss/Sample mafia boss portrait of a couple.webp",
   superhero: "/showcase/superhero/Sample superhero portrait of a family.webp",
   viking: "/showcase/viking/Sample viking portrait of a father and son.webp",
 };
 
 function getPreviewSrc(style: Style) {
-  const normalized = `${style.id} ${style.name}`.toLowerCase();
+  const normalized =
+    `${style.id} ${style.name.replace(/\s/g, "")}`.toLowerCase();
 
   for (const key of Object.keys(SHOWCASE_PREVIEWS)) {
-    if (normalized.includes(key)) {
+    if (normalized.includes(key.toLowerCase())) {
       return SHOWCASE_PREVIEWS[key];
     }
   }
@@ -72,7 +73,7 @@ export default function StylePicker({
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-3">
                   <div className="min-w-0">
                     <p
-                      className={`truncate text-base font-semibold ${selected ? "text-accent font-bold" : "text-white/90"}`}
+                      className={`truncate text-base font-semibold text-pretty ${selected ? "text-accent font-bold" : "text-white/90"}`}
                     >
                       {style.name}
                     </p>

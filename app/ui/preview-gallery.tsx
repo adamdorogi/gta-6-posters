@@ -354,7 +354,7 @@ export default function PreviewGallery({
               size={selectedSize}
               price={products[selectedSize].price}
               generationId={selectedGeneration.id}
-              text="Download now + Canvas"
+              text="Canvas + Digital"
               iconPath="/box.svg"
               iconAlt="Buy Icon"
             />
