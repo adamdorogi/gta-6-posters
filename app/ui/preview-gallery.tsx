@@ -327,6 +327,9 @@ export default function PreviewGallery({
               "No watermarks",
               "Ready to hang - kit included",
               "Free shipping",
+              "12K Digital Download",
+              "Satin Finish",
+              "Pinewood Frame",
             ].map((item) => (
               <li
                 key={item}
@@ -418,7 +421,7 @@ export default function PreviewGallery({
               size="Digital"
               price={products["Digital"].price}
               generationId={selectedGeneration.id}
-              text="Download"
+              text="Digital Only"
               iconPath="/download.svg"
               iconAlt="Download Icon"
             />

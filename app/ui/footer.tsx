@@ -1,18 +1,34 @@
+import Logo from "./logo";
+
 export default function Footer() {
   return (
-    <footer className="py-12 px-6 border-t border-border text-center text-sm text-muted-foreground">
-      <div className="max-w-7xl mx-auto flex flex-col gap-4">
-        <div className="flex justify-center gap-6 mb-4 font-medium text-muted-foreground">
-          <a href="#" className="hover:text-primary">
-            Terms of Service
+    <footer className="bg-linear-135 from-gradient-light to-gradient-dark py-6 px-6 text-xs text-muted">
+      <div className="mx-auto flex max-w-5xl flex-col items-start gap-3 text-left">
+        <Logo light />
+
+        <div className="flex flex-wrap gap-6">
+          <a
+            href="#"
+            className="transition-opacity duration-200 ease-in-out hover:opacity-80"
+          >
+            Privacy
           </a>
-          <a href="#" className="hover:text-primary">
-            Privacy Policy
+          <a
+            href="#"
+            className="transition-opacity duration-200 ease-in-out hover:opacity-80"
+          >
+            Terms
           </a>
-          <a href="#" className="hover:text-primary">
-            Shipping Info
+          <a
+            href="#"
+            className="transition-opacity duration-200 ease-in-out hover:opacity-80"
+          >
+            Contact
           </a>
         </div>
+
+        <div className="h-px w-full bg-muted/20" />
+
         <p>
           © {new Date().getFullYear()} Turn Royal. Crafting timeless memories.
         </p>

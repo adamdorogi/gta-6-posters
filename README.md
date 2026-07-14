@@ -1,17 +1,22 @@
 # TODO
 
-1. design order confirmation email
-2. design digital download email
-3. design shipment created email
-4. design shipment delivered email
-5. improve prompt
-6. create and test email account (namecheap?) (reply to order confirmation)
-7. SEO descriptions, og links, og images, metadata/titles, etc.
-8. FAQ, videos, and other aesthetics
-9. uncomment image upscale
-10. done.
+1. finishing touches: FAQ, videos, and other aesthetics
+2. SEO descriptions, og links, og images, metadata/titles, etc.
+3. contact form/page
+4. design order confirmation email (Your masterpiece is being prepared)
+5. design digital download email
+6. design production email (Your canvas has entered production)
+7. design shipment created email
+8. design shipment delivered email
+9. create and test email account (namecheap?) (reply to order confirmation etc.)
+10. improve prompts
+11. uncomment image upscale
+12. update sale text
+13. test order on live website, incognito, all database rows/cleared (but cancel printify order)
+14. done.
 
 - maybe:
+  - upsell/follow up emails (e.g. Want another style of the same photo?)
   - mockups above couch !
   - size comparison overlays/mockups
   - cart
@@ -25,9 +30,9 @@ styles:
 
 - royal
 - viking
-- godfather
+- mafia boss
 - cowboy
-- super hero
+- superhero
 
 ## TurnMeRoyal
 
@@ -254,6 +259,14 @@ https://bktibfdhkrzhefvybtlo.supabase.co/storage/v1/object/public/reviews/loox-r
 
 ## Printify Webhook Tests
 
+Sent to Production
+
+```
+curl -X POST https://api.printify.com/v1/shops/27733486/webhooks/6a552bc053da25148b0c07e7/simulate -H "Authorization: Bearer $PRINTIFY_API_TOKEN" -H "Content-Type: application/json" -d '{
+  "shop_id": 815256
+}'
+```
+
 Shipment Created
 
 ```
@@ -287,3 +300,129 @@ curl -X POST https://api.printify.com/v1/shops/27733486/webhooks/6a53d2356593a90
   ]
 }'
 ```
+
+## For LLM
+
+```
+I'm working on a NextJS 16 website that let's users upload an image of themselves, loved ones, or pets, and they can generate a royal, renaissance style (among other styles) portrait, which they can also order as a physical canvas. Don't think of it as an AI tech app, but rather a niche ecommerce gift store.
+
+Flow:
+- user uploads at least one image, selects a style, an optional prompt, and submits
+- preview will be generated and shown to user
+- user can regenerate with a different style or prompt
+- users get 5 credits/generations every 12 hours, to avoid abusing the system
+- user can buy a physical canvas of the generation, or just the digital image
+- after purchase has been placed, user receives an order confirmation email, and a digital download email (containing high-res 12K image)
+
+Styles:
+- royal
+- viking
+- mafia boss
+- cowboy
+- superhero
+
+Product:
+- Physical canvas
+  - Material: high-quality polycotton
+  - New Zealand Pinewood frame
+  - Semi-glossy satin finish
+  - Comes with a self-assembly hanging kit
+- Final designs (after purchase) will be upscaled to 12K, providing at least a +320dpi print (depending on canvas size)
+
+Pricing:
+- Physical canvas:
+  - 8x12 inch: 89 AUD (production cost: 40.14 AUD, profit: 48.86 AUD)
+  - 12x16 inch: 99 AUD (production cost: 43.77 AUD, profit: 55.23 AUD)
+  - 16x24 inch: 109 AUD (production cost: 59.37 AUD, profit: 49.63 AUD)
+  - 30x40 inch: 199 AUD (production cost: 116.25 AUD, profit: 82.75 AUD)
+- Digital only: 59 AUD (production cost: 1 AUD, profit: 58 AUD)
+- There will always be a 60% sale on (e.g. summer sale, winter sale, christmas sale, fathers day sale, etc.). Above prices are final, after discount has been applied.
+- Free shipping included
+
+Target audience:
+- Australia only
+
+Marketing:
+- TikTok ads
+- Instagram ads
+
+Stack:
+- NextJS 16 and Vercel (for frontend and some backend development, and deployment)
+- Supabase (for edge functions and database)
+- OpenRouter and Replicate.com (for image generation and upscaling respectively)
+- Stripe (for payments)
+- Printify (for POD)
+- TikTok pixel and Meta pixel (for ads tracking)
+```
+
+- What should CTA buttons say? Download? Digital Only? Canvas + Digital
+- landing page, value prop,
+
+## Ads
+
+Don't advertise AI.
+
+Advertise reactions.
+
+Videos like:
+
+Girlfriend uploads boyfriend...
+
+3 seconds later...
+
+"...WHAT?!"
+
+Show:
+
+before
+
+↓
+
+generation
+
+↓
+
+canvas on wall
+
+↓
+
+person opening it
+
+Those perform far better than showing prompts or interfaces.
+
+You are an elite conversion copywriter specializing in premium ecommerce brands.
+
+Your goal is NOT to sound clever. Your goal is to maximize conversion rate while maintaining a premium, trustworthy brand.
+
+Context:
+
+- Product: AI-generated premium portraits from uploaded photos.
+- Customers upload a photo of themselves, loved ones or pets.
+- Portraits are available as high-quality framed canvases and 12K digital downloads.
+- Target audience: Australia.
+- Primary acquisition: TikTok and Instagram ads.
+- Brand personality:
+  - Premium but approachable.
+  - Emotional rather than technical.
+  - Focus on the finished artwork, not the AI.
+- Available styles include Royal, Viking, Cowboy, Superhero and Mafia Boss.
+
+When writing copy:
+
+- Prioritize clarity over cleverness.
+- Keep headlines under 10 words whenever possible.
+- Make every sentence easy to scan.
+- Focus on emotion, pride, gifting and home decoration.
+- Never overhype or sound spammy.
+- Avoid clichés like "unlock", "revolutionary", "next level", "magic", "AI-powered", "state-of-the-art", "one-of-a-kind".
+- Avoid fake urgency or manipulative sales tactics.
+- Emphasize premium quality and timeless artwork.
+- Write in Australian English.
+- Whenever possible, generate 10-20 alternatives ranked from strongest to weakest, with a brief explanation of why each should convert well.
+
+For every request:
+
+1. Critique the existing copy.
+2. Explain what could be improved.
+3. Produce multiple alternatives.
+4. Recommend the single strongest option and explain why.

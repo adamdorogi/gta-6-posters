@@ -2,12 +2,14 @@
 
 :root {
   --background: #fdfbf7;
-  --foreground: #2d2a26;
+  --foreground: #1c1820;
   --primary: #392f5a;
+  --gradient-dark: #2c2448;
+  --gradient-light: #45396c;
   --primary-foreground: #fdfbf7;
   --accent: #fec84b;
   --accent-foreground: #2d2a26;
-  --muted: #f3eee4;
+  --muted: #eee9e3;
   --muted-foreground: #7a746d;
   --border: #cfc5e6;
   --input: #f3eee4;
@@ -20,6 +22,8 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-gradient-dark: var(--gradient-dark);
+  --color-gradient-light: var(--gradient-light);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-muted: var(--muted);
@@ -28,8 +32,8 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --radius-xl: var(--radius);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-merriweather);
 }
 
 @keyframes vertical-slide {
@@ -66,5 +70,4 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Georgia', serif;
 }

@@ -64,7 +64,7 @@ export default function GenerationForm({
   };
 
   return (
-    <div className="px-12 flex min-w-0 flex-col gap-8 w-full">
+    <div className="px-12 flex min-w-0 flex-col gap-6 w-full">
       <StylePicker
         selectedStyleId={styleId}
         onChange={setStyleId}
@@ -152,7 +152,7 @@ export default function GenerationForm({
                   priority
                 />
               </div>
-              <span className="font-bold">Drag a photo or click to upload</span>
+              <span className="font-bold">Drop a photo or click to upload</span>
             </div>
           </>
         )}

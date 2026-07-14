@@ -7,7 +7,7 @@ export default async function NavBar() {
 
   return (
     <nav className="max-w-full border-b border-border">
-      <div className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto w-full">
+      <div className="flex items-center justify-between px-6 py-3 max-w-5xl mx-auto w-full">
         <Logo />
         <CreditsCountdown
           key={`${credits.credits}-${credits.remainingSeconds}`}
