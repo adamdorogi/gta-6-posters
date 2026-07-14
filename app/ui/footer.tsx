@@ -2,7 +2,7 @@ import Logo from "./logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-linear-135 from-gradient-light to-gradient-dark py-6 px-6 text-xs text-muted">
+    <footer className="bg-primary py-6 px-6 text-xs text-muted">
       <div className="mx-auto flex max-w-5xl flex-col items-start gap-3 text-left">
         <Logo light />
 

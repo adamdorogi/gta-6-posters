@@ -16,7 +16,7 @@ export default async function Home() {
   const showcaseImages = await getShowcaseImages();
 
   return (
-    <div className="flex flex-col min-h-screen bg-background font-sans text-foreground">
+    <div className="flex flex-col min-h-screen font-sans text-foreground">
       <PromoBanner />
       <NavBar />
 
