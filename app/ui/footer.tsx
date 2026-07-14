@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Logo from "./logo";
 
 export default function Footer() {
@@ -7,24 +8,24 @@ export default function Footer() {
         <Logo light />
 
         <div className="flex flex-wrap gap-6">
-          <a
+          <Link
             href="#"
             className="transition-opacity duration-200 ease-in-out hover:opacity-80"
           >
             Privacy
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="transition-opacity duration-200 ease-in-out hover:opacity-80"
           >
             Terms
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="transition-opacity duration-200 ease-in-out hover:opacity-80"
           >
             Contact
-          </a>
+          </Link>
         </div>
 
         <div className="h-px w-full bg-muted/20" />
