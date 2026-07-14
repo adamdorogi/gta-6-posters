@@ -35,7 +35,7 @@ export default function PreviewGrid({
           {item.uploadId ? (
             <button
               onClick={() => onRemove(idx)}
-              className="absolute top-1 right-1 bg-black/50 text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center hover:bg-black/75 transition-all sm:opacity-0 group-hover:opacity-100 cursor-pointer"
+              className="absolute top-1 right-1 bg-black/50 text-primary-foreground rounded-full w-5 h-5 text-[10px] flex items-center justify-center hover:bg-black/75 transition-all sm:opacity-0 group-hover:opacity-100 cursor-pointer"
             >
               <Image
                 src="/cross.svg"
@@ -47,7 +47,7 @@ export default function PreviewGrid({
             </button>
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm">
-              <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
             </div>
           )}
         </div>

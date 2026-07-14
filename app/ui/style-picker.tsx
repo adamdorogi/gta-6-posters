@@ -73,7 +73,7 @@ export default function StylePicker({
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-3">
                   <div className="min-w-0">
                     <p
-                      className={`truncate text-base font-semibold text-pretty ${selected ? "text-accent font-bold" : "text-white/90"}`}
+                      className={`truncate text-base font-semibold text-pretty ${selected ? "text-accent font-bold" : "text-primary-foreground/90"}`}
                     >
                       {style.name}
                     </p>

@@ -4,6 +4,7 @@ import ShowcaseCarousel from "./ui/showcase-carousel";
 import { supabase } from "./utils/supabase";
 import { getShowcaseImages } from "./utils/showcase";
 import Image from "next/image";
+import Link from "next/link";
 import NavBar from "./ui/nav-bar";
 import Footer from "./ui/footer";
 
@@ -22,11 +23,14 @@ export default async function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <div className="bg-linear-135 from-gradient-light to-gradient-dark text-white">
+        <div
+          id="create"
+          className="bg-linear-135 from-gradient-light to-gradient-dark text-primary-foreground"
+        >
           <section className="max-w-5xl mx-auto w-full grid lg:grid-cols-12 items-stretch">
             <div className="flex min-w-0 flex-col gap-6 justify-center items-center text-center py-6 md:py-8 lg:col-span-7 lg:items-start lg:text-left">
               <div className="px-12 flex flex-col gap-2 items-center lg:items-start">
-                <h1 className="text-4xl lg:text-6xl/17 italic font-serif font-black tracking-tight text-white leading-tight">
+                <h1 className="text-4xl lg:text-6xl/17 italic font-serif font-black tracking-tight text-primary-foreground leading-tight">
                   Turn your loved ones into a{" "}
                   <span className="text-accent">masterpiece!</span>
                 </h1>
@@ -51,7 +55,7 @@ export default async function Home() {
                   (benefit, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-3 text-sm text-muted font-medium"
+                      className="flex items-center gap-3 text-sm text-muted"
                     >
                       <Image
                         src="/tick.svg"
@@ -87,6 +91,85 @@ export default async function Home() {
             <p className="text-md text-muted-foreground max-w-2xl mx-auto">
               From thousands of unboxing moments
             </p>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section
+          id="features"
+          className="bg-linear-135 from-gradient-light to-gradient-dark py-16 mx-auto bg-muted w-full text-primary-foreground"
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-4xl font-serif italic font-black mb-4">
+              Why customers love <span className="text-accent">Turn Royal</span>
+            </h2>
+            <p className="text-md max-w-xl mx-auto">
+              See your royal portrait in seconds — free preview, no card needed
+            </p>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {[
+                {
+                  title: "Start for free",
+                  caption:
+                    "Get 5 free credits — no card needed, resets every 12 hours. Create your first portraits right now.",
+                  image: "/feature-free.png",
+                },
+                {
+                  title: "AI magic",
+                  caption:
+                    "Stunning portraits in seconds. Made to make you look legendary.",
+                  image: "/feature-magic.png",
+                },
+                {
+                  title: "Works with any photo",
+                  caption:
+                    "Pets, people, couples, families — any photo becomes a masterpiece.",
+                  image: "/feature-photo.png",
+                },
+                {
+                  title: "Free shipping on prints",
+                  caption:
+                    "Premium canvas prints shipped free. Museum-worthy quality, guaranteed.",
+                  image: "/feature-shipping.png",
+                },
+              ].map((feature) => (
+                <div
+                  key={feature.title}
+                  className="flex items-center gap-3 rounded-2xl bg-primary-foreground p-5 text-left"
+                >
+                  <Image
+                    src={feature.image}
+                    alt={feature.title}
+                    width={56}
+                    height={56}
+                  />
+                  <div className="min-w-0">
+                    <h3 className="text-md font-bold leading-tight text-foreground">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-foreground">
+                      {feature.caption}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="#create"
+              className="mx-auto mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-ring px-6 py-4 text-lg font-bold text-foreground shadow-lg transition-all hover:opacity-90 active:scale-[0.98]"
+            >
+              <Image
+                src="/sparkle.svg"
+                alt="Sparkle Icon"
+                width={24}
+                height={24}
+                priority
+                className="invert"
+              />
+              Create your portrait — free preview
+            </Link>
           </div>
         </section>
       </main>
