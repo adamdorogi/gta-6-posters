@@ -4,9 +4,9 @@ import ShowcaseCarousel from "./ui/showcase-carousel";
 import { supabase } from "./utils/supabase";
 import { getShowcaseImages } from "./utils/showcase";
 import Image from "next/image";
-import Link from "next/link";
 import NavBar from "./ui/nav-bar";
 import Footer from "./ui/footer";
+import ScrollToTopButton from "@/app/ui/scroll-to-top-button";
 
 export default async function Home() {
   const { data: styles } = await supabase
@@ -156,10 +156,7 @@ export default async function Home() {
               ))}
             </div>
 
-            <Link
-              href="#create"
-              className="mx-auto mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-ring px-6 py-4 text-lg font-bold text-foreground shadow-lg transition-all hover:opacity-90 active:scale-[0.98]"
-            >
+            <ScrollToTopButton>
               <Image
                 src="/sparkle.svg"
                 alt="Sparkle Icon"
@@ -169,7 +166,7 @@ export default async function Home() {
                 className="invert"
               />
               Create your portrait — free preview
-            </Link>
+            </ScrollToTopButton>
           </div>
         </section>
       </main>
