@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import NavBar from "../ui/nav-bar";
 import Footer from "../ui/footer";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -192,16 +193,16 @@ export default function Terms() {
               Photos used in purchased portraits are retained so you can
               re-download your portraits. You may request immediate deletion of
               your photos at any time by emailing{" "}
-              <a
+              <Link
                 href="mailto:help@turnmeroyal.com"
-                className="text-accent hover:underline"
+                className="text-primary hover:underline"
               >
                 help@turnmeroyal.com
-              </a>
+              </Link>
               . For the complete retention schedule, see Section 3 of our{" "}
-              <a className="text-accent hover:underline" href="/privacy">
+              <Link className="text-primary hover:underline" href="/privacy">
                 Privacy Policy
-              </a>
+              </Link>
               .
             </p>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
@@ -289,14 +290,14 @@ export default function Terms() {
               All payments are processed securely through Stripe. We do not
               store your payment card information on our servers. By making a
               purchase, you agree to Stripe&apos;s{" "}
-              <a
+              <Link
                 href="https://stripe.com/legal"
-                className="text-accent hover:underline"
+                className="text-primary hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 terms of service
-              </a>
+              </Link>
               . You are responsible for any fees charged by your bank or payment
               provider (e.g., currency conversion fees).
             </p>
@@ -310,12 +311,12 @@ export default function Terms() {
               generally not available once the download link has been accessed.
               If you experience technical issues with your download, please
               contact us at{" "}
-              <a
+              <Link
                 href="mailto:help@turnmeroyal.com"
-                className="text-accent hover:underline"
+                className="text-primary hover:underline"
               >
                 help@turnmeroyal.com
-              </a>{" "}
+              </Link>{" "}
               and we will work to resolve the issue.
             </p>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
@@ -380,12 +381,12 @@ export default function Terms() {
               purchasing and inspect your order promptly upon delivery. If you
               experience any issues with your order, please contact us
               immediately at{" "}
-              <a
+              <Link
                 href="mailto:help@turnmeroyal.com"
-                className="text-accent hover:underline"
+                className="text-primary hover:underline"
               >
                 help@turnmeroyal.com
-              </a>
+              </Link>
               .
             </p>
           </section>
@@ -520,9 +521,9 @@ export default function Terms() {
               TikTok, Hotjar, and Mixpanel) collect information about your
               device and your interactions with the Site in real time using
               cookies, pixels, and similar technologies, as described in our{" "}
-              <a className="text-accent hover:underline" href="/privacy">
+              <Link className="text-primary hover:underline" href="/privacy">
                 Privacy Policy
-              </a>
+              </Link>
               . This information may include the pages you view, the actions you
               take on the Site (such as generating a portrait preview or
               starting a checkout), your device and browser characteristics,
@@ -549,9 +550,9 @@ export default function Terms() {
               read more about your choices, including how to opt out of the
               disclosure of personal information for advertising purposes, in
               our{" "}
-              <a className="text-accent hover:underline" href="/privacy">
+              <Link className="text-primary hover:underline" href="/privacy">
                 Privacy Policy
-              </a>
+              </Link>
               .
             </p>
           </section>
@@ -593,12 +594,12 @@ export default function Terms() {
               </li>
               <li>
                 <strong>Email:</strong>{" "}
-                <a
+                <Link
                   href="mailto:help@turnmeroyal.com"
-                  className="text-accent hover:underline"
+                  className="text-primary hover:underline"
                 >
                   help@turnmeroyal.com
-                </a>
+                </Link>
               </li>
               <li>
                 <strong>Website:</strong> turnmeroyal.com

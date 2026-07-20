@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import NavBar from "../ui/nav-bar";
 import Footer from "../ui/footer";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -165,12 +166,12 @@ export default function Privacy() {
                 <strong>Early deletion:</strong> You may request immediate
                 deletion of your photos and generated portraits at any time by
                 contacting us at{" "}
-                <a
+                <Link
                   href="mailto:help@turnmeroyal.com"
-                  className="text-accent-primary hover:underline"
+                  className="text-primary hover:underline"
                 >
                   help@turnmeroyal.com
-                </a>
+                </Link>
                 .
               </li>
             </ul>
@@ -195,12 +196,12 @@ export default function Privacy() {
               </li>
               <li>
                 <strong>Immediate deletion on request:</strong> contact{" "}
-                <a
+                <Link
                   href="mailto:help@turnmeroyal.com"
-                  className="text-accent-primary hover:underline"
+                  className="text-primary hover:underline"
                 >
                   help@turnmeroyal.com
-                </a>{" "}
+                </Link>{" "}
                 to request deletion at any time.
               </li>
             </ul>
@@ -221,14 +222,14 @@ export default function Privacy() {
                 <strong>Stripe</strong> — Processes all payments. Stripe
                 receives your email, billing details, and payment card
                 information. Stripe&apos;s privacy policy:{" "}
-                <a
+                <Link
                   href="https://stripe.com/privacy"
-                  className="text-accent-primary hover:underline"
+                  className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   stripe.com/privacy
-                </a>
+                </Link>
               </li>
             </ul>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
@@ -273,14 +274,14 @@ export default function Privacy() {
                 confirmations, download links) and marketing emails (with your
                 consent). Klaviyo receives your email address and order
                 information. Klaviyo&apos;s privacy policy:{" "}
-                <a
+                <Link
                   href="https://www.klaviyo.com/legal/privacy"
-                  className="text-accent-primary hover:underline"
+                  className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   klaviyo.com/legal/privacy
-                </a>
+                </Link>
               </li>
             </ul>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
@@ -391,36 +392,36 @@ export default function Privacy() {
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
                 Facebook:{" "}
-                <a
+                <Link
                   href="https://www.facebook.com/settings/?tab=ads"
-                  className="text-accent-primary hover:underline"
+                  className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   facebook.com/settings/?tab=ads
-                </a>
+                </Link>
               </li>
               <li>
                 Google:{" "}
-                <a
+                <Link
                   href="https://adssettings.google.com"
-                  className="text-accent-primary hover:underline"
+                  className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   adssettings.google.com
-                </a>
+                </Link>
               </li>
               <li>
                 Digital Advertising Alliance:{" "}
-                <a
+                <Link
                   href="https://optout.aboutads.info"
-                  className="text-accent-primary hover:underline"
+                  className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   optout.aboutads.info
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
@@ -527,12 +528,12 @@ export default function Privacy() {
             </ul>
             <p className="mt-2">
               To exercise any of these rights, email{" "}
-              <a
+              <Link
                 href="mailto:help@turnmeroyal.com"
-                className="text-accent-primary hover:underline"
+                className="text-primary hover:underline"
               >
                 help@turnmeroyal.com
-              </a>
+              </Link>
               . We respond to verifiable requests within 30 days. Residents of
               the EU, EEA, and UK additionally have the right to lodge a
               complaint with their local data protection authority.
@@ -577,21 +578,21 @@ export default function Privacy() {
             <p>
               Our service is not directed to anyone under the age of 18. Per
               Section 4.1 of our{" "}
-              <a href="/terms" className="text-accent-primary hover:underline">
+              <Link href="/terms" className="text-primary hover:underline">
                 Terms of Service
-              </a>
+              </Link>
               , users must be at least 18 years of age (or the age of majority
               in their jurisdiction, if higher) to upload photographs or
               otherwise use the service. We do not knowingly collect personal
               information from individuals under 18. If you become aware that
               someone under 18 has provided us with personal data, please
               contact us at{" "}
-              <a
+              <Link
                 href="mailto:help@turnmeroyal.com"
-                className="text-accent-primary hover:underline"
+                className="text-primary hover:underline"
               >
                 help@turnmeroyal.com
-              </a>{" "}
+              </Link>{" "}
               and we will take steps to delete such information. This commitment
               is at least as protective as the United States Children&apos;s
               Online Privacy Protection Act (COPPA, under 13) and Article 8 of
@@ -600,9 +601,9 @@ export default function Privacy() {
             <p className="mt-2">
               Note that uploading photographs that depict children is separately
               governed by Section 4 of our{" "}
-              <a href="/terms" className="text-accent-primary hover:underline">
+              <Link href="/terms" className="text-primary hover:underline">
                 Terms of Service
-              </a>{" "}
+              </Link>{" "}
               — adult uploaders must be the parent or legal guardian of every
               child depicted, or have written consent from each such parent or
               legal guardian.
@@ -647,12 +648,12 @@ export default function Privacy() {
               </li>
               <li>
                 <strong>Email:</strong>{" "}
-                <a
+                <Link
                   href="mailto:help@turnmeroyal.com"
-                  className="text-accent-primary hover:underline"
+                  className="text-primary hover:underline"
                 >
                   help@turnmeroyal.com
-                </a>
+                </Link>
               </li>
               <li>
                 <strong>Website:</strong> turnmeroyal.com
