@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f3f8;
+  --background: #f5f2ee;
   --foreground: #1c1820;
   --primary: #392f5a;
   --gradient-dark: #2c2448;
   --gradient-light: #45396c;
-  --primary-foreground: #f5f3f8;
+  --primary-foreground: #f5f2ee;
   --accent: #fec84b;
+  --accent-dark: #c48810;
   --accent-foreground: #2d2a26;
-  --muted: #eee9e3;
+  --muted: #e8e2da;
   --muted-foreground: #7a746d;
   --border: #cfc5e6;
   --input: #f3eee4;
@@ -25,6 +26,7 @@
   --color-gradient-dark: var(--gradient-dark);
   --color-gradient-light: var(--gradient-light);
   --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
   --color-accent-foreground: var(--accent-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);

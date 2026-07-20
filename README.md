@@ -1,19 +1,20 @@
 # TODO
 
 1. finishing touches: FAQ, videos, and other aesthetics
-2. SEO descriptions, og links, og images, metadata/titles, etc.
-3. contact form/page
-4. design order confirmation email (Your masterpiece is being prepared)
-5. design digital download email
-6. design production email (Your canvas has entered production)
-7. design shipment created email
-8. design shipment delivered email
-9. create and test email account (namecheap?) (reply to order confirmation etc.)
-10. improve prompts
-11. uncomment image upscale
-12. update sale text
-13. test order on live website, incognito, all database rows/cleared (but cancel printify order)
-14. done.
+2. privacy, terms, contact
+3. SEO descriptions, og links, og images, metadata/titles, etc.
+4. contact form/page
+5. design order confirmation email (Your masterpiece is being prepared)
+6. design digital download email
+7. design production email (Your canvas has entered production)
+8. design shipment created email
+9. design shipment delivered email
+10. create and test email account (namecheap?) (reply to order confirmation etc.)
+11. improve prompts/ add reference image
+12. uncomment image upscale
+13. update sale text
+14. test order on live website, incognito, all database rows/cleared (but cancel printify order)
+15. done.
 
 - maybe:
   - upsell/follow up emails (e.g. Want another style of the same photo?)
