@@ -1,27 +1,38 @@
+import Image from "next/image";
 import Link from "next/link";
 import Logo from "./logo";
 
 export default function Footer() {
   return (
     <footer className="bg-primary py-6 px-6 text-xs text-muted">
-      <div className="mx-auto flex max-w-5xl flex-col items-start gap-3 text-left">
-        <Logo light />
+      <div className="mx-auto flex max-w-5xl flex-col gap-3 text-left">
+        <div className="flex items-start justify-between">
+          <Logo light />
+
+          <Link
+            href="mailto:hello@turnroyal.com"
+            aria-label="Email Turn Royal"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-muted/20 transition-opacity duration-200 ease-in-out hover:opacity-80"
+          >
+            <Image src="/email.svg" alt="Email Icon" width={20} height={20} />
+          </Link>
+        </div>
 
         <div className="flex flex-wrap gap-6">
           <Link
-            href="#"
+            href="/privacy"
             className="transition-opacity duration-200 ease-in-out hover:opacity-80"
           >
             Privacy
           </Link>
           <Link
-            href="#"
+            href="/terms"
             className="transition-opacity duration-200 ease-in-out hover:opacity-80"
           >
             Terms
           </Link>
           <Link
-            href="#"
+            href="mailto:hello@turnroyal.com"
             className="transition-opacity duration-200 ease-in-out hover:opacity-80"
           >
             Contact
@@ -31,7 +42,14 @@ export default function Footer() {
         <div className="h-px w-full bg-muted/20" />
 
         <p>
-          © {new Date().getFullYear()} Turn Royal. Crafting timeless memories.
+          © {new Date().getFullYear()}{" "}
+          <Link
+            href="/"
+            className="transition-opacity duration-200 ease-in-out hover:opacity-80"
+          >
+            Turn Royal
+          </Link>
+          . Crafting timeless memories.
         </p>
       </div>
     </footer>

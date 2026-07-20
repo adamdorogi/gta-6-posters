@@ -1,10 +1,11 @@
+import Footer from "@/app/ui/footer";
 import NavBar from "@/app/ui/nav-bar";
 import PreviewGallery from "@/app/ui/preview-gallery";
 import SuccessHandler from "@/app/ui/success-handler";
 import { supabase } from "@/app/utils/supabase";
 import { redirect } from "next/navigation";
 
-export default async function Home({
+export default async function Preview({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -50,6 +51,7 @@ export default async function Home({
         />
         <SuccessHandler />
       </main>
+      <Footer />
     </div>
   );
 }
