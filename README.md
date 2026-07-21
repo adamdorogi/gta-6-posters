@@ -1,9 +1,9 @@
 # TODO
 
-1. finishing touches: FAQ, videos, and other aesthetics
-2. privacy, terms, contact
+1. finishing touches: videos, preview page, mobile design.
+2. privacy, terms, contact: finalise
 3. SEO descriptions, og links, og images, metadata/titles, etc.
-4. contact form/page
+4. add to google/ddg console
 5. design order confirmation email (Your masterpiece is being prepared)
 6. design digital download email
 7. design production email (Your canvas has entered production)
