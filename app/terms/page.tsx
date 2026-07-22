@@ -16,16 +16,15 @@ export default function Terms() {
           Terms of Service
         </h1>
         <div className="space-y-6 text-sm leading-6 text-muted-foreground">
-          <p>Last updated: July 10, 2026</p>
+          <p>Last updated: July 22, 2026</p>
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-2">
               1. Overview
             </h2>
             <p>
-              This website, <strong>turnmeroyal.com</strong> (the “Site”), is
-              operated by UAB “Madcom” (the “Company”, “TurnMeRoyal”, “we”,
-              “us”, or “our”). Throughout the Site, the terms “you” and “your”
-              refer to the user of the Site.
+              Throughout this website, <strong>turnroyal.com</strong> (the
+              “Site”, “TurnRoyal”, “we”, “us”, or “our”), the terms “you” and
+              “your” refer to the user of the Site.
             </p>
             <p className="mt-2">
               By accessing or using the Site, you agree to be bound by these
@@ -39,13 +38,13 @@ export default function Terms() {
               2. Service Description
             </h2>
             <p>
-              TurnMeRoyal provides an AI-powered portrait generation service.
-              You upload one or more photographs, our artificial intelligence
-              system (powered by Google) transforms them into royal and
-              Renaissance-style portraits, and you can preview watermarked
+              TurnRoyal provides an AI-powered portrait generation service. You
+              upload one or more photographs, our artificial intelligence system
+              (powered by OpenRouter and Replicate) transforms them into royal
+              and Renaissance-style portraits, and you can preview watermarked
               versions for free. You may then purchase digital downloads of
-              unwatermarked portraits, or order physical fine art prints -
-              canvases or framed canvases.
+              unwatermarked portraits, or order physical fine art prints —
+              canvases.
             </p>
             <p className="mt-2">
               We reserve the right to modify, suspend, or discontinue the
@@ -130,7 +129,7 @@ export default function Terms() {
               <li>
                 <strong>No nudity, sexual, or exploitative content.</strong> The
                 photos contain no nudity, partial nudity, sexually suggestive
-                content, or any content that sexualizes, exploits, or endangers
+                content, or any content that sexualises, exploits, or endangers
                 any person — and absolutely no such content involving minors
                 under any circumstances. Uploading any sexual or exploitative
                 content involving a minor is a serious crime and will be
@@ -167,9 +166,9 @@ export default function Terms() {
               and privacy law, and the laws of your country of residence).
             </p>
             <p className="mt-2">
-              UAB “Madcom” does not pre-screen, review, or moderate every
-              uploaded photo. We do not endorse, verify, or assume
-              responsibility for any user-uploaded content, and we accept{" "}
+              TurnRoyal does not pre-screen, review, or moderate every uploaded
+              photo. We do not endorse, verify, or assume responsibility for any
+              user-uploaded content, and we accept{" "}
               <strong>no liability whatsoever</strong> for any photo you upload,
               for any consequence of uploading it, or for any portrait generated
               from it. Any harm, claim, fine, prosecution, civil liability, or
@@ -187,17 +186,14 @@ export default function Terms() {
               4.3 Retention and Deletion of Uploaded Photos
             </h3>
             <p>
-              We retain uploaded photographs only for the period necessary to
-              provide the service. Photo uploads from failed or abandoned
-              generation attempts are automatically deleted within 90 days.
-              Photos used in purchased portraits are retained so you can
-              re-download your portraits. You may request immediate deletion of
-              your photos at any time by emailing{" "}
+              We retain uploaded photographs which may be deleted periodically.
+              You may request immediate deletion of your photos at any time by
+              emailing{" "}
               <Link
-                href="mailto:help@turnmeroyal.com"
+                href="mailto:hello@turnroyal.com"
                 className="text-primary hover:underline"
               >
-                help@turnmeroyal.com
+                hello@turnroyal.com
               </Link>
               . For the complete retention schedule, see Section 3 of our{" "}
               <Link className="text-primary hover:underline" href="/privacy">
@@ -261,13 +257,13 @@ export default function Terms() {
               Watermarked preview images are provided for evaluation purposes
               only. The watermark is permanently embedded in the image pixels
               and may not be removed, obscured, or circumvented. Unpurchased
-              watermarked previews remain the property of the Company.
+              watermarked previews remain the property of TurnRoyal.
             </p>
             <p className="mt-2">
               All other content on the Site, including but not limited to the
               design, layout, text, graphics, logos, and software, is the
-              property of UAB “Madcom” and is protected by applicable
-              intellectual property laws.
+              property of TurnRoyal and is protected by applicable intellectual
+              property laws.
             </p>
           </section>
           <section>
@@ -278,10 +274,10 @@ export default function Terms() {
               6.1 Pricing
             </h3>
             <p>
-              All prices are displayed in US Dollars (USD) and are inclusive of
-              applicable taxes unless otherwise stated. We reserve the right to
-              change prices at any time without notice. Price changes do not
-              affect orders that have already been completed.
+              All prices are displayed in Australian Dollars (AUD) and are
+              inclusive of applicable taxes unless otherwise stated. We reserve
+              the right to change prices at any time without notice. Price
+              changes do not affect orders that have already been completed.
             </p>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
               6.2 Payments
@@ -305,27 +301,25 @@ export default function Terms() {
               6.3 Digital Downloads
             </h3>
             <p>
-              Digital downloads are delivered immediately after successful
-              payment via a secure, time-limited download link. Due to the
-              nature of digital goods, refunds for digital downloads are
-              generally not available once the download link has been accessed.
-              If you experience technical issues with your download, please
-              contact us at{" "}
+              Digital downloads are delivered shortly after successful payment
+              via a download link. Due to the nature of digital goods, refunds
+              for digital downloads are generally not available. If you
+              experience technical issues with your download, please contact us
+              at{" "}
               <Link
-                href="mailto:help@turnmeroyal.com"
+                href="mailto:hello@turnroyal.com"
                 className="text-primary hover:underline"
               >
-                help@turnmeroyal.com
+                hello@turnroyal.com
               </Link>{" "}
               and we will work to resolve the issue.
             </p>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
-              6.4 Physical Prints: Canvases &amp; Framed Canvases
+              6.4 Physical Prints: Canvases
             </h3>
             <p>
-              For physical products (fine art prints: canvases and framed
-              canvases), refunds or replacements are available under the
-              following conditions:
+              For physical products (fine art prints: canvases), refunds or
+              replacements are available under the following conditions:
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
@@ -369,11 +363,11 @@ export default function Terms() {
             </p>
             <p className="mt-2">
               By making a purchase on our website, you acknowledge and agree
-              that TurnMeRoyal (UAB “Madcom”) is not obligated to provide a
-              refund, correction, or reprint of the generated artwork if you
-              contact us or raise a dispute more than 14 days after delivery, or
-              more than 14 days from the date you received the digital file
-              download link in the case of a digital download purchase.
+              that TurnRoyal is not obligated to provide a refund, correction,
+              or reprint of the generated artwork if you contact us or raise a
+              dispute more than 14 days after delivery, or more than 14 days
+              from the date you received the digital file download link in the
+              case of a digital download purchase.
             </p>
             <p className="mt-2">
               We kindly ask that you carefully review the quality of the
@@ -382,10 +376,10 @@ export default function Terms() {
               experience any issues with your order, please contact us
               immediately at{" "}
               <Link
-                href="mailto:help@turnmeroyal.com"
+                href="mailto:hello@turnroyal.com"
                 className="text-primary hover:underline"
               >
-                help@turnmeroyal.com
+                hello@turnroyal.com
               </Link>
               .
             </p>
@@ -454,7 +448,7 @@ export default function Terms() {
             </p>
             <p className="mt-2">
               You may use the free watermarked preview to evaluate the output
-              before making a purchase. The “retry” feature allows you to
+              before making a purchase. The “edit” feature allows you to
               generate additional variations at no cost. We encourage you to use
               these tools to ensure satisfaction before purchasing.
             </p>
@@ -464,9 +458,9 @@ export default function Terms() {
               9. Limitation of Liability
             </h2>
             <p>
-              To the maximum extent permitted by applicable law, UAB “Madcom”
-              and its officers, directors, employees, agents, and affiliates
-              shall not be liable for any indirect, incidental, special,
+              To the maximum extent permitted by applicable law, TurnRoyal and
+              its officers, directors, employees, agents, and affiliates shall
+              not be liable for any indirect, incidental, special,
               consequential, or punitive damages, including but not limited to
               loss of profits, data, or goodwill, arising out of or in
               connection with your use of the Site or service.
@@ -489,7 +483,7 @@ export default function Terms() {
               10. Indemnification
             </h2>
             <p>
-              You agree to indemnify, defend, and hold harmless UAB “Madcom” and
+              You agree to indemnify, defend, and hold harmless TurnRoyal and
               its officers, directors, employees, and agents from and against
               any claims, liabilities, damages, losses, and expenses (including
               reasonable legal fees) arising out of or in any way connected
@@ -517,10 +511,10 @@ export default function Terms() {
             </h2>
             <p>
               When you visit or use the Site, we and third-party analytics and
-              advertising partners acting on our behalf (including Meta, Google,
-              TikTok, Hotjar, and Mixpanel) collect information about your
-              device and your interactions with the Site in real time using
-              cookies, pixels, and similar technologies, as described in our{" "}
+              advertising partners acting on our behalf (including Vercel, Meta,
+              and TikTok) collect information about your device and your
+              interactions with the Site in real time using cookies, pixels, and
+              similar technologies, as described in our{" "}
               <Link className="text-primary hover:underline" href="/privacy">
                 Privacy Policy
               </Link>
@@ -590,19 +584,16 @@ export default function Terms() {
             </p>
             <ul className="list-none mt-2 space-y-1">
               <li>
-                <strong>Company:</strong> UAB “Madcom”
-              </li>
-              <li>
                 <strong>Email:</strong>{" "}
                 <Link
-                  href="mailto:help@turnmeroyal.com"
+                  href="mailto:hello@turnroyal.com"
                   className="text-primary hover:underline"
                 >
-                  help@turnmeroyal.com
+                  hello@turnroyal.com
                 </Link>
               </li>
               <li>
-                <strong>Website:</strong> turnmeroyal.com
+                <strong>Website:</strong> turnroyal.com
               </li>
             </ul>
           </section>
