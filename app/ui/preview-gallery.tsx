@@ -99,8 +99,8 @@ export default function PreviewGallery({
   const selectedGeneration = generations[selectedIndex];
 
   return (
-    <div className="flex flex-col items-center gap-12 w-full mx-auto">
-      <div className="flex flex-col items-center gap-4 p-6 w-full bg-linear-to-b from-background to-muted to-80%">
+    <div className="flex flex-col items-center gap-8 w-full mx-auto bg-white">
+      <div className="flex flex-col items-center gap-4 p-6 w-full bg-linear-to-b from-background to-background to-80%">
         {/* Main Image Container */}
         <div
           onContextMenu={(e) => e.preventDefault()}
@@ -167,8 +167,8 @@ export default function PreviewGallery({
 
         {/* Thumbnails */}
         <div className="relative w-full max-w-4xl">
-          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-6 bg-gradient-to-r from-muted to-transparent" />
-          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-6 bg-gradient-to-l from-muted to-transparent" />
+          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-6 bg-gradient-to-r from-background to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-6 bg-gradient-to-l from-background to-transparent" />
           <div className="flex flex-nowrap gap-4 overflow-y-hidden px-6 py-4 w-full justify-start no-scrollbar">
             {generations.map((gen, idx) => (
               <button
@@ -223,11 +223,11 @@ export default function PreviewGallery({
         </div>
       </div>
 
-      <div className="text-center space-y-2">
-        <h2 className="text-4xl lg:text-5xl font-serif font-bold tracking-tight text-foreground leading-tight">
+      <div className="text-center">
+        <h2 className="text-4xl lg:text-5xl font-serif font-black italic tracking-tight text-foreground leading-tight">
           Get Your Portrait Now
         </h2>
-        <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
+        <p className="text-md text-muted-foreground max-w-xl leading-relaxed">
           No watermark • Instant download
         </p>
       </div>
@@ -235,8 +235,8 @@ export default function PreviewGallery({
       {/* Buy Sections */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[720px]">
         {/* Physical Canvas Section */}
-        <div className="relative flex flex-col items-center gap-6 p-4 pt-8 rounded-2xl border border-border bg-background/50 shadow-sm h-fit">
-          <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-ring text-foreground text-md font-bold rounded-full shadow-sm">
+        <div className="relative flex flex-col items-center gap-6 p-4 pt-8 rounded-2xl border border-border bg-background shadow-sm h-fit">
+          <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-ring text-foreground text-md font-bold rounded-full">
             {sale.name} - {sale.discount}% OFF
           </div>
           <div className="text-center space-y-2">
@@ -378,8 +378,8 @@ export default function PreviewGallery({
         </div>
 
         {/* Digital Download Section */}
-        <div className="relative flex flex-col items-center gap-6 p-4 pt-8 rounded-2xl border border-border bg-background/50 shadow-sm h-fit">
-          <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-primary text-primary-foreground text-sm font-bold rounded-full shadow-sm">
+        <div className="relative flex flex-col items-center gap-6 p-4 pt-8 rounded-2xl border border-border bg-background shadow-sm h-fit">
+          <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-primary text-primary-foreground text-sm font-bold rounded-full">
             Prefer digital only?
           </div>
           <div className="text-center space-y-2">
