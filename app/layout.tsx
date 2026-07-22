@@ -18,7 +18,7 @@ const merriweather = Merriweather({
 });
 
 export const metadata: Metadata = {
-  title: "Turn Royal",
+  title: { default: "Turn Royal", template: "%s | Turn Royal" },
   description: "Customized Canvas Printing",
   metadataBase: new URL("https://turnroyal.com"),
 };

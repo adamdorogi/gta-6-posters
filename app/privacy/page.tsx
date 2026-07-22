@@ -16,11 +16,10 @@ export default function Privacy() {
           Privacy Policy
         </h1>
         <div className="space-y-6 text-sm leading-6 text-muted-foreground">
-          <p>Last updated: May 24, 2026</p>
+          <p>Last updated: July 22, 2026</p>
           <p>
-            This Privacy Policy describes how UAB “Madcom” (the “Company”,
-            “TurnMeRoyal”, “we”, “us”, or “our”), operating the website{" "}
-            <strong>turnmeroyal.com</strong> (the “Site”), collects, uses, and
+            This Privacy Policy describes how <strong>turnroyal.com</strong>{" "}
+            (the “Site”, “TurnRoyal”, “we”, “us”, or “our”), collects, uses, and
             shares your personal information when you use our AI portrait
             generation service. By using the Site, you agree to the collection
             and use of information in accordance with this policy.
@@ -77,7 +76,6 @@ export default function Privacy() {
               </li>
               <li>Referring website or source</li>
               <li>Pages visited, time spent on pages, click behavior</li>
-              <li>Session recordings and heatmap data (via Hotjar)</li>
             </ul>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
               1.4 Session Information
@@ -108,11 +106,11 @@ export default function Privacy() {
               <li>
                 <strong>Communicate with you:</strong> Send order confirmations,
                 download links, shipping updates, and respond to support
-                inquiries via email (powered by Klaviyo).
+                inquiries via email (powered by Resend).
               </li>
               <li>
-                <strong>Improve the service:</strong> Analyze usage patterns,
-                identify issues, and optimize the user experience using
+                <strong>Improve the service:</strong> Analyse usage patterns,
+                identify issues, and optimise the user experience using
                 analytics tools.
               </li>
               <li>
@@ -122,7 +120,7 @@ export default function Privacy() {
               </li>
               <li>
                 <strong>Prevent fraud and abuse:</strong> Monitor for
-                unauthorized access, automated abuse, or attempts to circumvent
+                unauthorised access, automated abuse, or attempts to circumvent
                 our security measures.
               </li>
             </ul>
@@ -167,10 +165,10 @@ export default function Privacy() {
                 deletion of your photos and generated portraits at any time by
                 contacting us at{" "}
                 <Link
-                  href="mailto:help@turnmeroyal.com"
+                  href="mailto:hello@turnroyal.com"
                   className="text-primary hover:underline"
                 >
-                  help@turnmeroyal.com
+                  hello@turnroyal.com
                 </Link>
                 .
               </li>
@@ -180,27 +178,16 @@ export default function Privacy() {
             </h3>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
-                <strong>Failed or abandoned generation attempts:</strong>{" "}
-                original photo uploads are automatically deleted within{" "}
-                <strong>90 days</strong> of the failed or abandoned attempt.
-              </li>
-              <li>
-                <strong>Successful generations you have purchased:</strong>{" "}
-                retained for as long as you maintain access to your account, so
-                that you can re-download your portraits at any time.
-              </li>
-              <li>
-                <strong>Successful generations you have not purchased:</strong>{" "}
-                retained for up to <strong>12 months</strong> from the
-                generation date, after which they may be deleted.
+                <strong>Periodic photo deletion:</strong> uploaded photos may be
+                deleted periodically.
               </li>
               <li>
                 <strong>Immediate deletion on request:</strong> contact{" "}
                 <Link
-                  href="mailto:help@turnmeroyal.com"
+                  href="mailto:hello@turnroyal.com"
                   className="text-primary hover:underline"
                 >
-                  help@turnmeroyal.com
+                  hello@turnroyal.com
                 </Link>{" "}
                 to request deletion at any time.
               </li>
@@ -253,16 +240,23 @@ export default function Privacy() {
             </h3>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
-                <strong>Google</strong> — Primary AI provider. Processes your
-                uploaded photos to generate AI portraits. Photos are transmitted
-                securely and processed in real time. Google does not retain your
-                images after processing per Google&apos;s API terms.
+                <strong>OpenRouter</strong> — Primary AI provider. Processes
+                your uploaded photos to generate AI portraits. Photos are
+                transmitted securely and processed in real time. OpenRouter does
+                not retain your images after processing per OpenRouter&apos;s
+                API terms.
               </li>
               <li>
-                <strong>OpenRouter</strong> — Used as a fallback AI provider
-                when our primary provider is unavailable or rate-limited. Photos
-                are transmitted to OpenRouter only when a fallback is triggered.
-                OpenRouter does not retain images after processing.
+                <strong>Replicate</strong> — Used to upscale generated images
+                after a purchase has been made. Replicate&apos;s privacy policy:{" "}
+                <Link
+                  href="https://replicate.com/privacy"
+                  className="text-primary hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  replicate.com/privacy
+                </Link>
               </li>
             </ul>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
@@ -270,17 +264,17 @@ export default function Privacy() {
             </h3>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
-                <strong>Klaviyo</strong> — Sends transactional emails (order
+                <strong>Resend</strong> — Sends transactional emails (order
                 confirmations, download links) and marketing emails (with your
-                consent). Klaviyo receives your email address and order
-                information. Klaviyo&apos;s privacy policy:{" "}
+                consent). Resend receives your email address and order
+                information. Resend&apos;s privacy policy:{" "}
                 <Link
-                  href="https://www.klaviyo.com/legal/privacy"
+                  href="https://www.resend.com/legal/privacy-policy"
                   className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  klaviyo.com/legal/privacy
+                  resend.com/legal/privacy-policy
                 </Link>
               </li>
             </ul>
@@ -289,25 +283,15 @@ export default function Privacy() {
             </h3>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
-                <strong>Google Tag Manager (GTM)</strong> — Manages analytics
-                and marketing tags on our Site. GTM may load additional scripts
-                from Google Analytics and other providers.
+                <strong>Vercel Web Analytics</strong> — Manages analytics on our
+                Site. Vercel Web Analytics only stores anonymised data and does
+                not use cookies, providing data for us while respecting our
+                visitors&apos; privacy and web experience.
               </li>
               <li>
-                <strong>Meta Pixel (Facebook)</strong> — Tracks conversions and
-                enables retargeting advertising on Meta platforms (Facebook,
-                Instagram). Collects browsing behavior and purchase events.
-              </li>
-              <li>
-                <strong>Mixpanel</strong> — Tracks user interactions and events
-                (e.g., photo uploads, generations, purchases) to help us
-                understand usage patterns and improve the service.
-              </li>
-              <li>
-                <strong>Hotjar</strong> — Records anonymized session replays and
-                generates heatmaps to help us understand how users interact with
-                our Site. Hotjar does not collect personal information from form
-                fields.
+                <strong>Meta Pixel</strong> — Tracks conversions and enables
+                retargeting advertising on Meta platforms (Facebook, Instagram).
+                Collects browsing behavior and purchase events.
               </li>
               <li>
                 <strong>Meta Conversions API (CAPI)</strong> — In addition to
@@ -316,16 +300,10 @@ export default function Privacy() {
                 addresses and order details for ad-attribution purposes. We do
                 not transmit uploaded photos.
               </li>
-            </ul>
-            <h3 className="font-semibold text-foreground mt-4 mb-1">
-              Error Monitoring
-            </h3>
-            <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
-                <strong>Sentry</strong> — Captures application error events and
-                crash data, which may include IP addresses, request URLs,
-                browser/device metadata, and error stack traces. Sentry does not
-                capture uploaded photos or authentication tokens.
+                <strong>TikTok Pixel</strong> — Tracks conversions and enables
+                retargeting advertising on TikTok. Collects browsing behavior
+                and purchase events.
               </li>
             </ul>
           </section>
@@ -340,19 +318,19 @@ export default function Privacy() {
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
                 <strong>Essential cookies:</strong> Session identifier cookie (
-                <code>tmr_session</code>) that allows you to use the Site
-                without creating an account. This cookie is necessary for the
-                service to function.
+                <code>user_id</code>) that allows you to use the Site without
+                creating an account. This cookie is necessary for the service to
+                function.
               </li>
               <li>
-                <strong>Analytics cookies:</strong> Placed by Google Analytics,
-                Mixpanel, and Hotjar to collect anonymized usage data and
-                improve the service.
+                <strong>Analytics cookies:</strong> Placed by Vercel Web
+                Analytics to collect anonymised usage data and improve the
+                service.
               </li>
               <li>
                 <strong>Marketing cookies:</strong> Placed by Meta Pixel and
-                Google to enable targeted advertising and measure ad campaign
-                effectiveness.
+                TikTok Pixel to enable targeted advertising and measure ad
+                campaign effectiveness.
               </li>
             </ul>
             <p className="mt-2">
@@ -374,15 +352,14 @@ export default function Privacy() {
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
-                <strong>Meta (Facebook/Instagram):</strong> We use Meta Pixel to
-                track actions on our Site (such as viewing a preview or
-                completing a purchase) and create custom audiences for
-                advertising on Meta platforms.
+                <strong>Meta:</strong> We use Meta Pixel to track actions on our
+                Site (such as viewing a preview or completing a purchase) and
+                create custom audiences for advertising on Meta platforms.
               </li>
               <li>
-                <strong>Google Ads:</strong> We may use Google advertising
-                services via GTM to display retargeting ads to visitors who have
-                interacted with our Site.
+                <strong>TikTok:</strong> We use TikTok Pixel to track actions on
+                our Site (such as viewing a preview or completing a purchase)
+                and create custom audiences for advertising on TikTok.
               </li>
             </ul>
             <p className="mt-2">
@@ -402,14 +379,14 @@ export default function Privacy() {
                 </Link>
               </li>
               <li>
-                Google:{" "}
+                TikTok:{" "}
                 <Link
-                  href="https://adssettings.google.com"
+                  href="https://www.tiktok.com/setting/ad_privacy/personalized_ads"
                   className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  adssettings.google.com
+                  tiktok.com/setting/ad_privacy/personalized_ads
                 </Link>
               </li>
               <li>
@@ -438,7 +415,7 @@ export default function Privacy() {
               </li>
               <li>
                 <strong>Session data:</strong> Anonymous session records are
-                retained for 12 months, after which they are purged.
+                retained indefinitely, but may be purged periodically.
               </li>
               <li>
                 <strong>Email and marketing data:</strong> Retained until you
@@ -498,9 +475,7 @@ export default function Privacy() {
                 generated portraits with any third party for marketing, AI
                 training, or commercial purposes. The only third party that ever
                 receives your photos is the AI provider used to generate your
-                portrait (Google, or OpenRouter as fallback), strictly for
-                transient processing as described in Section 4 — and that
-                provider does not retain your images after processing.
+                portrait (OpenRouter and Replicate), as described in Section 4.
               </li>
               <li>
                 <strong>No sale of personal information:</strong> We do not
@@ -512,13 +487,13 @@ export default function Privacy() {
                 Like most consumer websites, to measure advertising
                 effectiveness and serve relevant ads, we transmit non-photo
                 events (such as pageviews, purchase confirmations, and hashed
-                email addresses) to our advertising partners (Meta, Google) via
+                email addresses) to our advertising partners (Meta, TikTok) via
                 tools described in Section 4. You can opt out at any time using
                 the platform opt-out links in Section 6.
               </li>
               <li>
                 <strong>Non-discrimination:</strong> We will not deny service,
-                change pricing, or otherwise penalize you for exercising any of
+                change pricing, or otherwise penalise you for exercising any of
                 these rights.
               </li>
               <li>
@@ -529,10 +504,10 @@ export default function Privacy() {
             <p className="mt-2">
               To exercise any of these rights, email{" "}
               <Link
-                href="mailto:help@turnmeroyal.com"
+                href="mailto:hello@turnroyal.com"
                 className="text-primary hover:underline"
               >
-                help@turnmeroyal.com
+                hello@turnroyal.com
               </Link>
               . We respond to verifiable requests within 30 days. Residents of
               the EU, EEA, and UK additionally have the right to lodge a
@@ -544,16 +519,17 @@ export default function Privacy() {
             <p className="mt-1">
               Our AI generates royal-style portraits from photos you upload. The
               computer-vision processing on facial features is performed
-              transiently and in-memory by our AI provider (Google); we do not
-              retain a biometric template, faceprint, or face geometry vector.
-              Original photographs are stored only for the purposes and
-              retention periods stated in Section 3 above, and we do not sell,
-              lease, trade, or otherwise profit from biometric information. By
-              uploading a photo containing a face, you acknowledge this notice
-              and provide written consent to this processing under the Illinois
-              Biometric Information Privacy Act (740 ILCS 14) and any comparable
-              biometric privacy law in your state of residence (including Texas
-              CUBI and Washington&apos;s biometric privacy statute).
+              transiently and in-memory by our AI provider (OpenRouter and
+              Replicate); we do not retain a biometric template, faceprint, or
+              face geometry vector. Original photographs are stored only for the
+              purposes and retention periods stated in Section 3 above, and we
+              do not sell, lease, trade, or otherwise profit from biometric
+              information. By uploading a photo containing a face, you
+              acknowledge this notice and provide written consent to this
+              processing under the Illinois Biometric Information Privacy Act
+              (740 ILCS 14) and any comparable biometric privacy law in your
+              state of residence (including Texas CUBI and Washington&apos;s
+              biometric privacy statute).
             </p>
           </section>
           <section>
@@ -561,8 +537,8 @@ export default function Privacy() {
               9. Data Security
             </h2>
             <p>
-              We implement appropriate technical and organizational measures to
-              protect your personal data against unauthorized access,
+              We implement appropriate technical and organisational measures to
+              protect your personal data against unauthorised access,
               alteration, disclosure, or destruction. These measures include
               encryption in transit (TLS/SSL), encryption at rest for stored
               data, access controls on file storage, and secure handling of
@@ -588,10 +564,10 @@ export default function Privacy() {
               someone under 18 has provided us with personal data, please
               contact us at{" "}
               <Link
-                href="mailto:help@turnmeroyal.com"
+                href="mailto:hello@turnroyal.com"
                 className="text-primary hover:underline"
               >
-                help@turnmeroyal.com
+                hello@turnroyal.com
               </Link>{" "}
               and we will take steps to delete such information. This commitment
               is at least as protective as the United States Children&apos;s
@@ -644,19 +620,16 @@ export default function Privacy() {
             </p>
             <ul className="list-none mt-2 space-y-1">
               <li>
-                <strong>Company:</strong> UAB “Madcom”
-              </li>
-              <li>
                 <strong>Email:</strong>{" "}
                 <Link
-                  href="mailto:help@turnmeroyal.com"
+                  href="mailto:hello@turnroyal.com"
                   className="text-primary hover:underline"
                 >
-                  help@turnmeroyal.com
+                  hello@turnroyal.com
                 </Link>
               </li>
               <li>
-                <strong>Website:</strong> turnmeroyal.com
+                <strong>Website:</strong> turnroyal.com
               </li>
             </ul>
           </section>
