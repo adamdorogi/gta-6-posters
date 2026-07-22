@@ -99,12 +99,12 @@ export default function PreviewGallery({
   const selectedGeneration = generations[selectedIndex];
 
   return (
-    <div className="flex flex-col items-center gap-12 w-full max-w-4xl mx-auto">
-      <div className="flex flex-col items-center gap-4 w-full">
+    <div className="flex flex-col items-center gap-12 w-full mx-auto">
+      <div className="flex flex-col items-center gap-4 p-6 w-full bg-linear-to-b from-background to-muted to-80%">
         {/* Main Image Container */}
         <div
           onContextMenu={(e) => e.preventDefault()}
-          className="relative aspect-[3/4] group w-full max-w-xl overflow-hidden rounded-2xl bg-muted shadow-2xl border border-border"
+          className="relative aspect-[3/4] group w-full max-w-xl overflow-hidden rounded-2xl bg-muted"
         >
           {selectedGeneration?.path && selectedGeneration?.publicUrl ? (
             <>
@@ -121,7 +121,7 @@ export default function PreviewGallery({
               {/* Edit Button Overlay */}
               <button
                 onClick={() => setIsEditModalOpen(true)}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-ring text-foreground rounded-full text-md font-semibold transition-all duration-300 hover:scale-105 shadow-xl border border-ring cursor-pointer flex items-center gap-1"
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-ring text-foreground rounded-full text-md font-semibold transition-all duration-200 hover:scale-105 border border-ring cursor-pointer flex items-center gap-1"
               >
                 <Image
                   src="/edit.svg"
@@ -152,12 +152,12 @@ export default function PreviewGallery({
           ) : (
             <>
               <span className="absolute inset-0 flex items-center justify-center text-md text-center font-medium text-muted-foreground">
-                Generation failed.
+                Generation failed. Please try again.
               </span>
               {/* Retry Button Overlay */}
               <button
                 onClick={() => setIsEditModalOpen(true)}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-md font-semibold transition-all duration-300 hover:scale-105 shadow-xl border border-primary cursor-pointer flex items-center gap-1"
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-md font-semibold transition-all duration-200 hover:scale-105 border border-primary cursor-pointer flex items-center gap-1"
               >
                 Retry
               </button>
@@ -166,47 +166,60 @@ export default function PreviewGallery({
         </div>
 
         {/* Thumbnails */}
-        <div className="flex gap-4 overflow-x-auto p-2 w-full justify-center no-scrollbar">
-          {generations.map((gen, idx) => (
-            <button
-              key={gen.id}
-              onClick={() => setSelectedIndex(idx)}
-              onContextMenu={(e) => e.preventDefault()}
-              className={`relative w-16 aspect-[3/4] rounded-md overflow-hidden border-2 transition-all duration-200 cursor-pointer ${
-                selectedIndex === idx
-                  ? "border-primary scale-110 shadow-md"
-                  : "border-transparent opacity-50 hover:opacity-100"
-              }`}
-            >
-              {gen.publicUrl ? (
-                <Image
-                  src={gen.publicUrl}
-                  alt={`Thumbnail ${idx}`}
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                  draggable={false}
-                />
-              ) : gen.status === "failed" ? (
-                <div className="w-full h-full bg-muted flex items-center justify-center text-[10px] text-center p-1 font-medium text-muted-foreground">
-                  Failed.
-                </div>
-              ) : (
-                <>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-1/2 aspect-square z-1 animate-spin rounded-full border-2 border-muted border-t-transparent" />
-                  </div>
+        <div className="relative w-full max-w-4xl">
+          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-6 bg-gradient-to-r from-muted to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-6 bg-gradient-to-l from-muted to-transparent" />
+          <div className="flex flex-nowrap gap-4 overflow-y-hidden px-6 py-4 w-full justify-start no-scrollbar">
+            {generations.map((gen, idx) => (
+              <button
+                key={gen.id}
+                onClick={() => setSelectedIndex(idx)}
+                onContextMenu={(e) => e.preventDefault()}
+                className={`relative w-16 shrink-0 aspect-[3/4] rounded-md overflow-hidden transition-all duration-200 cursor-pointer ${
+                  selectedIndex === idx
+                    ? "ring-2 ring-primary/50 ring-offset-2 ring-offset-primary"
+                    : "border-2 border-border"
+                }`}
+              >
+                {gen.publicUrl ? (
                   <Image
-                    src={"/placeholder.webp"}
-                    alt="Placeholder Image"
+                    src={gen.publicUrl}
+                    alt={`Thumbnail ${idx}`}
                     fill
                     className="object-cover"
                     sizes="96px"
+                    draggable={false}
                   />
-                </>
-              )}
-            </button>
-          ))}
+                ) : gen.status === "failed" ? (
+                  <div className="w-full h-full bg-muted flex items-center justify-center">
+                    <Image
+                      src="/warning.svg"
+                      alt="Warning Icon"
+                      className="object-cover"
+                      width={18}
+                      height={18}
+                      priority
+                      sizes="18px"
+                      draggable={false}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-1/2 aspect-square z-1 animate-spin rounded-full border-2 border-muted border-t-transparent" />
+                    </div>
+                    <Image
+                      src={"/placeholder.webp"}
+                      alt="Placeholder Image"
+                      fill
+                      className="object-cover"
+                      sizes="96px"
+                    />
+                  </>
+                )}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

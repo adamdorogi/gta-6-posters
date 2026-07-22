@@ -46,7 +46,7 @@ export default async function Preview({
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans text-foreground">
       <NavBar />
-      <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col items-center py-4 px-6 bg-background">
+      <main className="flex flex-1 w-full mx-auto flex-col items-center bg-background">
         <PreviewGallery
           generations={generationsWithUrls || []}
           styles={styles || []}
