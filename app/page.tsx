@@ -8,6 +8,11 @@ import NavBar from "./ui/nav-bar";
 import Footer from "./ui/footer";
 import ScrollToTopButton from "@/app/ui/scroll-to-top-button";
 import FaqItem from "./ui/faq-item";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Get Turned Into Royalty | Turn Royal",
+};
 
 export default async function Home() {
   const { data: styles } = await supabase

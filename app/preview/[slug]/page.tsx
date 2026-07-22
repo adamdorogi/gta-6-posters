@@ -3,7 +3,12 @@ import NavBar from "@/app/ui/nav-bar";
 import PreviewGallery from "@/app/ui/preview-gallery";
 import SuccessHandler from "@/app/ui/success-handler";
 import { supabase } from "@/app/utils/supabase";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Your Royal Portrait",
+};
 
 export default async function Preview({
   params,
