@@ -5,6 +5,7 @@ import SuccessHandler from "./success-handler";
 import FaqSection from "./faq-section";
 import BuySection from "./buy-section";
 import { useState } from "react";
+import ReactionsSection from "./reactions-section";
 
 export default function PreviewComponent({
   generations,
@@ -42,6 +43,7 @@ export default function PreviewComponent({
         setSelectedIndex={setSelectedIndex}
       />
       <BuySection selectedGeneration={generations[selectedIndex]} />
+      <ReactionsSection />
       <FaqSection />
       <BuySection selectedGeneration={generations[selectedIndex]} />
       <SuccessHandler />
