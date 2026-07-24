@@ -159,6 +159,13 @@ export default function PreviewGallery({
                 onClick={() => setIsEditModalOpen(true)}
                 className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-md font-semibold transition-all duration-200 hover:scale-105 border border-primary cursor-pointer flex items-center gap-1"
               >
+                <Image
+                  src="/retry.svg"
+                  alt="Retry Icon"
+                  width={16}
+                  height={16}
+                  priority
+                />
                 Retry
               </button>
             </>
