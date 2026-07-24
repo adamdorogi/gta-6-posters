@@ -46,7 +46,7 @@ export default function CreditsCountdown({
   };
 
   return (
-    <div className="flex opacity-80 items-center gap-1 px-3 py-1 rounded-full bg-border text-primary text-xs font-medium">
+    <div className="flex opacity-80 items-center gap-1 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-medium">
       <span className="font-bold">{credits}</span>
       <span className="opacity-80">
         {" "}

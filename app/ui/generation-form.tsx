@@ -143,7 +143,7 @@ export default function GenerationForm({
         ) : (
           <>
             <div className="flex flex-col items-center gap-3 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-border text-primary">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary">
                 <Image
                   src="/upload.svg"
                   alt="Upload Icon"
