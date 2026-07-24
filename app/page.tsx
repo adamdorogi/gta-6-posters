@@ -35,20 +35,20 @@ export default async function Home() {
           className="bg-linear-135 from-gradient-light to-gradient-dark text-primary-foreground"
         >
           <section className="max-w-5xl mx-auto w-full grid lg:grid-cols-12 items-stretch">
-            <div className="flex min-w-0 flex-col gap-6 justify-center items-center text-center py-6 md:py-8 lg:col-span-7 lg:items-start lg:text-left">
-              <div className="px-12 flex flex-col gap-2 items-center lg:items-start">
+            <div className="flex min-w-0 flex-col gap-4 lg:gap-6 justify-center items-center text-center py-4 lg:py-8 lg:col-span-7 lg:items-start lg:text-left">
+              <div className="px-4 lg:px-12 max-w-4xl flex flex-col gap-2 items-center lg:items-start">
                 <h1 className="text-4xl lg:text-6xl/17 italic font-serif font-black tracking-tight text-primary-foreground leading-tight">
                   Turn your loved ones into a{" "}
                   <span className="text-accent">masterpiece!</span>
                 </h1>
-                <p className="text-md text-muted max-w-xl leading-relaxed">
+                <p className="text-sm lg:text-base text-muted leading-relaxed">
                   Free Preview · No credit card or registration required
                 </p>
               </div>
 
               <GenerationForm styles={styles || []} />
 
-              <div className="lg:hidden relative h-[220px] overflow-hidden w-full">
+              <div className="lg:hidden relative h-[200px] overflow-hidden w-full">
                 <div className="absolute inset-0">
                   <ShowcaseCarousel
                     images={showcaseImages}
@@ -57,12 +57,12 @@ export default async function Home() {
                 </div>
               </div>
 
-              <div className="px-12 flex flex-wrap gap-6 justify-center lg:justify-start">
+              <div className="px-4 lg:px-12 max-w-4xl flex flex-wrap gap-6 justify-center lg:justify-start">
                 {["Free preview", "No signup", "Private & secure"].map(
                   (benefit, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-3 text-sm text-muted"
+                      className="flex items-center gap-3 text-xs md:text-sm text-muted"
                     >
                       <Image
                         src="/tick.svg"
@@ -98,7 +98,7 @@ export default async function Home() {
             <h2 className="text-4xl md:text-4xl font-serif italic font-black mb-4">
               Why customers love <span className="text-accent">Turn Royal</span>
             </h2>
-            <p className="text-md max-w-xl mx-auto">
+            <p className="text-base max-w-xl mx-auto">
               See your royal portrait in seconds — free preview, no card needed
             </p>
 
@@ -140,7 +140,7 @@ export default async function Home() {
                     height={56}
                   />
                   <div className="min-w-0">
-                    <h3 className="text-md font-bold leading-tight text-foreground">
+                    <h3 className="text-base font-bold leading-tight text-foreground">
                       {feature.title}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-foreground">

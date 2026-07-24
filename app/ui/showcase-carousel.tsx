@@ -8,19 +8,19 @@ export default function ShowcaseCarousel({
   layout?: "vertical" | "horizontal";
 }) {
   if (layout === "horizontal") {
-    const SECONDS_PER_IMAGE = 8;
+    const SECONDS_PER_IMAGE = 6;
     const duration = Math.max(images.length * SECONDS_PER_IMAGE, 1);
 
     return (
       <div className="relative h-full overflow-hidden">
         <div
-          className="flex h-full w-max gap-4"
+          className="flex h-full w-max gap-3"
           style={{ animation: `horizontal-slide ${duration}s linear infinite` }}
         >
           {[...images, ...images].map((src, idx) => (
             <div
               key={idx}
-              className="relative h-full w-40 flex-none overflow-hidden rounded-2xl shadow-md group"
+              className="relative h-full w-39 flex-none overflow-hidden rounded-2xl shadow-md group"
             >
               <Image
                 src={src}
@@ -30,7 +30,7 @@ export default function ShowcaseCarousel({
                 }
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="182px"
+                sizes="200px"
               />
             </div>
           ))}

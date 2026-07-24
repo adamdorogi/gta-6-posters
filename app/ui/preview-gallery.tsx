@@ -116,7 +116,7 @@ export default function PreviewGallery({
               {/* Edit Button Overlay */}
               <button
                 onClick={() => setIsEditModalOpen(true)}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-ring text-foreground rounded-full text-md font-semibold transition-all duration-200 hover:scale-105 border border-ring cursor-pointer flex items-center gap-1"
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-ring text-foreground rounded-full text-base font-semibold transition-all duration-200 hover:scale-105 border border-ring cursor-pointer flex items-center gap-1"
               >
                 <Image
                   src="/edit.svg"
@@ -146,13 +146,13 @@ export default function PreviewGallery({
             </>
           ) : (
             <>
-              <span className="absolute inset-0 flex items-center justify-center text-md text-center font-medium text-muted-foreground">
+              <span className="absolute inset-0 flex items-center justify-center text-base text-center font-medium text-muted-foreground">
                 Generation failed. Please try again.
               </span>
               {/* Retry Button Overlay */}
               <button
                 onClick={() => setIsEditModalOpen(true)}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-md font-semibold transition-all duration-200 hover:scale-105 border border-primary cursor-pointer flex items-center gap-1"
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-base font-semibold transition-all duration-200 hover:scale-105 border border-primary cursor-pointer flex items-center gap-1"
               >
                 <Image
                   src="/retry.svg"

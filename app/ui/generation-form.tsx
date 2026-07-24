@@ -64,7 +64,7 @@ export default function GenerationForm({
   };
 
   return (
-    <div className="px-12 flex min-w-0 flex-col gap-6 w-full">
+    <div className="px-4 lg:px-12 max-w-4xl flex min-w-0 flex-col gap-4 lg:gap-6 w-full">
       <StylePicker
         selectedStyleId={styleId}
         onChange={setStyleId}

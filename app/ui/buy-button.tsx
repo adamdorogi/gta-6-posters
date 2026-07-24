@@ -78,7 +78,7 @@ export default function BuyButton({
         const { url } = response;
         router.push(url);
       }}
-      className="flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-bold text-md transition-all hover:opacity-90 active:scale-[0.98] shadow-xl cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+      className="flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-bold text-base transition-all hover:opacity-90 active:scale-[0.98] shadow-xl cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
     >
       {isLoading ? (
         <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
