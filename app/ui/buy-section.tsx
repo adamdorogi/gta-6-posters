@@ -30,7 +30,7 @@ export default function BuySection({
         <h2 className="text-4xl lg:text-5xl font-serif font-black italic tracking-tight text-foreground leading-tight">
           Get Your Portrait Now
         </h2>
-        <p className="text-md text-muted-foreground max-w-xl leading-relaxed">
+        <p className="text-base text-muted-foreground max-w-xl leading-relaxed">
           No watermark • Instant download
         </p>
       </div>
@@ -39,7 +39,7 @@ export default function BuySection({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[720px]">
         {/* Physical Canvas Section */}
         <div className="relative flex flex-col items-center gap-6 p-4 pt-8 rounded-2xl border border-border bg-background shadow-sm h-fit">
-          <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-ring text-foreground text-md font-bold rounded-full">
+          <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-ring text-foreground text-base font-bold rounded-full">
             {sale.name} - {sale.discount}% OFF
           </div>
           <div className="text-center space-y-2">
@@ -149,7 +149,7 @@ export default function BuySection({
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-2 text-md text-foreground"
+                className="flex items-center gap-2 text-base text-foreground"
               >
                 <svg
                   className="w-4 h-4 text-primary"
@@ -213,7 +213,7 @@ export default function BuySection({
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-2 text-md text-foreground"
+                className="flex items-center gap-2 text-base text-foreground"
               >
                 <svg
                   className="w-4 h-4 text-primary"

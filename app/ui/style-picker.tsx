@@ -40,7 +40,7 @@ export default function StylePicker({
   return (
     <div className="min-w-0 w-full rounded-2xl bg-background">
       <div className="ml-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground px-4 pt-3">
-        Style
+        Pick a style
       </div>
       <div
         className="flex min-w-0 max-w-full gap-3 overflow-x-auto px-4 py-4"

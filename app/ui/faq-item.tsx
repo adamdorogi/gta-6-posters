@@ -18,7 +18,7 @@ export default function FaqItem({ question, answer }: FaqItemProps) {
         onClick={() => setIsOpen((current) => !current)}
         className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left cursor-pointer"
       >
-        <span className="text-base font-bold text-foreground text-md">
+        <span className="text-base font-bold text-foreground text-base">
           {question}
         </span>
 
@@ -51,7 +51,7 @@ export default function FaqItem({ question, answer }: FaqItemProps) {
       >
         <div className="min-h-0">
           <div className="h-px bg-muted" />
-          <p className="pt-5 text-md leading-relaxed text-foreground text-base">
+          <p className="pt-5 text-base leading-relaxed text-foreground text-base">
             {answer}
           </p>
         </div>
