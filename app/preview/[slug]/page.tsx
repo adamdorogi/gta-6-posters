@@ -1,10 +1,9 @@
 import Footer from "@/app/ui/footer";
 import NavBar from "@/app/ui/nav-bar";
-import PreviewGallery from "@/app/ui/preview-gallery";
-import SuccessHandler from "@/app/ui/success-handler";
 import { supabase } from "@/app/utils/supabase";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import PreviewComponent from "@/app/ui/preview-component";
 
 export const metadata: Metadata = {
   title: "Your Royal Portrait",
@@ -46,16 +45,13 @@ export default async function Preview({
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans text-foreground">
       <NavBar />
-      <main className="flex flex-1 w-full mx-auto flex-col items-center bg-background">
-        <PreviewGallery
-          generations={generationsWithUrls || []}
-          styles={styles || []}
-          generationGroupId={generationGroupId}
-          styleIdProp={styleId}
-          userPromptProp={userPrompt}
-        />
-        <SuccessHandler />
-      </main>
+      <PreviewComponent
+        generations={generationsWithUrls || []}
+        styles={styles || []}
+        generationGroupId={generationGroupId}
+        styleId={styleId}
+        userPrompt={userPrompt}
+      />
       <Footer />
     </div>
   );
