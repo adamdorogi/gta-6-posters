@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Get Turned Into Royalty | Turn Royal",
+    name: "Turn Royal: Get Turned Into Royalty",
     short_name: "Turn Royal",
     description: "Customized Canvas Printing",
     start_url: "/",
