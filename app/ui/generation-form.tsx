@@ -64,7 +64,7 @@ export default function GenerationForm({
   };
 
   return (
-    <div className="px-4 lg:px-12 max-w-4xl flex min-w-0 flex-col gap-4 lg:gap-6 w-full">
+    <div className="px-4 lg:px-12 max-w-4xl flex min-w-0 flex-col gap-2 md:gap-4 lg:gap-6 w-full">
       <StylePicker
         selectedStyleId={styleId}
         onChange={setStyleId}
@@ -143,7 +143,7 @@ export default function GenerationForm({
         ) : (
           <>
             <div className="flex flex-col items-center gap-3 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-accent text-primary">
                 <Image
                   src="/upload.svg"
                   alt="Upload Icon"

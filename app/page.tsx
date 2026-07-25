@@ -92,17 +92,17 @@ export default async function Home() {
         {/* Features Section */}
         <section
           id="features"
-          className="bg-linear-135 from-gradient-light to-gradient-dark py-16 mx-auto bg-muted w-full text-primary-foreground"
+          className="bg-linear-135 from-gradient-light to-gradient-dark py-10 md:py-16 px-4 md:px-8 mx-auto bg-muted w-full text-primary-foreground"
         >
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-4xl font-serif italic font-black mb-4">
+            <h2 className="text-2xl md:text-4xl font-serif italic font-black mb-2 md:mb-3">
               Why customers love <span className="text-accent">Turn Royal</span>
             </h2>
             <p className="text-base max-w-xl mx-auto">
               See your royal portrait in seconds — free preview, no card needed
             </p>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            <div className="mt-4 md:mt-8 grid gap-2 md:gap-4 md:grid-cols-2">
               {[
                 {
                   title: "Start for free",
@@ -131,19 +131,19 @@ export default async function Home() {
               ].map((feature) => (
                 <div
                   key={feature.title}
-                  className="flex items-center gap-3 rounded-2xl bg-primary-foreground p-5 text-left"
+                  className="flex items-center gap-4 rounded-2xl bg-primary-foreground p-4 md:p-5 text-left"
                 >
                   <Image
                     src={feature.image}
                     alt={feature.title}
-                    width={56}
-                    height={56}
+                    width={64}
+                    height={64}
                   />
                   <div className="min-w-0">
                     <h3 className="text-base font-bold leading-tight text-foreground">
                       {feature.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-foreground">
+                    <p className="mt-2 text-sm leading-5 text-foreground">
                       {feature.caption}
                     </p>
                   </div>

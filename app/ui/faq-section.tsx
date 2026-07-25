@@ -2,12 +2,12 @@ import FaqItem from "./faq-item";
 
 export default function FaqSection() {
   return (
-    <section id="qa" className="px-6 py-16 mx-auto bg-muted w-full">
+    <section id="qa" className="px-4 py-10 md:py-16 mx-auto bg-muted w-full">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl md:text-4xl font-serif italic font-black text-foreground mb-4">
+        <h2 className="text-3xl md:text-4xl font-serif italic font-black text-foreground mb-4 md:mb-6">
           Questions & <span className="text-accent-dark">Answers</span>
         </h2>
-        <div className="mt-10 mx-auto max-w-3xl text-left">
+        <div className="mx-auto max-w-2xl text-left">
           <FaqItem
             question="How does it work?"
             answer="Upload your photo, pick a style, and our AI creates your portrait in seconds. Free preview — no card needed."
