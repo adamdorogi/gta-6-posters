@@ -1,19 +1,20 @@
 # TODO
 
 1. add order confirmation section on preview page
-2. add unboxing videos
-3. improved copy/content: SEO descriptions, og links, og images, metadata/titles, update sale text, etc.
-4. add to google/ddg console
-5. design order confirmation email (Your masterpiece is being prepared)
-6. design digital download email
-7. design production email (Your canvas has entered production)
-8. design shipment created email
-9. design shipment delivered email
-10. create and test email account (namecheap?) (reply to order confirmation etc.)
-11. improve prompts/ add reference image
-12. uncomment image upscale
-13. test order on live website, incognito, all database rows/cleared (but cancel printify order)
-14. done.
+2. MAYBE: different landing pages for different styles?
+3. add unboxing videos
+4. improved copy/content: SEO descriptions, og links, og images, metadata/titles, update sale text, etc.
+5. add to google/ddg console
+6. design order confirmation email (Your masterpiece is being prepared)
+7. design digital download email
+8. design production email (Your canvas has entered production)
+9. design shipment created email
+10. design shipment delivered email
+11. create and test email account (namecheap?) (reply to order confirmation etc.)
+12. improve prompts/ add reference image
+13. uncomment image upscale
+14. test order on live website, incognito, all database rows/cleared (but cancel printify order)
+15. done.
 
 - maybe:
   - upsell/follow up emails (e.g. Want another style of the same photo?)
