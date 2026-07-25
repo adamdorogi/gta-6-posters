@@ -179,7 +179,7 @@ export default function PreviewGallery({
                 onContextMenu={(e) => e.preventDefault()}
                 className={`relative w-16 shrink-0 aspect-[3/4] rounded-md overflow-hidden transition-all duration-200 cursor-pointer ${
                   selectedIndex === idx
-                    ? "ring-2 ring-primary/50 ring-offset-2 ring-offset-primary"
+                    ? "ring-2 ring-primary-accent ring-offset-2 ring-offset-primary"
                     : "border-2 border-border"
                 }`}
               >

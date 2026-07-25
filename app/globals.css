@@ -4,6 +4,7 @@
   --background: #f5f2ee;
   --foreground: #1c1820;
   --primary: #392f5a;
+  --primary-accent: #cfc5e6;
   --gradient-dark: #2c2448;
   --gradient-light: #45396c;
   --primary-foreground: #f5f2ee;
@@ -22,6 +23,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
+  --color-primary-accent: var(--primary-accent);
   --color-primary-foreground: var(--primary-foreground);
   --color-gradient-dark: var(--gradient-dark);
   --color-gradient-light: var(--gradient-light);

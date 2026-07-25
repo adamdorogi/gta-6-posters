@@ -106,7 +106,7 @@ export default function BuySection({
                         selectedSize === size
                           ? size === "Large"
                             ? "border-accent bg-accent/20 shadow-sm border-2"
-                            : "border-primary bg-primary/20 shadow-sm border-2"
+                            : "border-primary bg-primary-accent shadow-sm border-2"
                           : "border-border bg-background"
                       }`}
                     >
