@@ -1,7 +1,7 @@
 "use client";
 
 import PreviewGallery from "./preview-gallery";
-import SuccessHandler from "./success-handler";
+import OrderConfirmation from "./order-confirmation";
 import FaqSection from "./faq-section";
 import BuySection from "./buy-section";
 import { useState } from "react";
@@ -33,6 +33,7 @@ export default function PreviewComponent({
 
   return (
     <main className="flex flex-1 w-full mx-auto flex-col items-center bg-background">
+      <OrderConfirmation />
       <PreviewGallery
         generations={generations}
         styles={styles}
@@ -46,7 +47,6 @@ export default function PreviewComponent({
       <ReactionsSection />
       <FaqSection />
       <BuySection selectedGeneration={generations[selectedIndex]} />
-      <SuccessHandler />
     </main>
   );
 }

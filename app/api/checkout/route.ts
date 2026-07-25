@@ -203,7 +203,7 @@ export async function POST(request: Request) {
           quantity: 1,
         },
       ],
-      success_url: referrer,
+      success_url: `${referrer}?success`,
       cancel_url: referrer,
     });
 
