@@ -137,6 +137,7 @@ export default function PreviewGallery({
                 fill
                 className="object-cover"
                 priority
+                draggable={false}
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-3/4 h-3 bg-muted rounded-full overflow-hidden border-2 border-muted">
@@ -212,10 +213,12 @@ export default function PreviewGallery({
                     </div>
                     <Image
                       src={"/placeholder.webp"}
-                      alt="Placeholder Image"
+                      alt="Placeholder Thumbnail"
                       fill
                       className="object-cover"
                       sizes="96px"
+                      priority
+                      draggable={false}
                     />
                   </>
                 )}
