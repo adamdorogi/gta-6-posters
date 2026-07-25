@@ -95,45 +95,44 @@ export default function BuySection({
               </div>
             </div>
             <div className="grid grid-cols-4 gap-2 w-full">
-              {selectedGeneration?.path &&
-                Object.keys(products)
-                  .filter((size) => size !== "Digital")
-                  .map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`relative flex flex-col items-center justify-center py-3 rounded-lg border cursor-pointer transition-colors ${
-                        selectedSize === size
-                          ? size === "Large"
-                            ? "border-accent bg-accent/20 shadow-sm border-2"
-                            : "border-primary bg-primary-accent shadow-sm border-2"
-                          : "border-border bg-background"
-                      }`}
-                    >
-                      {size === "Medium" && (
-                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full whitespace-nowrap">
-                          Popular
-                        </span>
-                      )}
-                      {size === "Large" && (
-                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-ring text-foreground text-[10px] font-bold rounded-full whitespace-nowrap">
-                          Best Value
-                        </span>
-                      )}
-                      <span className="text-sm font-bold text-foreground">
-                        {unit === "in"
-                          ? products[size].width
-                          : Math.floor(products[size].width * 2.54)}{" "}
-                        ×{" "}
-                        {unit === "in"
-                          ? products[size].height
-                          : Math.floor(products[size].height * 2.54)}
+              {Object.keys(products)
+                .filter((size) => size !== "Digital")
+                .map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`relative flex flex-col items-center justify-center py-3 rounded-lg border cursor-pointer transition-colors ${
+                      selectedSize === size
+                        ? size === "Large"
+                          ? "border-accent bg-accent/20 shadow-sm border-2"
+                          : "border-primary bg-primary-accent shadow-sm border-2"
+                        : "border-border bg-background"
+                    }`}
+                  >
+                    {size === "Medium" && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full whitespace-nowrap">
+                        Popular
                       </span>
-                      <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                        ${products[size].price / 100}
+                    )}
+                    {size === "Large" && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-ring text-foreground text-[10px] font-bold rounded-full whitespace-nowrap">
+                        Best Value
                       </span>
-                    </button>
-                  ))}
+                    )}
+                    <span className="text-sm font-bold text-foreground">
+                      {unit === "in"
+                        ? products[size].width
+                        : Math.floor(products[size].width * 2.54)}{" "}
+                      ×{" "}
+                      {unit === "in"
+                        ? products[size].height
+                        : Math.floor(products[size].height * 2.54)}
+                    </span>
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      ${products[size].price / 100}
+                    </span>
+                  </button>
+                ))}
             </div>
           </div>
           <ul className="flex flex-col gap-2 w-full mx-auto text-left">
@@ -168,16 +167,15 @@ export default function BuySection({
               </li>
             ))}
           </ul>
-          {selectedGeneration?.path && (
-            <BuyButton
-              size={selectedSize}
-              price={products[selectedSize].price}
-              generationId={selectedGeneration.id}
-              text="Canvas + Digital"
-              iconPath="/box.svg"
-              iconAlt="Buy Icon"
-            />
-          )}
+          <BuyButton
+            disabled={!selectedGeneration?.path}
+            size={selectedSize}
+            price={products[selectedSize].price}
+            generationId={selectedGeneration.id}
+            text="Canvas + Digital"
+            iconPath="/box.svg"
+            iconAlt="Buy Icon"
+          />
         </div>
 
         {/* Digital Download Section */}
@@ -232,16 +230,15 @@ export default function BuySection({
               </li>
             ))}
           </ul>
-          {selectedGeneration?.path && (
-            <BuyButton
-              size="Digital"
-              price={products["Digital"].price}
-              generationId={selectedGeneration.id}
-              text="Digital Only"
-              iconPath="/download.svg"
-              iconAlt="Download Icon"
-            />
-          )}
+          <BuyButton
+            disabled={!selectedGeneration?.path}
+            size="Digital"
+            price={products["Digital"].price}
+            generationId={selectedGeneration.id}
+            text="Digital Only"
+            iconPath="/download.svg"
+            iconAlt="Download Icon"
+          />
         </div>
       </div>
 
