@@ -25,9 +25,9 @@ export default function BuySection({
   );
 
   return (
-    <section className="flex flex-col items-center gap-8 w-full mx-auto bg-white py-10">
+    <section className="flex flex-col items-center gap-8 w-full mx-auto bg-white py-8 md:py-10">
       <div className="text-center">
-        <h2 className="text-4xl lg:text-5xl font-serif font-black italic tracking-tight text-foreground leading-tight">
+        <h2 className="text-4xl md:text-5xl font-serif font-black italic tracking-tight text-foreground leading-tight">
           Get Your Portrait Now
         </h2>
         <p className="text-base text-muted-foreground max-w-xl leading-relaxed">
@@ -36,7 +36,7 @@ export default function BuySection({
       </div>
 
       {/* Buy Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[720px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 px-4 md:px-0 w-full max-w-full md:max-w-[720px]">
         {/* Physical Canvas Section */}
         <div className="relative flex flex-col items-center gap-6 p-4 pt-8 rounded-2xl border border-border bg-background shadow-sm h-fit">
           <div className="absolute text-nowrap -top-3 left-1/2 -translate-x-1/2 px-5 py-1 bg-ring text-foreground text-base font-bold rounded-full">
