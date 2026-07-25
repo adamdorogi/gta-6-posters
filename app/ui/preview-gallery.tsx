@@ -137,6 +137,7 @@ export default function PreviewGallery({
                 fill
                 className="object-cover"
                 priority
+                draggable={false}
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-3/4 h-3 bg-muted rounded-full overflow-hidden border-2 border-muted">
@@ -171,7 +172,7 @@ export default function PreviewGallery({
         <div className="relative w-full max-w-4xl">
           <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-6 bg-gradient-to-r from-background to-transparent" />
           <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-6 bg-gradient-to-l from-background to-transparent" />
-          <div className="flex flex-nowrap gap-4 overflow-y-hidden px-6 py-4 w-full justify-start no-scrollbar">
+          <div className="flex flex-nowrap gap-4 overflow-y-hidden px-6 py-4 w-full justify-center no-scrollbar">
             {generations.map((gen, idx) => (
               <button
                 key={gen.id}
@@ -212,10 +213,12 @@ export default function PreviewGallery({
                     </div>
                     <Image
                       src={"/placeholder.webp"}
-                      alt="Placeholder Image"
+                      alt="Placeholder Thumbnail"
                       fill
                       className="object-cover"
                       sizes="96px"
+                      priority
+                      draggable={false}
                     />
                   </>
                 )}

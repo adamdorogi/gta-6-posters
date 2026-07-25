@@ -12,6 +12,7 @@ export default function BuyButton({
   text,
   iconPath,
   iconAlt,
+  disabled = false,
 }: {
   generationId: string;
   size: string;
@@ -19,13 +20,14 @@ export default function BuyButton({
   text: string;
   iconPath: string;
   iconAlt: string;
+  disabled?: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   return (
     <button
-      disabled={isLoading}
+      disabled={isLoading || disabled}
       onClick={async () => {
         setIsLoading(true);
         const metaEventId = crypto.randomUUID();
