@@ -12,11 +12,11 @@ export default function Privacy() {
     <div className="min-h-screen bg-background">
       <NavBar />
       <main className="flex-1 min-h-screen max-w-[680px] mx-auto px-4 py-10 text-foreground font-sans">
-        <h1 className="font-serif italic text-3xl md:text-4xl mb-8 text-foreground">
+        <h1 className="font-serif font-black italic text-3xl md:text-4xl mb-8 text-foreground">
           Privacy Policy
         </h1>
         <div className="space-y-6 text-sm leading-6 text-muted-foreground">
-          <p>Last updated: July 22, 2026</p>
+          <p>Last updated: July 25, 2026</p>
           <p>
             This Privacy Policy describes how <strong>turnroyal.com</strong>{" "}
             (the “Site”, “TurnRoyal”, “we”, “us”, or “our”), collects, uses, and
@@ -178,8 +178,8 @@ export default function Privacy() {
             </h3>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
-                <strong>Periodic photo deletion:</strong> uploaded photos may be
-                deleted periodically.
+                <strong>Periodic photo deletion:</strong> uploaded photos are
+                kept indefinitely, but may be deleted periodically.
               </li>
               <li>
                 <strong>Immediate deletion on request:</strong> contact{" "}
