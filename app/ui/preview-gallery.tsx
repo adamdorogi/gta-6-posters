@@ -94,12 +94,12 @@ export default function PreviewGallery({
   const selectedGeneration = generations[selectedIndex];
 
   return (
-    <div className="flex flex-col items-center gap-8 w-full mx-auto bg-white">
-      <div className="flex flex-col items-center gap-4 p-6 w-full bg-linear-to-b from-background to-background to-80%">
+    <div className="flex flex-col items-center w-full mx-auto bg-white">
+      <div className="flex flex-col items-center md:pt-6 pb-2 w-full bg-linear-to-b from-background to-background to-80%">
         {/* Main Image Container */}
         <div
           onContextMenu={(e) => e.preventDefault()}
-          className="relative aspect-[3/4] group w-full max-w-xl overflow-hidden rounded-2xl bg-muted"
+          className="relative aspect-[3/4] group w-full max-w-full md:max-w-xl overflow-hidden md:rounded-2xl bg-muted mb-2"
         >
           {selectedGeneration?.path && selectedGeneration?.publicUrl ? (
             <>
