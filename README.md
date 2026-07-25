@@ -1,7 +1,7 @@
 # TODO
 
-1. finishing touches: videos, preview page, mobile design.
-2. SEO descriptions, og links, og images, metadata/titles, etc.
+1. add unboxing videos
+2. improved copy/content: SEO descriptions, og links, og images, metadata/titles, update sale text, etc.
 3. add to google/ddg console
 4. design order confirmation email (Your masterpiece is being prepared)
 5. design digital download email
@@ -11,9 +11,8 @@
 9. create and test email account (namecheap?) (reply to order confirmation etc.)
 10. improve prompts/ add reference image
 11. uncomment image upscale
-12. update sale text
-13. test order on live website, incognito, all database rows/cleared (but cancel printify order)
-14. done.
+12. test order on live website, incognito, all database rows/cleared (but cancel printify order)
+13. done.
 
 - maybe:
   - upsell/follow up emails (e.g. Want another style of the same photo?)
