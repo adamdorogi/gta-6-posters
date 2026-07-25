@@ -12,11 +12,11 @@ export default function Terms() {
     <div className="min-h-screen bg-background">
       <NavBar />
       <main className="flex-1 min-h-screen max-w-[680px] mx-auto px-4 py-10 bg-background text-foreground font-sans">
-        <h1 className="font-serif italic text-3xl md:text-4xl mb-8 text-foreground">
+        <h1 className="font-serif font-black italic text-3xl md:text-4xl mb-8 text-foreground">
           Terms of Service
         </h1>
         <div className="space-y-6 text-sm leading-6 text-muted-foreground">
-          <p>Last updated: July 22, 2026</p>
+          <p>Last updated: July 25, 2026</p>
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-2">
               1. Overview
@@ -186,9 +186,9 @@ export default function Terms() {
               4.3 Retention and Deletion of Uploaded Photos
             </h3>
             <p>
-              We retain uploaded photographs which may be deleted periodically.
-              You may request immediate deletion of your photos at any time by
-              emailing{" "}
+              We retain uploaded photographs indefinitely, but may delete them
+              periodically. You may request immediate deletion of your photos at
+              any time by emailing{" "}
               <Link
                 href="mailto:hello@turnroyal.com"
                 className="text-primary hover:underline"
@@ -323,13 +323,14 @@ export default function Terms() {
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
-                <strong>Before shipping:</strong> You may cancel your order and
-                receive a full refund by contacting us before the item ships.
+                <strong>Before production:</strong> You may cancel your order
+                and receive a full refund by contacting us before the item
+                enters production.
               </li>
               <li>
                 <strong>Damaged or defective:</strong> If your order arrives
                 damaged or with a manufacturing defect, contact us within 14
-                days of receipt with photos of the damage. We will provide a
+                days of receipt with photos of the damage. We may provide a
                 replacement or full refund at no additional cost.
               </li>
               <li>
