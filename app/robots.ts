@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/preview/",
     },
-    sitemap: `${metadata.metadataBase}/sitemap.xml`,
+    sitemap: `${metadata.metadataBase}sitemap.xml`,
   };
 }
