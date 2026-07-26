@@ -10,6 +10,9 @@ import ScrollToTopButton from "@/app/ui/scroll-to-top-button";
 import QASection from "./ui/faq-section";
 import { Metadata } from "next";
 import ReactionsSection from "./ui/reactions-section";
+import { products } from "./utils/pricing";
+import { metadata as defaultMetadata } from "./layout";
+import { DefaultTemplateString } from "next/dist/lib/metadata/types/metadata-types";
 
 export const metadata: Metadata = {
   title: "Get Turned Into Royalty | Turn Royal",
@@ -20,6 +23,21 @@ export default async function Home() {
     .from("styles")
     .select("id, name")
     .order("rank", { ascending: true });
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: (defaultMetadata.title as DefaultTemplateString).default,
+    url: defaultMetadata.metadataBase,
+    description: defaultMetadata.description,
+    applicationCategory: "DesignApplication",
+    offers: {
+      "@type": "Offer",
+      price: products.Digital.price / 100,
+      priceCurrency: "AUD",
+      description: "Digital download of your AI portrait",
+    },
+  };
 
   const showcaseImages = await getShowcaseImages();
 
@@ -169,6 +187,12 @@ export default async function Home() {
         <QASection />
       </main>
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
     </div>
   );
 }
