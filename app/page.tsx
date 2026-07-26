@@ -31,6 +31,7 @@ export default async function Home() {
     url: defaultMetadata.metadataBase,
     description: defaultMetadata.description,
     applicationCategory: "DesignApplication",
+    operatingSystem: "Web",
     offers: {
       "@type": "Offer",
       price: products.Digital.price / 100,
