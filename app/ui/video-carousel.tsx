@@ -80,7 +80,8 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
                     controls={idx === activeIndex}
                     controlsList="nodownload"
                     muted
-                    preload="metadata"
+                    preload="none"
+                    poster={`/posters/${fileName}.jpg`}
                     className="w-full h-auto rounded-xl shadow-lg transition-all duration-300 cursor-pointer"
                     style={{
                       opacity,
@@ -90,7 +91,7 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
                     onEnded={next}
                     onClick={() => setActiveIndex(idx)}
                   >
-                    <source src={`/videos/${fileName}`} type="video/mp4" />
+                    <source src={`/videos/${fileName}.mp4`} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 </div>
