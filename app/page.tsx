@@ -13,6 +13,7 @@ import ReactionsSection from "./ui/reactions-section";
 import { products } from "./utils/pricing";
 import { metadata as defaultMetadata } from "./layout";
 import { DefaultTemplateString } from "next/dist/lib/metadata/types/metadata-types";
+import { getVideoFiles } from "./utils/videos";
 
 export const metadata: Metadata = {
   title: "Get Turned Into Royalty | Turn Royal",
@@ -106,7 +107,7 @@ export default async function Home() {
         </div>
 
         {/* Reactions Section */}
-        <ReactionsSection />
+        <ReactionsSection videoFiles={await getVideoFiles()} />
 
         {/* Features Section */}
         <section

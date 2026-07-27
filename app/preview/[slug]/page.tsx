@@ -4,8 +4,7 @@ import { supabase } from "@/app/utils/supabase";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import PreviewComponent from "@/app/ui/preview-component";
-import { readdir } from "node:fs/promises";
-import path from "node:path";
+import { getVideoFiles } from "@/app/utils/videos";
 
 export const metadata: Metadata = {
   title: "Your Royal Portrait",
@@ -44,12 +43,6 @@ export default async function Preview({
   const styleId = generations[0].generation_groups.style_id;
   const userPrompt = generations[0].generation_groups.user_prompt;
 
-  const videosDir = path.join(process.cwd(), "public", "videos");
-  const videoFiles = (await readdir(videosDir, { withFileTypes: true }))
-    .filter((entry) => entry.isFile() && /\.mp4$/i.test(entry.name))
-    .map((entry) => entry.name)
-    .sort((a, b) => a.localeCompare(b));
-
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans text-foreground">
       <NavBar />
@@ -59,7 +52,7 @@ export default async function Preview({
         generationGroupId={generationGroupId}
         styleId={styleId}
         userPrompt={userPrompt}
-        videoFiles={videoFiles}
+        videoFiles={await getVideoFiles()}
       />
       <Footer />
     </div>
