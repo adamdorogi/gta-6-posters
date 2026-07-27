@@ -89,7 +89,9 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
                       transformOrigin: "center center",
                     }}
                     onEnded={next}
-                    onClick={() => setActiveIndex(idx)}
+                    onClick={() => {
+                      if (idx !== activeIndex) setActiveIndex(idx);
+                    }}
                   >
                     <source src={`/videos/${fileName}.mp4`} type="video/mp4" />
                     Your browser does not support the video tag.
