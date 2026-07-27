@@ -13,6 +13,7 @@ export default function PreviewComponent({
   generationGroupId,
   styleId,
   userPrompt,
+  videoFiles,
 }: {
   generations: {
     publicUrl: string | null;
@@ -28,6 +29,7 @@ export default function PreviewComponent({
   generationGroupId: string;
   styleId: string;
   userPrompt: string;
+  videoFiles: string[];
 }) {
   const [selectedIndex, setSelectedIndex] = useState(generations.length - 1);
 
@@ -44,7 +46,7 @@ export default function PreviewComponent({
         setSelectedIndex={setSelectedIndex}
       />
       <BuySection selectedGeneration={generations[selectedIndex]} />
-      <ReactionsSection />
+      <ReactionsSection videoFiles={videoFiles} />
       <FaqSection />
       <BuySection selectedGeneration={generations[selectedIndex]} />
     </main>
