@@ -80,7 +80,7 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
                     controls={idx === activeIndex}
                     controlsList="nodownload"
                     muted
-                    autoPlay
+                    preload="none"
                     className="w-full h-auto rounded-xl shadow-lg transition-all duration-300 cursor-pointer"
                     style={{
                       opacity,
