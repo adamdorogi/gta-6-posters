@@ -75,6 +75,7 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
                       if (el) videoRefs.current[idx] = el;
                     }}
                     preload="metadata"
+                    playsInline
                     width={SLIDE_WIDTH}
                     height={SLIDE_WIDTH * (16 / 9)}
                     controls={idx === activeIndex}
