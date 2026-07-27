@@ -1,4 +1,14 @@
-export default function ReactionsSection() {
+import { readdir } from "node:fs/promises";
+import path from "node:path";
+import VideoCarousel from "./video-carousel";
+
+export default async function ReactionsSection() {
+  const videosDir = path.join(process.cwd(), "public", "videos");
+  const videoFiles = (await readdir(videosDir, { withFileTypes: true }))
+    .filter((entry) => entry.isFile() && /\.mp4$/i.test(entry.name))
+    .map((entry) => entry.name)
+    .sort((a, b) => a.localeCompare(b));
+
   return (
     <section
       id="reactions"
@@ -11,9 +21,12 @@ export default function ReactionsSection() {
         <h2 className="text-2xl md:text-4xl font-serif italic font-black text-foreground mb-2">
           See why they cry happy tears
         </h2>
-        <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
           From thousands of unboxing moments
         </p>
+      </div>
+      <div className="-mx-6">
+        <VideoCarousel videoFiles={videoFiles} />
       </div>
     </section>
   );
