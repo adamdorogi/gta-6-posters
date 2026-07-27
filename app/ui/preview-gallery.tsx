@@ -192,6 +192,7 @@ export default function PreviewGallery({
                     className="object-cover"
                     sizes="96px"
                     draggable={false}
+                    priority
                   />
                 ) : gen.status === "failed" ? (
                   <div className="w-full h-full bg-muted flex items-center justify-center">
