@@ -1,6 +1,6 @@
 import VideoCarousel from "./video-carousel";
 
-export default async function ReactionsSection({
+export default function ReactionsSection({
   videoFiles,
 }: {
   videoFiles: string[];

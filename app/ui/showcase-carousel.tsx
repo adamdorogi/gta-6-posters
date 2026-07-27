@@ -32,6 +32,7 @@ export default function ShowcaseCarousel({
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="200px"
                 priority
+                fetchPriority="high"
               />
             </div>
           ))}
@@ -70,6 +71,7 @@ export default function ShowcaseCarousel({
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="172px"
                 priority
+                fetchPriority="high"
               />
             </div>
           ))}
@@ -99,6 +101,7 @@ export default function ShowcaseCarousel({
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="172px"
                 priority
+                fetchPriority="high"
               />
             </div>
           ))}

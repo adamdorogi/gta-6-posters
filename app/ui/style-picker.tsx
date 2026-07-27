@@ -69,6 +69,7 @@ export default function StylePicker({
                   sizes="172px"
                   className={`object-cover transition-transform duration-500 ${selected ? "scale-[1.04]" : "group-hover:scale-105"}`}
                   priority
+                  fetchPriority="high"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-3">

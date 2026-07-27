@@ -111,6 +111,7 @@ export default function PreviewGallery({
                 className="object-cover"
                 priority
                 loading="eager"
+                fetchPriority="high"
                 draggable={false}
               />
               {/* Edit Button Overlay */}
