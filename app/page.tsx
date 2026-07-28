@@ -8,6 +8,7 @@ import NavBar from "./ui/nav-bar";
 import Footer from "./ui/footer";
 import ScrollToTopButton from "@/app/ui/scroll-to-top-button";
 import QASection from "./ui/faq-section";
+import TryFreeSection from "./ui/try-free-section";
 import { Metadata } from "next";
 import ReactionsSection from "./ui/reactions-section";
 import { products } from "./utils/pricing";
@@ -109,6 +110,47 @@ export default async function Home() {
         {/* Reactions Section */}
         <ReactionsSection videoFiles={await getVideoFiles()} />
 
+        {/* Mockup Section */}
+        <section
+          id="how-it-looks"
+          className="px-6 py-6 md:py-8 mx-auto bg-background w-full"
+        >
+          <div className="max-w-7xl mx-auto text-center">
+            <div className="flex w-fit mx-auto items-center gap-1 px-4 py-1.5 rounded-full bg-primary-accent tracking-wide text-primary text-sm font-medium mb-4 md:mb-5">
+              <span className="font-bold uppercase">How it looks</span>
+            </div>
+            <h2 className="text-2xl md:text-4xl font-serif italic font-black text-foreground mb-2">
+              Museum quality, delivered to your door
+            </h2>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+              Every canvas is printed at 12K resolution on premium archival
+              paper — hung and framed, ready to transform any room.
+            </p>
+
+            <div className="relative mx-auto max-w-md lg:max-w-lg">
+              <Image
+                src="/mockup.jpg"
+                alt="Turn Royal canvas mockup — a premium AI portrait print on museum-quality canvas"
+                width={800}
+                height={800}
+                className="rounded-2xl shadow-2xl w-full h-auto object-cover"
+                priority
+              />
+            </div>
+            <ScrollToTopButton>
+              <Image
+                src="/sparkle.svg"
+                alt="Sparkle Icon"
+                width={24}
+                height={24}
+                priority
+                className="invert"
+              />
+              Create your portrait — free preview
+            </ScrollToTopButton>
+          </div>
+        </section>
+
         {/* Features Section */}
         <section
           id="features"
@@ -187,6 +229,7 @@ export default async function Home() {
 
         {/* Q&A Section */}
         <QASection />
+        <TryFreeSection />
       </main>
       <Footer />
       <script
