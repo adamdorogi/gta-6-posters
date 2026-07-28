@@ -9,6 +9,6 @@ export const products: {
 };
 
 export const sale: { name: string; discount: number } = {
-  name: "Summer Sale",
+  name: "Launch Sale",
   discount: 60,
 };
