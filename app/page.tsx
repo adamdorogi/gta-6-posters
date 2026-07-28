@@ -113,7 +113,7 @@ export default async function Home() {
         {/* Mockup Section */}
         <section
           id="how-it-looks"
-          className="px-6 py-6 md:py-8 mx-auto bg-background w-full"
+          className="px-4 md:px-8 py-6 md:py-8 mx-auto bg-background w-full"
         >
           <div className="max-w-7xl mx-auto text-center">
             <div className="flex w-fit mx-auto items-center gap-1 px-4 py-1.5 rounded-full bg-primary-accent tracking-wide text-primary text-sm font-medium mb-4 md:mb-5">
