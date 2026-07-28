@@ -11,7 +11,8 @@
 9. improve prompts/ add reference image
 10. uncomment image upscale
 11. test order on live website, incognito, all database rows/cleared (but cancel printify order)
-12. done.
+12. top up openrouter and replicate
+13. done.
 
 - maybe:
   - upsell/follow up emails (e.g. Want another style of the same photo?)
