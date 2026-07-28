@@ -55,7 +55,7 @@ export default function StylePicker({
               type="button"
               onClick={() => onChange(style.id)}
               aria-pressed={selected}
-              className={`group cursor-pointer relative aspect-[3/4] shrink-0 overflow-hidden rounded-xl text-left transition-all duration-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${selected ? "scale-[1.03] ring-2 ring-accent ring-offset-2 ring-offset-background" : "border border-transparent"}`}
+              className={`group cursor-pointer relative w-[108px] aspect-[3/4] shrink-0 overflow-hidden rounded-xl text-left transition-all duration-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${selected ? "scale-[1.03] ring-2 ring-accent ring-offset-2 ring-offset-background" : "border border-transparent"}`}
             >
               <div
                 className={`relative aspect-[3/4] overflow-hidden rounded-xl`}
