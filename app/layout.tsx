@@ -20,7 +20,11 @@ const merriweather = Merriweather({
 export const metadata: Metadata = {
   title: { default: "Turn Royal", template: "%s | Turn Royal" },
   description: "Customized Canvas Printing",
-  metadataBase: new URL("https://turnroyal.com"),
+  metadataBase: new URL("https://www.turnroyal.com"),
+  openGraph: { siteName: "Turn Royal" },
+  alternates: {
+    canonical: "./",
+  },
 };
 
 export default function RootLayout({
