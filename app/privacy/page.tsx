@@ -5,6 +5,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
+  description:
+    "Privacy Policy for Turn Royal, detailing how we handle user data and uploaded photos.",
 };
 
 export default function Privacy() {
