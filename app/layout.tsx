@@ -5,6 +5,8 @@ import { Inter, Merriweather } from "next/font/google";
 import "./globals.css";
 import MetaPixel from "./utils/meta-pixel";
 import TikTokPixel from "./utils/tiktok-pixel";
+import { products } from "./utils/pricing";
+import { DefaultTemplateString } from "next/dist/lib/metadata/types/metadata-types";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,6 +34,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: (metadata.title as DefaultTemplateString).default,
+    url: metadata.metadataBase,
+    description: metadata.description,
+    applicationCategory: "DesignApplication",
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: products.Digital.price / 100,
+      priceCurrency: "AUD",
+      description: "Digital download of your AI portrait",
+    },
+  };
+
   return (
     <html
       lang="en"
@@ -43,6 +61,12 @@ export default function RootLayout({
         <SpeedInsights />
         <MetaPixel />
         <TikTokPixel />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
       </body>
     </html>
   );
