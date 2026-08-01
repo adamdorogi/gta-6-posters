@@ -64,7 +64,7 @@ export default async function Home() {
                   (benefit, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-3 text-xs md:text-sm text-muted"
+                      className="flex items-center gap-3 text-sm text-muted"
                     >
                       <Image
                         src="/tick.svg"

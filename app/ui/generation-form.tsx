@@ -152,7 +152,10 @@ export default function GenerationForm({
                   priority
                 />
               </div>
-              <span className="font-bold">Drop a photo or click to upload</span>
+              <span className="hidden md:inline font-bold">
+                Drop a photo or click to upload
+              </span>
+              <span className="font-bold md:hidden">Tap to upload a photo</span>
             </div>
           </>
         )}
