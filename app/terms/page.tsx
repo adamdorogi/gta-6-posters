@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Terms of Service for Turn Royal, outlining the rules and guidelines for using our AI portrait generation service.",
+    "Read Turn Royal's Terms and Conditions covering orders, digital downloads, canvas purchases, refunds, shipping, website use and customer responsibilities.",
 };
 
 export default function Terms() {

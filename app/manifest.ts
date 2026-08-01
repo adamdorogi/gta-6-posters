@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
+import { metadata } from "./layout";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Turn Royal: Get Turned Into Royalty",
     short_name: "Turn Royal",
-    description: "Customized Canvas Printing",
+    description: metadata.description!,
     start_url: "/",
     display: "standalone",
     background_color: "#392f5a",
