@@ -76,7 +76,7 @@ export default function RetryButton({
               height={24}
               priority
             />
-            Create new version
+            Create New Version
           </>
         )}
       </button>

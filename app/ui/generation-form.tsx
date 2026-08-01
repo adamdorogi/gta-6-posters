@@ -133,7 +133,7 @@ export default function GenerationForm({
                         height={24}
                         priority
                       />
-                      Create my masterpiece
+                      Create My Masterpiece
                     </>
                   )}
                 </button>
