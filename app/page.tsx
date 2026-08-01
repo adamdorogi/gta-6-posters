@@ -60,7 +60,7 @@ export default async function Home() {
               </div>
 
               <div className="px-4 lg:px-12 max-w-4xl flex flex-wrap gap-6 justify-center lg:justify-start">
-                {["Free preview", "No signup", "Private & secure"].map(
+                {["Free Preview", "No Signup", "Private & Secure"].map(
                   (benefit, i) => (
                     <div
                       key={i}
@@ -101,22 +101,73 @@ export default async function Home() {
               <span className="font-bold uppercase">How it looks</span>
             </div>
             <h2 className="text-2xl md:text-4xl font-serif italic font-black text-foreground mb-2">
-              Museum quality, delivered to your door
+              Museum quality, made for your home
             </h2>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
-              Every canvas is printed at 12K resolution on premium archival
-              paper — hung and framed, ready to transform any room.
+              Your portrait is enhanced to 12K resolution, and printed in
+              Australia. A stunning artwork designed to last for years.
             </p>
 
-            <div className="relative mx-auto max-w-md lg:max-w-lg">
+            <div className="mt-8 grid items-center gap-6 lg:grid-cols-2 lg:gap-10">
               <Image
                 src="/mockup.jpg"
                 alt="Turn Royal canvas mockup — a premium AI portrait print on museum-quality canvas"
-                width={800}
-                height={800}
-                className="rounded-2xl shadow-2xl w-full h-auto object-cover"
+                width={580}
+                height={580}
+                className="max-w-xl mx-auto rounded-2xl shadow-2xl w-full h-auto object-cover"
                 priority
               />
+
+              <div className="grid gap-2 md:gap-4 md:grid-cols-2 text-left">
+                {[
+                  {
+                    title: "Polycotton material",
+                    description:
+                      "Satin-finish canvas printed on premium wide-format eco-solvent polycotton.",
+                    icon: "/polycotton.svg",
+                  },
+                  {
+                    title: "New Zealand pinewood frame",
+                    description:
+                      "A strong, gallery-style wooden frame made from high-quality New Zealand pine.",
+                    icon: "/frame.svg",
+                  },
+                  {
+                    title: "Includes self-assembly kit",
+                    description:
+                      "Your print arrives ready to hang with a simple self-assembly mounting kit.",
+                    icon: "/assembly-kit.svg",
+                  },
+                  {
+                    title: "Vibrant colours",
+                    description:
+                      "Sharp, vivid colour reproduction using the latest Epson printing technology.",
+                    icon: "/colours.svg",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.title}
+                    className="group rounded-2xl p-4 bg-white"
+                  >
+                    <div className="flex flex-row md:flex-col items-center md:items-start gap-4">
+                      <Image
+                        alt={item.title}
+                        src={item.icon}
+                        width={48}
+                        height={48}
+                      />
+                      <div className="flex-col">
+                        <p className="text-base font-semibold tracking-tight text-foreground mb-2">
+                          {item.title}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
             <ScrollToTopButton>
               <Image
@@ -127,7 +178,7 @@ export default async function Home() {
                 priority
                 className="invert"
               />
-              Create your portrait — free preview
+              Create My Free Preview
             </ScrollToTopButton>
           </div>
         </section>
@@ -142,7 +193,7 @@ export default async function Home() {
               Why customers love <span className="text-accent">Turn Royal</span>
             </h2>
             <p className="text-base max-w-xl mx-auto">
-              See your royal portrait in seconds — free preview, no card needed
+              Free preview, high quality prints, delivered Australia-wide.
             </p>
 
             <div className="mt-4 md:mt-8 grid gap-2 md:gap-4 md:grid-cols-2">
@@ -150,7 +201,7 @@ export default async function Home() {
                 {
                   title: "Start for free",
                   caption:
-                    "Get 5 free credits — no card needed, resets every 12 hours. Create your first portraits right now.",
+                    "Get 5 free credits every 12 hours, so you can explore different styles before ordering.",
                   image: "/feature-free.png",
                 },
                 {
@@ -162,11 +213,11 @@ export default async function Home() {
                 {
                   title: "Works with any photo",
                   caption:
-                    "Pets, people, couples, families — any photo becomes a masterpiece.",
+                    "Pets, couples, families, loved ones. Any photo becomes a masterpiece.",
                   image: "/feature-photo.png",
                 },
                 {
-                  title: "Free shipping on prints",
+                  title: "Printed in Australia",
                   caption:
                     "Premium canvas prints shipped free. Museum-worthy quality, guaranteed.",
                   image: "/feature-shipping.png",
@@ -203,7 +254,7 @@ export default async function Home() {
                 priority
                 className="invert"
               />
-              Create your portrait — free preview
+              Create My Free Preview
             </ScrollToTopButton>
           </div>
         </section>

@@ -322,9 +322,11 @@ Styles:
 Product:
 - Physical canvas
   - Material: high-quality polycotton
-  - New Zealand Pinewood frame
+  - New Zealand Pinewood frame: The wooden frame is made from a high-quality New Zealand Pine
   - Semi-glossy satin finish
-  - Comes with a self-assembly hanging kit
+  - Comes with a self-assembly hanging kit: This semi-gloss canvas comes with a self-assembly hanging kit
+  - Polycotton material: The satin-finish style canvas is printed on a wide format eco-solvent, high quality polycotton.
+  - Vibrant colors: The latest printing techniques and state-of -the-art Epson printers provide bright and crisp colors matching your craziest designs
 - Final designs (after purchase) will be upscaled to 12K, providing at least a +320dpi print (depending on canvas size)
 
 Pricing:

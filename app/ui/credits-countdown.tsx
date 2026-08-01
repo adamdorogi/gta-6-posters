@@ -45,7 +45,7 @@ export default function CreditsCountdown({
     return parts.join(" ");
   };
 
-  return (
+  return credits === 5 ? null : (
     <div className="flex opacity-80 items-center gap-1 px-3 py-1 rounded-full bg-primary-accent text-primary text-xs font-medium">
       <span className="font-bold">{credits}</span>
       <span className="opacity-80">

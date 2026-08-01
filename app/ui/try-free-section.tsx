@@ -9,11 +9,11 @@ export default function TryFreeSection() {
     >
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-2xl md:text-4xl font-serif italic font-black mb-2 md:mb-3">
-          Still <span className="text-accent">deciding?</span>
+          Your <span className="text-accent">Portrait</span> Awaits
         </h2>
         <p className="text-base max-w-xl mx-auto">
           Your first portrait is just one click away. No card, no signup, no
-          risk — just pure magic.
+          risk.
         </p>
 
         {/* Value props */}
@@ -21,18 +21,18 @@ export default function TryFreeSection() {
           {[
             {
               icon: "🎁",
-              title: "The Perfect Gift",
-              desc: "A unique, personalized gift for any occasion — delivered to your door.",
+              title: "A Gift They’ll Remember",
+              desc: "A personalised portrait made for birthdays, anniversaries, milestones and special moments.",
             },
             {
               icon: "🇦🇺",
-              title: "Shipped from Australia",
-              desc: "We print and ship your portrait from Victoria, ensuring top-notch quality and fast delivery.",
+              title: "Printed in Australia",
+              desc: "Your canvas is produced and shipped from Victoria for reliable quality and delivery.",
             },
             {
               icon: "⚡",
-              title: "Instant Results",
-              desc: "Your portrait is ready in under a minute.",
+              title: "Preview Before You Buy",
+              desc: "See your portrait first, then choose a canvas or digital download when you’re ready.",
             },
           ].map((item) => (
             <div
@@ -64,12 +64,12 @@ export default function TryFreeSection() {
             priority
             className="invert"
           />
-          Create your portrait — free preview
+          Create My Free Preview
         </ScrollToTopButton>
 
         {/* Trust line */}
         <div className="p-4 pb-0 lg:px-12 max-w-4xl flex flex-wrap gap-6 justify-center">
-          {["Free preview", "No credit card", "No signup"].map((benefit, i) => (
+          {["Free Preview", "No Credit Card", "No Signup"].map((benefit, i) => (
             <div
               key={i}
               className="flex items-center gap-3 text-xs md:text-sm text-muted"

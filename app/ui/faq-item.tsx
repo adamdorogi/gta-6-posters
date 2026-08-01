@@ -4,10 +4,10 @@ import { useState } from "react";
 
 type FaqItemProps = {
   question: string;
-  answer: string;
+  answers: string[];
 };
 
-export default function FaqItem({ question, answer }: FaqItemProps) {
+export default function FaqItem({ question, answers }: FaqItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -51,9 +51,15 @@ export default function FaqItem({ question, answer }: FaqItemProps) {
       >
         <div className="min-h-0">
           <div className="h-px bg-muted" />
-          <p className="pt-5 text-base leading-relaxed text-foreground text-base">
-            {answer}
-          </p>
+
+          {answers.map((answer, index) => (
+            <p
+              key={index}
+              className="pt-5 text-base leading-relaxed text-foreground text-base"
+            >
+              {answer}
+            </p>
+          ))}
         </div>
       </div>
     </div>

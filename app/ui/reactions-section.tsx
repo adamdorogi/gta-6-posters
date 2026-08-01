@@ -18,7 +18,7 @@ export default function ReactionsSection({
           See why they cry happy tears
         </h2>
         <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
-          From thousands of unboxing moments
+          Reactions from thousands of unboxing moments
         </p>
       </div>
       <div className="-mx-6">

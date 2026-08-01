@@ -1,3 +1,4 @@
+import { products } from "../utils/pricing";
 import FaqItem from "./faq-item";
 
 export default function FaqSection() {
@@ -10,47 +11,79 @@ export default function FaqSection() {
         <div className="mx-auto max-w-2xl text-left">
           <FaqItem
             question="How does it work?"
-            answer="Upload your photo, pick a style, and our AI creates your portrait in seconds. Free preview — no card needed."
+            answers={[
+              "Upload your photo, choose a style, and see your portrait come to life in seconds. Free preview, no card or signup needed.",
+            ]}
+          />
+          <FaqItem
+            question="Where is my portrait made?"
+            answers={[
+              "All portraits are produced in Victoria, Australia. Each canvas is printed on premium polycotton and finished with a New Zealand pinewood frame, creating a beautiful piece of artwork made to last.",
+            ]}
           />
           <FaqItem
             question="Is my photo good enough?"
-            answer="Any well-lit photo works great. We recommend clear, front-facing photos for best results. Both phone and camera photos work perfectly."
+            answers={[
+              "Most photos work beautifully. For the best results, choose a clear, well-lit photo with the person or pet facing the camera. Phone photos are perfect too.",
+            ]}
           />
           <FaqItem
             question="What are credits?"
-            answer="Credits let you generate AI portraits. You get free credits to start, which refresh every 12 hours. Each generation uses one credit."
+            answers={[
+              "Credits are used to create your portraits. You’ll receive free credits when you start, and they refresh every 12 hours. Each new portrait uses one credit.",
+            ]}
           />
           <FaqItem
-            question="How to edit the preview?"
-            answer="You can click the “Edit” button to regenerate the portrait, with the option to change the portrait style or provide specific instructions and adjustments you would like made to the artwork. Please make sure your instructions are direct, clear, and detailed so the system can better understand what changes need to be made."
+            question="How can I edit my preview?"
+            answers={[
+              "Click the “Edit” button to create a new version of your portrait. You can choose a different style or add instructions to adjust details like the look, mood, or overall design. The more specific your request, the closer the final artwork will match your vision.",
+            ]}
           />
           <FaqItem
             question="Can I include pets or groups?"
-            answer="Absolutely! We support pets, couples, families, and groups. Just upload a photo with everyone in it and choose the right category."
+            answers={[
+              "Absolutely! You can create portraits of pets, couples, families, and groups. Simply upload a photo with everyone included, choose your preferred style, and we’ll turn it into a timeless piece of artwork.",
+            ]}
           />
           <FaqItem
             question="How will the final portrait look?"
-            answer="Your final physical canvas will be printed vertically and will look the same as the preview you are purchasing. Please note that, during the canvas wrapping process, the outer edges of the artwork are wrapped around the sides of the canvas frame. Because of this, a small portion near the edges of the image may not be fully visible from the front once printed. Aside from this standard canvas wrapping adjustment, the final portrait will match the preview shown. If you have any questions or would like confirmation of how your final portrait will appear before printing, please contact our customer support team at hello@turnroyal.com."
+            answers={[
+              "Your final portrait will look the same as the preview you approve before purchase.",
+              "For canvas orders, the artwork is printed vertically and wrapped around the edges of the frame. This means a small portion of the outer image may continue around the sides and not be fully visible from the front.",
+              "This is a standard canvas framing process. The main artwork and portrait details will match the preview shown.",
+            ]}
           />
           <FaqItem
-            question="Digital File vs Physical Canvas – What’s the Difference?"
-            answer="Please note that digital files will usually appear more vibrant, brighter, and more colorful when viewed on screens such as phones, computers, tablets, or laptops. This is because every screen has its own color calibration, brightness, and display settings, which can enhance how colors appear digitally. Physical canvases are professionally printed, but printed colors naturally appear slightly different compared to backlit digital screens. As a result, the physical canvas may look a bit darker or less vibrant than the digital preview you see on your device. This is a normal difference between digital displays and printed materials and applies to most printed artwork and photography products."
+            question="Digital File vs Physical Canvas: What’s the Difference?"
+            answers={[
+              "Your digital file is designed for viewing on screens, where colours may appear brighter and more vibrant due to screen brightness and settings.",
+              "Your physical canvas is professionally printed to create a beautiful piece of artwork for your home. Printed colours can naturally appear slightly different from the digital preview, with a softer, more natural finish.",
+              "This is a normal difference between digital displays and printed artwork. Your canvas is carefully produced to preserve the detail, character and quality of your portrait.",
+            ]}
           />
           <FaqItem
             question="How long does delivery take?"
-            answer="Digital downloads are instant after purchase. Canvas prints are sent to production after purchase and the delivery takes 5-10 business days with standard shipping."
+            answers={[
+              "Digital portraits are received within minutes after purchase. Canvas orders are carefully prepared after purchase and typically arrive within 5-10 business days with standard shipping.",
+            ]}
           />
           <FaqItem
-            question="What's the refund policy after the portrait is delivered?"
-            answer="We want to ensure that you are happy with your portrait. However, if you are not satisfied with the received item, please contact our customer support team at hello@turnroyal.com within 14 days of delivery so we can assist you further."
+            question="What’s the refund policy after the portrait is delivered?"
+            answers={[
+              "We want you to love your portrait. If your order arrives and you’re not completely satisfied, please contact our support team at hello@turnroyal.com within 14 days of delivery. We’ll review your request and do our best to help resolve the issue.",
+            ]}
           />
           <FaqItem
-            question="The portrait damaged or lost?"
-            answer="Please contact our customer support team at hello@turnroyal.com within 14 days of delivery if you would like to request a replacement. Kindly make sure to include clear photos showing the issue so we can assist you further."
+            question="What if my portrait arrives damaged or gets lost?"
+            answers={[
+              "We want your artwork to arrive safely. If your portrait is damaged or lost during delivery, please contact us at hello@turnroyal.com within 14 days and include photos of the issue so we can assist with a replacement.",
+            ]}
           />
           <FaqItem
             question="What are the prices?"
-            answer="You can find the prices and offers for our products once you create your free preview and scroll down."
+            answers={[
+              `Our canvas portraits start from $${products.Small.price / 100} AUD, and digital portraits are $${products.Digital.price / 100} AUD. You’ll see the available sizes, offers, and your final options after creating your free preview.`,
+            ]}
           />
         </div>
       </div>

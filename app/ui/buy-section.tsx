@@ -200,7 +200,7 @@ export default function BuySection({
               </div>
             </div>
             <p className="text-muted-foreground text-sm">
-              No physical print — digital file only
+              No physical print, digital file only
             </p>
           </div>
           <ul className="flex flex-col gap-2 w-full mx-auto text-left">
