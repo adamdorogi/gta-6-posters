@@ -47,7 +47,7 @@ export default function RootLayout({
       "@type": "Offer",
       price: products.Digital.price / 100,
       priceCurrency: "AUD",
-      description: "Digital download of your AI portrait",
+      description: "Digital download of your royal portrait",
     },
   };
 
