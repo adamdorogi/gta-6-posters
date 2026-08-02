@@ -82,8 +82,7 @@ export default function FaqSection() {
           <FaqItem
             question="What are the prices?"
             answers={[
-              `Our canvas portraits start from $${products.Small.price / 100}, and digital portraits are $${products.Digital.price / 100}. You’ll see the available sizes, offers, and your final options after creating your free preview.`,
-              "All prices are in Australian dollars.",
+              `Our canvas portraits start from $${products.Small.price / 100}, and digital portraits are $${products.Digital.price / 100}. You’ll see the available sizes, offers, and your final options after creating your free preview. All prices are in Australian dollars.`,
             ]}
           />
         </div>
