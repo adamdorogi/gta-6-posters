@@ -1,16 +1,14 @@
 # TODO
 
-1. design order confirmation email (Your masterpiece is being prepared. Digital download arriving soon)
-2. design digital download email (Physical canvas shipping soon, if applicable)
-3. design production email (Your canvas has entered production)
-4. design shipment created email
-5. design shipment delivered email
-6. create and test email account (namecheap?) (reply to order confirmation etc.)
-7. improve prompts/ add reference image
-8. uncomment image upscale
-9. test order on live website, incognito, all database rows/cleared (but cancel printify order)
-10. top up openrouter and replicate
-11. done.
+1. design production email (Your canvas has entered production)
+2. design shipment created email
+3. design shipment delivered email
+4. create and test email account (namecheap?) (reply to order confirmation etc.)
+5. improve prompts/ add reference image
+6. uncomment image upscale
+7. test order on live website, incognito, all database rows/cleared (but cancel printify order)
+8. top up openrouter and replicate
+9. done.
 
 - maybe:
   - upsell/follow up emails (e.g. Want another style of the same photo?)
@@ -351,6 +349,7 @@ Stack:
 - OpenRouter and Replicate.com (for image generation and upscaling respectively)
 - Stripe (for payments)
 - Printify (for POD)
+- Resend (for email)
 - TikTok pixel and Meta pixel (for ads tracking)
 ```
 
