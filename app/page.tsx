@@ -88,9 +88,6 @@ export default async function Home() {
           </section>
         </div>
 
-        {/* Reactions Section */}
-        <ReactionsSection videoFiles={await getVideoFiles()} />
-
         {/* Mockup Section */}
         <section
           id="how-it-looks"
@@ -182,6 +179,9 @@ export default async function Home() {
             </ScrollToTopButton>
           </div>
         </section>
+
+        {/* Reactions Section */}
+        <ReactionsSection videoFiles={await getVideoFiles()} />
 
         {/* Features Section */}
         <section
