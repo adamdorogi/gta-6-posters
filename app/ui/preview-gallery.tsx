@@ -232,8 +232,14 @@ export default function PreviewGallery({
 
       {/* Edit Modal */}
       {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 p-4 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-background rounded-3xl p-4 w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200">
+        <div
+          className="fixed inset-0 z-50 p-4 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setIsEditModalOpen(false)}
+        >
+          <div
+            className="bg-background rounded-3xl p-4 w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex justify-between items-center mb-8">
               <h3 className="text-2xl font-bold text-foreground">
                 Edit Your Portrait
