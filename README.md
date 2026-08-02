@@ -1,7 +1,7 @@
 # TODO
 
-1. design order confirmation email (Your masterpiece is being prepared)
-2. design digital download email
+1. design order confirmation email (Your masterpiece is being prepared. Digital download arriving soon)
+2. design digital download email (Physical canvas shipping soon, if applicable)
 3. design production email (Your canvas has entered production)
 4. design shipment created email
 5. design shipment delivered email
