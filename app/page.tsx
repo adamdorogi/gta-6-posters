@@ -126,7 +126,7 @@ export default async function Home() {
                   {
                     title: "New Zealand pinewood frame",
                     description:
-                      "A strong, gallery-style wooden frame made from high-quality New Zealand pine.",
+                      "A strong, sturdy wooden frame made from high-quality New Zealand pine.",
                     icon: "/frame.svg",
                   },
                   {
