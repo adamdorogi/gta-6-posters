@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
     const headersList = await headers();
-    const referrer = headersList.get("referer") as string;
+    const referrer = (headersList.get("referer") as string).split("?")[0];
     const { generationId, size, metaEventId, tikTokEventId } =
       await request.json();
 
