@@ -137,14 +137,13 @@ export default function BuySection({
           </div>
           <ul className="flex flex-col gap-2 w-full mx-auto text-left">
             {[
-              "Museum quality canvas print",
+              "High-quality, 12K canvas print",
               `Free digital download worth $${products["Digital"].price / 100}`,
               "No watermarks",
-              "Ready to hang - kit included",
-              "Free shipping",
-              "12K Digital Download",
-              "Satin Finish",
-              "Pinewood Frame",
+              "Ready to hang, kit included",
+              "Semi-glossy satin finish",
+              "New Zealand pinewood frame",
+              "Free shipping Australia-wide",
             ].map((item) => (
               <li
                 key={item}
