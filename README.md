@@ -1,17 +1,16 @@
 # TODO
 
-1. improve website copy: metadata, sale text, shipping text
-2. design order confirmation email (Your masterpiece is being prepared)
-3. design digital download email
-4. design production email (Your canvas has entered production)
-5. design shipment created email
-6. design shipment delivered email
-7. create and test email account (namecheap?) (reply to order confirmation etc.)
-8. improve prompts/ add reference image
-9. uncomment image upscale
-10. test order on live website, incognito, all database rows/cleared (but cancel printify order)
-11. top up openrouter and replicate
-12. done.
+1. design order confirmation email (Your masterpiece is being prepared)
+2. design digital download email
+3. design production email (Your canvas has entered production)
+4. design shipment created email
+5. design shipment delivered email
+6. create and test email account (namecheap?) (reply to order confirmation etc.)
+7. improve prompts/ add reference image
+8. uncomment image upscale
+9. test order on live website, incognito, all database rows/cleared (but cancel printify order)
+10. top up openrouter and replicate
+11. done.
 
 - maybe:
   - upsell/follow up emails (e.g. Want another style of the same photo?)
