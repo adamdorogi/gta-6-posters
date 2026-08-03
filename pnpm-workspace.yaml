@@ -1,0 +1,13 @@
+allowBuilds:
+  sharp: set this to true or false
+  unrs-resolver: set this to true or false
+minimumReleaseAgeExclude:
+  - '@supabase/auth-js@2.112.0'
+  - '@supabase/functions-js@2.112.0'
+  - '@supabase/postgrest-js@2.112.0'
+  - '@supabase/realtime-js@2.112.0'
+  - '@supabase/storage-js@2.112.0'
+  - '@supabase/supabase-js@2.112.0'
+overrides:
+  '@types/react': 19.2.18
+  '@types/react-dom': 19.2.4
