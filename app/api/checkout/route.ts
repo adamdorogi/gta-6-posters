@@ -139,6 +139,13 @@ export async function POST(request: Request) {
       .from("watermarked-generations")
       .getPublicUrl(generationPath).data.publicUrl;
 
+    const productName =
+      size === "Digital"
+        ? "Digital Download"
+        : `${products[size].width}" × ${products[size].height}" Canvas Print + Digital Download`;
+    const productDescription =
+      size === "Digital" ? "12K Ultra HD" : "Free shipping (5-7 business days)";
+
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: "payment",
       submit_type: "pay",
@@ -146,6 +153,7 @@ export async function POST(request: Request) {
       metadata: {
         generationId,
         size,
+        productName,
         userAgent,
         ipAddress,
         fbc: fbc || null,
@@ -186,14 +194,8 @@ export async function POST(request: Request) {
         {
           price_data: {
             product_data: {
-              name:
-                size === "Digital"
-                  ? "Digital Download"
-                  : `${products[size].width}" × ${products[size].height}" Canvas + Digital`,
-              description:
-                size === "Digital"
-                  ? undefined
-                  : "Free shipping (5-7 business days)",
+              name: productName,
+              description: productDescription,
               metadata: { generationId, size },
               images: [imageUrl],
             },
