@@ -31,20 +31,19 @@ export default function PreviewGallery({
   selectedIndex: number;
   setSelectedIndex: (index: number) => void;
 }) {
-  const [prevGenerations, setPrevGenerations] = useState(generations);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const router = useRouter();
 
-  if (generations !== prevGenerations) {
-    setPrevGenerations(generations);
+  useEffect(() => {
     const inProgressIndex = generations.findLastIndex(
       (g) => g.status === "in_progress",
     );
+
     if (inProgressIndex !== -1) {
       setSelectedIndex(inProgressIndex);
     }
-  }
+  }, [generations, setSelectedIndex]);
 
   const inProgress = generations.filter(
     (generation) => generation.status === "in_progress",
