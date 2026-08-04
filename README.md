@@ -1,10 +1,10 @@
 # TODO
 
-1. create and test email account (namecheap?) (reply to order confirmation etc.)
-2. improve prompts/ add reference image
-3. uncomment image upscale
-4. test order on live website, incognito, all database rows/cleared (but cancel printify order)
-5. top up openrouter and replicate
+1. improve prompts/ add reference image
+2. uncomment image upscale
+3. test order on live website, incognito, all database rows/cleared (but cancel printify order)
+4. top up openrouter and replicate
+5. create and test email account (namecheap?) (reply to order confirmation etc.)
 6. done.
 
 - maybe:
@@ -342,7 +342,7 @@ Marketing:
 
 Stack:
 - NextJS 16 and Vercel (for frontend and some backend development, and deployment)
-- Supabase (for edge functions and database)
+- Supabase (for edge functions, bucket storage, and Postgres database)
 - OpenRouter and Replicate.com (for image generation and upscaling respectively)
 - Stripe (for payments)
 - Printify (for POD)
