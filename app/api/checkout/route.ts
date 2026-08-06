@@ -144,7 +144,9 @@ export async function POST(request: Request) {
         ? "Digital Download"
         : `${products[size].width}" × ${products[size].height}" Canvas Print + Digital Download`;
     const productDescription =
-      size === "Digital" ? "12K Ultra HD" : "Free shipping (5-7 business days)";
+      size === "Digital"
+        ? "12K Ultra HD"
+        : "Free shipping (5–10 business days)";
 
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: "payment",

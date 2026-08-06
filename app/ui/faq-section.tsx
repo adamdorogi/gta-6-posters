@@ -64,7 +64,7 @@ export default function FaqSection() {
           <FaqItem
             question="How long does delivery take?"
             answers={[
-              "Digital portraits are received within minutes after purchase. Canvas orders are carefully prepared after purchase and typically arrive within 5-10 business days with standard shipping.",
+              "Digital portraits are received within minutes after purchase. Canvas orders are carefully prepared after purchase and typically arrive within 5–10 business days with standard shipping.",
             ]}
           />
           <FaqItem

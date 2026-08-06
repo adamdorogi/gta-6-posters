@@ -358,7 +358,7 @@ export default function Terms() {
               an email with the tracking details.
             </p>
             <p className="mt-2">
-              Our standard shipping timeframe is 5-10 business days. Please note
+              Our standard shipping timeframe is 5–10 business days. Please note
               that while we do our best to ensure timely dispatch, we are unable
               to take responsibility for delays caused by the shipping carrier.
               In such cases, we recommend contacting the courier directly with
