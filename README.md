@@ -1,11 +1,10 @@
 # TODO
 
-1. improve prompts/ add reference image
-2. uncomment image upscale
-3. test order on live website, incognito, all database rows/cleared (but cancel printify order)
-4. top up openrouter and replicate
-5. create and test email account (namecheap?) (reply to order confirmation etc.)
-6. done.
+1. uncomment image upscale
+2. test order on live website, incognito, all database rows/cleared (but cancel printify order)
+3. top up openrouter and replicate
+4. create and test email account (namecheap?) (reply to order confirmation etc.)
+5. done.
 
 - maybe:
   - upsell/follow up emails (e.g. Want another style of the same photo?)
@@ -322,6 +321,7 @@ Product:
   - Polycotton material: The satin-finish style canvas is printed on a wide format eco-solvent, high quality polycotton.
   - Vibrant colors: The latest printing techniques and state-of -the-art Epson printers provide bright and crisp colors matching your craziest designs
 - Final designs (after purchase) will be upscaled to 12K, providing at least a +320dpi print (depending on canvas size)
+- Generated images are 3:4 aspect ratio
 
 Pricing:
 - Physical canvas:
