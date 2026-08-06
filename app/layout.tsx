@@ -37,18 +37,30 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: (metadata.title as DefaultTemplateString).default,
-    url: metadata.metadataBase,
-    description: metadata.description,
-    applicationCategory: "DesignApplication",
-    operatingSystem: "Web",
-    offers: {
-      "@type": "Offer",
-      price: products.Digital.price / 100,
-      priceCurrency: "AUD",
-      description: "Digital download of your royal portrait",
-    },
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${metadata.metadataBase}#website`,
+        name: (metadata.title as DefaultTemplateString).default,
+        url: metadata.metadataBase,
+        description: metadata.description,
+      },
+      {
+        "@type": "WebApplication",
+        "@id": `${metadata.metadataBase}#webapplication`,
+        name: (metadata.title as DefaultTemplateString).default,
+        url: metadata.metadataBase,
+        description: metadata.description,
+        applicationCategory: "DesignApplication",
+        operatingSystem: "Web",
+        offers: {
+          "@type": "Offer",
+          price: products.Digital.price / 100,
+          priceCurrency: "AUD",
+          description: "Digital download of your royal portrait",
+        },
+      },
+    ],
   };
 
   return (
