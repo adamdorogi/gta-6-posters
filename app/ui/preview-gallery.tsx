@@ -105,7 +105,7 @@ export default function PreviewGallery({
               <Image
                 src={selectedGeneration.publicUrl}
                 alt="Generated Image"
-                sizes="580px"
+                sizes="576px"
                 fill
                 className="object-cover"
                 priority
@@ -133,7 +133,7 @@ export default function PreviewGallery({
               <Image
                 src={"/placeholder.webp"}
                 alt="Placeholder Image"
-                sizes="580px"
+                sizes="576px"
                 fill
                 className="object-cover"
                 priority

@@ -109,8 +109,8 @@ export default async function Home() {
               <Image
                 src="/mockup.jpg"
                 alt="Turn Royal canvas mockup — a premium AI portrait print on museum-quality canvas"
-                width={580}
-                height={580}
+                width={576}
+                height={576}
                 className="max-w-xl mx-auto rounded-2xl shadow-2xl w-full h-auto object-cover"
                 priority
               />
