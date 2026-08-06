@@ -18,11 +18,11 @@ export default function Privacy() {
           Privacy Policy
         </h1>
         <div className="space-y-6 text-sm leading-6 text-muted-foreground">
-          <p>Last updated: July 25, 2026</p>
+          <p>Last updated: August 6, 2026</p>
           <p>
             This Privacy Policy describes how <strong>turnroyal.com</strong>{" "}
-            (the “Site”, “TurnRoyal”, “we”, “us”, or “our”), collects, uses, and
-            shares your personal information when you use our AI portrait
+            (the “Site”, “Turn Royal”, “we”, “us”, or “our”), collects, uses,
+            and shares your personal information when you use our AI portrait
             generation service. By using the Site, you agree to the collection
             and use of information in accordance with this policy.
           </p>

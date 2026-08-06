@@ -18,14 +18,14 @@ export default function Terms() {
           Terms of Service
         </h1>
         <div className="space-y-6 text-sm leading-6 text-muted-foreground">
-          <p>Last updated: July 25, 2026</p>
+          <p>Last updated: August 6, 2026</p>
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-2">
               1. Overview
             </h2>
             <p>
               Throughout this website, <strong>turnroyal.com</strong> (the
-              “Site”, “TurnRoyal”, “we”, “us”, or “our”), the terms “you” and
+              “Site”, “Turn Royal”, “we”, “us”, or “our”), the terms “you” and
               “your” refer to the user of the Site.
             </p>
             <p className="mt-2">
@@ -40,7 +40,7 @@ export default function Terms() {
               2. Service Description
             </h2>
             <p>
-              TurnRoyal provides an AI-powered portrait generation service. You
+              Turn Royal provides an AI-powered portrait generation service. You
               upload one or more photographs, our artificial intelligence system
               (powered by OpenRouter and Replicate) transforms them into royal
               and Renaissance-style portraits, and you can preview watermarked
@@ -168,7 +168,7 @@ export default function Terms() {
               and privacy law, and the laws of your country of residence).
             </p>
             <p className="mt-2">
-              TurnRoyal does not pre-screen, review, or moderate every uploaded
+              Turn Royal does not pre-screen, review, or moderate every uploaded
               photo. We do not endorse, verify, or assume responsibility for any
               user-uploaded content, and we accept{" "}
               <strong>no liability whatsoever</strong> for any photo you upload,
@@ -259,12 +259,12 @@ export default function Terms() {
               Watermarked preview images are provided for evaluation purposes
               only. The watermark is permanently embedded in the image pixels
               and may not be removed, obscured, or circumvented. Unpurchased
-              watermarked previews remain the property of TurnRoyal.
+              watermarked previews remain the property of Turn Royal.
             </p>
             <p className="mt-2">
               All other content on the Site, including but not limited to the
               design, layout, text, graphics, logos, and software, is the
-              property of TurnRoyal and is protected by applicable intellectual
+              property of Turn Royal and is protected by applicable intellectual
               property laws.
             </p>
           </section>
@@ -366,7 +366,7 @@ export default function Terms() {
             </p>
             <p className="mt-2">
               By making a purchase on our website, you acknowledge and agree
-              that TurnRoyal is not obligated to provide a refund, correction,
+              that Turn Royal is not obligated to provide a refund, correction,
               or reprint of the generated artwork if you contact us or raise a
               dispute more than 14 days after delivery, or more than 14 days
               from the date you received the digital file download link in the
@@ -461,7 +461,7 @@ export default function Terms() {
               9. Limitation of Liability
             </h2>
             <p>
-              To the maximum extent permitted by applicable law, TurnRoyal and
+              To the maximum extent permitted by applicable law, Turn Royal and
               its officers, directors, employees, agents, and affiliates shall
               not be liable for any indirect, incidental, special,
               consequential, or punitive damages, including but not limited to
@@ -486,7 +486,7 @@ export default function Terms() {
               10. Indemnification
             </h2>
             <p>
-              You agree to indemnify, defend, and hold harmless TurnRoyal and
+              You agree to indemnify, defend, and hold harmless Turn Royal and
               its officers, directors, employees, and agents from and against
               any claims, liabilities, damages, losses, and expenses (including
               reasonable legal fees) arising out of or in any way connected
