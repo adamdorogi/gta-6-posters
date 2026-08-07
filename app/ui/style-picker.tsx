@@ -7,7 +7,7 @@ type Style = {
 
 const SHOWCASE_PREVIEWS: Record<string, string> = {
   royal: "/showcase/royal/Sample royal portrait of a woman.webp",
-  cowboy: "/showcase/cowboy/Sample cowboy portrait of a girl.webp",
+  cowboy: "/showcase/cowboy/Sample cowboy portrait of a man.webp",
   mafiaBoss: "/showcase/mafia-boss/Sample mafia boss portrait of a couple.webp",
   superhero: "/showcase/superhero/Sample superhero portrait of a family.webp",
   viking: "/showcase/viking/Sample viking portrait of a father and son.webp",
