@@ -16,9 +16,17 @@ export default function FaqSection() {
             ]}
           />
           <FaqItem
-            question="Where is my portrait made?"
+            question="Digital File vs Physical Canvas: What’s the Difference?"
             answers={[
-              "All portraits are produced in Victoria, Australia. Each canvas is printed on premium polycotton and finished with a New Zealand pinewood frame, creating a beautiful piece of artwork made to last.",
+              "Your digital file is designed for viewing on screens, where colours may appear brighter and more vibrant due to screen brightness and settings.",
+              "Your physical canvas is professionally printed to create a beautiful piece of artwork for your home. Printed colours can naturally appear slightly different from the digital preview, with a softer, more natural finish.",
+              "This is a normal difference between digital displays and printed artwork. Your canvas is carefully produced to preserve the detail, character and quality of your portrait.",
+            ]}
+          />
+          <FaqItem
+            question="What are the prices?"
+            answers={[
+              `Our canvas portraits start from $${products.Small.price / 100}, and digital portraits are $${products.Digital.price / 100}. You’ll see the available sizes, offers, and your final options after creating your free preview. All prices are in Australian dollars.`,
             ]}
           />
           <FaqItem
@@ -28,9 +36,9 @@ export default function FaqSection() {
             ]}
           />
           <FaqItem
-            question="What are credits?"
+            question="Can I include pets or groups?"
             answers={[
-              "Credits are used to create your portraits. You’ll receive free credits when you start, and they refresh every 12 hours. Each new portrait uses one credit.",
+              "Absolutely! You can create portraits of pets, couples, families, and groups. Simply upload a photo with everyone included, choose your preferred style, and we’ll turn it into a timeless piece of artwork.",
             ]}
           />
           <FaqItem
@@ -40,9 +48,9 @@ export default function FaqSection() {
             ]}
           />
           <FaqItem
-            question="Can I include pets or groups?"
+            question="What are credits?"
             answers={[
-              "Absolutely! You can create portraits of pets, couples, families, and groups. Simply upload a photo with everyone included, choose your preferred style, and we’ll turn it into a timeless piece of artwork.",
+              "Credits are used to create your portraits. You’ll receive free credits when you start, and they refresh every 12 hours. Each new portrait uses one credit.",
             ]}
           />
           <FaqItem
@@ -54,17 +62,15 @@ export default function FaqSection() {
             ]}
           />
           <FaqItem
-            question="Digital File vs Physical Canvas: What’s the Difference?"
-            answers={[
-              "Your digital file is designed for viewing on screens, where colours may appear brighter and more vibrant due to screen brightness and settings.",
-              "Your physical canvas is professionally printed to create a beautiful piece of artwork for your home. Printed colours can naturally appear slightly different from the digital preview, with a softer, more natural finish.",
-              "This is a normal difference between digital displays and printed artwork. Your canvas is carefully produced to preserve the detail, character and quality of your portrait.",
-            ]}
-          />
-          <FaqItem
             question="How long does delivery take?"
             answers={[
               "Digital portraits are received within minutes after purchase. Canvas orders are carefully prepared after purchase and typically arrive within 5–10 business days with standard shipping.",
+            ]}
+          />
+          <FaqItem
+            question="Where is my portrait made?"
+            answers={[
+              "All portraits are produced in Victoria, Australia. Each canvas is printed on premium polycotton and finished with a New Zealand pinewood frame, creating a beautiful piece of artwork made to last.",
             ]}
           />
           <FaqItem
@@ -77,12 +83,6 @@ export default function FaqSection() {
             question="What if my portrait arrives damaged or gets lost?"
             answers={[
               "We want your artwork to arrive safely. If your portrait is damaged or lost during delivery, please contact us at hello@turnroyal.com within 14 days and include photos of the issue so we can assist with a replacement.",
-            ]}
-          />
-          <FaqItem
-            question="What are the prices?"
-            answers={[
-              `Our canvas portraits start from $${products.Small.price / 100}, and digital portraits are $${products.Digital.price / 100}. You’ll see the available sizes, offers, and your final options after creating your free preview. All prices are in Australian dollars.`,
             ]}
           />
         </div>
