@@ -79,6 +79,8 @@ export async function POST(request: Request) {
     const tikTokPayload = {
       event_source: "web",
       event_source_id: "D99O34JC77U7PB56ORFG",
+      test_event_code:
+        process.env.NODE_ENV === "production" ? null : "TEST21861",
       data: [
         {
           event: "InitiateCheckout",
