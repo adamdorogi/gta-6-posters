@@ -40,6 +40,8 @@ export async function POST(request: Request) {
 
     // Meta event
     const metaPayload = {
+      test_event_code:
+        process.env.NODE_ENV === "production" ? null : "TEST14619",
       data: [
         {
           event_name: "InitiateCheckout",
