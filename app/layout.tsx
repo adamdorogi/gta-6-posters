@@ -7,6 +7,7 @@ import MetaPixel from "./utils/meta-pixel";
 import TikTokPixel from "./utils/tiktok-pixel";
 import { products } from "./utils/pricing";
 import { DefaultTemplateString } from "next/dist/lib/metadata/types/metadata-types";
+import { getUserId } from "@/app/utils/user";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -73,7 +74,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <MetaPixel />
-        <TikTokPixel />
+        <TikTokPixel userId={await getUserId()} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

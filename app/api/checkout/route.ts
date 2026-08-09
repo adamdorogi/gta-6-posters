@@ -9,6 +9,7 @@ import {
   getUserAgent,
   getTtp,
   getTtclid,
+  getUserId,
 } from "@/app/utils/user";
 
 export async function POST(request: Request) {
@@ -26,14 +27,16 @@ export async function POST(request: Request) {
     }
 
     // Send events to Meta and TikTok
-    const [ipAddress, userAgent, fbc, fbp, ttp, ttclid] = await Promise.all([
-      getIpAddress(),
-      getUserAgent(),
-      getFbc(),
-      getFbp(),
-      getTtp(),
-      getTtclid(),
-    ]);
+    const [ipAddress, userAgent, userId, fbc, fbp, ttp, ttclid] =
+      await Promise.all([
+        getIpAddress(),
+        getUserAgent(),
+        getUserId(),
+        getFbc(),
+        getFbp(),
+        getTtp(),
+        getTtclid(),
+      ]);
 
     // Meta event
     const metaPayload = {
@@ -86,6 +89,7 @@ export async function POST(request: Request) {
             ttp,
             ip: ipAddress,
             user_agent: userAgent,
+            external_id: userId,
           },
           properties: {
             contents: [
@@ -158,6 +162,7 @@ export async function POST(request: Request) {
         productName,
         userAgent,
         ipAddress,
+        userId,
         fbc: fbc || null,
         fbp: fbp || null,
         ttp: ttp || null,
