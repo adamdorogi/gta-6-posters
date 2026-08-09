@@ -116,7 +116,7 @@ export default function BuySection({
                     )}
                     {size === "Large" && (
                       <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-ring text-foreground text-[10px] font-bold rounded-full whitespace-nowrap">
-                        Best Value
+                        ★ Best Value
                       </span>
                     )}
                     <span className="text-sm font-bold text-foreground">
