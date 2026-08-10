@@ -5,6 +5,8 @@ import { useState } from "react";
 import StylePicker from "./style-picker";
 import PromptField from "./generation-form/prompt-field";
 import Image from "next/image";
+import { event as metaEvent } from "@/app/utils/meta-pixel-events";
+import { event as tikTokEvent } from "@/app/utils/tiktok-pixel-events";
 
 export default function RetryButton({
   generationGroupId,
@@ -46,10 +48,20 @@ export default function RetryButton({
         onClick={async () => {
           setIsLoading(true);
           setError(null);
+          const metaEventId = crypto.randomUUID();
+          const tikTokEventId = crypto.randomUUID();
+          metaEvent("RetryPreview", null, { eventID: metaEventId });
+          tikTokEvent("RetryPreview", null, { event_id: tikTokEventId });
           try {
             const resp = await fetch("/api/retry", {
               method: "POST",
-              body: JSON.stringify({ generationGroupId, styleId, userPrompt }),
+              body: JSON.stringify({
+                generationGroupId,
+                styleId,
+                userPrompt,
+                metaEventId,
+                tikTokEventId,
+              }),
             });
             const response = await resp.json();
             if (!resp.ok) {

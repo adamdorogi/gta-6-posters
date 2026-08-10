@@ -7,6 +7,8 @@ import UploadZone from "./generation-form/upload-zone";
 import PreviewGrid from "./generation-form/preview-grid";
 import PromptField from "./generation-form/prompt-field";
 import Image from "next/image";
+import { event as metaEvent } from "@/app/utils/meta-pixel-events";
+import { event as tikTokEvent } from "@/app/utils/tiktok-pixel-events";
 
 export default function GenerationForm({
   styles,
@@ -98,6 +100,14 @@ export default function GenerationForm({
                   onClick={async () => {
                     setIsLoading(true);
                     setError(null);
+                    const metaEventId = crypto.randomUUID();
+                    const tikTokEventId = crypto.randomUUID();
+                    metaEvent("GeneratePreview", null, {
+                      eventID: metaEventId,
+                    });
+                    tikTokEvent("GeneratePreview", null, {
+                      event_id: tikTokEventId,
+                    });
                     try {
                       const resp = await fetch("/api/generate", {
                         method: "POST",
@@ -105,6 +115,8 @@ export default function GenerationForm({
                           uploadIds,
                           styleId,
                           userPrompt,
+                          metaEventId,
+                          tikTokEventId,
                         }),
                       });
                       const response = await resp.json();

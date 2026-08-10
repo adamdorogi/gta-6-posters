@@ -63,7 +63,6 @@ export default function BuyButton({
             value: price / 100,
             currency: "AUD",
             num_items: 1,
-            event_id: tikTokEventId,
           },
           { event_id: tikTokEventId },
         );
