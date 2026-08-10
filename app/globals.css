@@ -113,11 +113,8 @@
   87.5% {
     transform: translateY(-10.5rem);
   }
-  99% {
-    transform: translateY(-10.5rem);
-  }
   100% {
-    transform: translateY(0);
+    transform: translateY(-10.5rem);
   }
 }
 
@@ -126,7 +123,7 @@
 }
 
 .loading-copy-track {
-  animation: loading-copy-cycle 24s infinite;
+  animation: loading-copy-cycle 24s forwards;
 }
 
 .loading-copy-window {
