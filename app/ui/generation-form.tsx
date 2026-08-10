@@ -52,6 +52,8 @@ export default function GenerationForm({
             next[index] = result.uploadId;
             return next;
           });
+          metaEvent("UploadPhoto", null, { eventID: result.metaEventId });
+          tikTokEvent("UploadPhoto", null, { event_id: result.tikTokEventId });
         });
       } catch (error) {
         console.error("Upload failed:", error);
