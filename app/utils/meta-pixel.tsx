@@ -3,15 +3,16 @@
 import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { useEffect, useState } from "react";
-import { event, pageView } from "./meta-pixel-events";
+import { event, pageView, init } from "./meta-pixel-events";
 
-const MetaPixel = () => {
+const MetaPixel = ({ userId }: { userId: string }) => {
   const [loaded, setLoaded] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     if (!loaded) return;
 
+    init({ external_id: userId });
     pageView();
 
     if (pathname.startsWith("/preview/")) {
@@ -21,7 +22,7 @@ const MetaPixel = () => {
         content_type: "product",
       });
     }
-  }, [pathname, loaded]);
+  }, [pathname, loaded, userId]);
 
   return <Script src="/scripts/meta-pixel.js" onLoad={() => setLoaded(true)} />;
 };

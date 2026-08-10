@@ -54,6 +54,7 @@ export async function POST(request: Request) {
             client_user_agent: userAgent,
             fbc,
             fbp,
+            external_id: userId,
           },
           custom_data: {
             content_ids: ["personalised-canvas"],

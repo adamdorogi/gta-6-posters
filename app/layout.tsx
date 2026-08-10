@@ -64,6 +64,8 @@ export default async function RootLayout({
     ],
   };
 
+  const userId = await getUserId();
+
   return (
     <html
       lang="en"
@@ -73,8 +75,8 @@ export default async function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
-        <MetaPixel />
-        <TikTokPixel userId={await getUserId()} />
+        <MetaPixel userId={userId} />
+        <TikTokPixel userId={userId} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
