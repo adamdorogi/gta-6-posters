@@ -5,6 +5,17 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import RetryButton from "./retry-button";
 
+const loadingMessages = [
+  "Studying your photo...",
+  "Sketching the outlines...",
+  "Mixing the colours...",
+  "Painting the base layers...",
+  "Balancing the lighting...",
+  "Refining the details...",
+  "Adding the finishing touches...",
+  "Almost there...",
+];
+
 export default function PreviewGallery({
   generations,
   styles,
@@ -139,9 +150,27 @@ export default function PreviewGallery({
                 priority
                 draggable={false}
               />
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
                 <div className="w-3/4 h-3 bg-muted rounded-full overflow-hidden border-2 border-muted">
                   <div className="h-full bg-primary animate-progress" />
+                </div>
+                <div
+                  className="loading-copy-window relative mt-4 h-6 w-full overflow-hidden text-sm font-medium text-foreground/80 sm:text-base"
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  <div className="loading-copy-track flex flex-col">
+                    {loadingMessages
+                      .concat(loadingMessages[0])
+                      .map((message, index) => (
+                        <span
+                          key={`${message}-${index}`}
+                          className="flex h-6 items-center justify-center text-center font-serif font-bold text-muted"
+                        >
+                          {message}
+                        </span>
+                      ))}
+                  </div>
                 </div>
               </div>
             </>
