@@ -1,10 +1,25 @@
 # TODO
 
-1. uncomment image upscale
-2. test order on live website, incognito, all database rows/cleared (but cancel printify order)
+0. plan pricing. calculate profits, CACs, GST, etc.
+
+1. test
+
+- check stripe setup
+- uncomment upscale
+- clear all database rows
+- run new generation in incognity window
+- make purchase on live website for one variant
+- refund?
+
+- MAYBE: one last run on printify webhooks
+- COMMENT ID
+
+2. create and test email account (namecheap?) (reply to order confirmation etc.)
+
+- profile picture, gif?
+
 3. top up openrouter and replicate
-4. create and test email account (namecheap?) (reply to order confirmation etc.)
-5. done.
+4. done.
 
 - maybe:
   - upsell/follow up emails (e.g. Want another style of the same photo?)
@@ -299,7 +314,7 @@ I'm working on a NextJS 16 website that let's users upload an image of themselve
 
 Flow:
 - user uploads at least one image, selects a style, an optional prompt, and submits
-- preview will be generated and shown to user
+- preview will be generated and shown to user in under a minute. no signup, credit card, email, etc. required
 - user can regenerate with a different style or prompt
 - users get 5 credits/generations every 12 hours, to avoid abusing the system
 - user can buy a physical canvas of the generation, or just the digital image
@@ -325,12 +340,46 @@ Product:
 
 Pricing:
 - Physical canvas:
-  - 8x12 inch: 89 AUD (production cost: 40.14 AUD, profit: 48.86 AUD)
-  - 12x16 inch: 99 AUD (production cost: 43.77 AUD, profit: 55.23 AUD)
-  - 16x24 inch: 109 AUD (production cost: 59.37 AUD, profit: 49.63 AUD)
-  - 30x40 inch: 199 AUD (production cost: 116.25 AUD, profit: 82.75 AUD)
-- Digital only: 59 AUD (production cost: 1 AUD, profit: 58 AUD)
-- There will always be a 60% sale on (e.g. summer sale, winter sale, christmas sale, fathers day sale, etc.). Above prices are final, after discount has been applied.
+  - 8x12 inch: 89 AUD
+    - Production cost: 15.09 USD
+    - Production tax: 1.51 USD
+    - Shipping: 10.99 USD
+    - Shipping tax: 1.10 USD
+    - Total Printify cost: 28.69 USD (40.68 AUD)
+    - Stripe fee (1.7% + 0.30 AUD): 1.81 AUD
+    - Upscale cost: 0.16 USD + 0.48 USD (0.91 AUD)
+    - Profit: 45.6 AUD
+  - 12x16 inch: 99 AUD
+    - Production cost: 17.55 USD
+    - Production tax: 1.76 USD
+    - Shipping: 10.99 USD
+    - Shipping tax: 1.10 USD
+    - Total Printify cost: 31.40 USD (44.52 AUD)
+    - Stripe fee (1.7% + 0.30 AUD): 1.98 AUD
+    - Upscale cost: 0.16 USD + 0.48 USD (0.91 AUD)
+    - Profit: 51.59 AUD
+  - 16x24 inch: 119 AUD
+    - Production cost: 28.01 USD
+    - Production tax: 2.80 USD
+    - Shipping: 10.99 USD
+    - Shipping tax: 1.10 USD
+    - Total Printify cost: 42.90 USD (60.82 AUD)
+    - Stripe fee (1.7% + 0.30 AUD): 2.32 AUD
+    - Upscale cost: 0.16 USD + 0.48 USD (0.91 AUD)
+    - Profit: 54.95 AUD
+  - 30x40 inch: 199 AUD
+    - Production cost: 60.92 USD
+    - Production tax: 6.09 USD
+    - Shipping: 15.79 USD
+    - Shipping tax: 1.58 USD
+    - Total Printify cost: 84.38 USD (119.63 AUD)
+    - Stripe fee (1.7% + 0.30 AUD): 3.68 AUD
+    - Upscale cost: 0.16 USD + 0.48 USD (0.91 AUD)
+    - Profit: 74.78 AUD
+- Digital only: 59 AUD
+    - Stripe fee (1.7% + 0.30 AUD): 1.30 AUD
+    - Upscale cost: 0.16 USD + 0.48 USD (0.91 AUD)
+    - Profit: 56.79 AUD
 - Free shipping included
 
 Target audience:
