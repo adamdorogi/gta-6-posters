@@ -57,8 +57,8 @@ export async function POST(request: Request) {
             external_id: userId,
           },
           custom_data: {
-            content_ids: ["personalised-canvas"],
-            content_name: "Personalised Canvas",
+            content_ids: [`personalised-canvas-${size}`],
+            content_name: `Personalised Canvas ${size}`,
             content_type: "product",
             currency: "AUD",
             value: products[size].price / 100,
@@ -101,8 +101,8 @@ export async function POST(request: Request) {
               {
                 price: products[size].price / 100,
                 quantity: 1,
-                content_id: "personalised-canvas",
-                content_name: "Personalised Canvas",
+                content_id: `personalised-canvas-${size}`,
+                content_name: `Personalised Canvas ${size}`,
                 brand: "Turn Royal",
               },
             ],

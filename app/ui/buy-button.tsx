@@ -35,8 +35,8 @@ export default function BuyButton({
         metaEvent(
           "InitiateCheckout",
           {
-            content_ids: ["personalised-canvas"],
-            content_name: "Personalised Canvas",
+            content_ids: [`personalised-canvas-${size}`],
+            content_name: `Personalised Canvas ${size}`,
             content_type: "product",
             currency: "AUD",
             value: price / 100,
@@ -47,14 +47,14 @@ export default function BuyButton({
         tikTokEvent(
           "InitiateCheckout",
           {
-            content_ids: ["personalised-canvas"],
-            content_name: "Personalised Canvas",
+            content_ids: [`personalised-canvas-${size}`],
+            content_name: `Personalised Canvas ${size}`,
             content_type: "product",
             contents: [
               {
-                content_id: "personalised-canvas",
+                content_id: `personalised-canvas-${size}`,
+                content_name: `Personalised Canvas ${size}`,
                 content_type: "product",
-                content_name: "Personalised Canvas",
                 price: price / 100,
                 quantity: 1,
                 brand: "Turn Royal",

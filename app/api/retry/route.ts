@@ -56,6 +56,10 @@ export async function POST(request: Request) {
             fbp,
             external_id: userId,
           },
+          custom_data: {
+            prompt: userPrompt,
+            style_id: styleId,
+          },
         },
       ],
     };
@@ -87,6 +91,10 @@ export async function POST(request: Request) {
             ip: ipAddress,
             user_agent: userAgent,
             external_id: userId,
+          },
+          properties: {
+            prompt: userPrompt,
+            style_id: styleId,
           },
           page: {
             url: referrer,
