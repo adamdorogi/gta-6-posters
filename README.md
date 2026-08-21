@@ -404,32 +404,117 @@ Stack:
 
 ## Ads
 
-Don't advertise AI.
+- ig+facebook first
+- try pet vs human specific ad creates. see which performs better.
+- 50 purchases per ad group per week
+- Advantage+ Sales
+- optimise for sales
+- women above 25/30 or broad
+- start at $100, scale up after following few (3) days
+- 1 campaign, lots of creative. each creative for each target audience (e.g. dog owner, mafia boss couple, viking dad, etc.)
+- CTA: "create yours free" / "try it" / "try it free"
+- 8-12 different creatives, 10-15
+- after we have traffic/data, create another campaign for retargeting
+- for good performing ads, create alternatives
+- creative types (no subtle differences, make them diverse and varied)
+  1. transformation ad, before/after; normal video of dog/bf, transformation happens, person opening it, physical canvas in hands/on wall -> create yours
+  2. reaction videos! (can be UGC, emotional)
+  3. I gave my... boyfriend a rennaisance makeover, I turned my dad into a viking, etc. (UGC)
+  4. style comparison/montage, flipping through canvases "which one would you choose?"
+  5. physical product reveal (unboxing, assembly, etc) (UGC)
+  6. mostly pets, couples
+  7. 1v1 conversation (what to gift dad)
+  8. sms ad? "i can't believe the gift" etc.
+- hooks:
+  - "I turned my dog into a Renaissance king."
+  - "I turned my dad into a Viking."
+  - "My boyfriend has never looked this ridiculous."
+  - "I made my dog a Renaissance painting."
+  - "Would you hang this in your house?"
+  - "This might be the best gift I've ever bought."
+  - "I gave my girlfriend 5 different personalities."
+  - "Which version of him is the best?"
+  - "I couldn't decide which one to print."
+  - "This started as a photo of my dog."
+  - "I spent $99 on this and honestly..."
+  - "POV: your dog was born into the royal family."
+  - "I turned my dog into a KING 👑"
+- clickbait hooks that generate curiosity/intrigue, hyper-dopamine ads
+  - pattern interrupt + burning intrigue + specific benefit (gift)
+- hemingway writing grader (below 5th grade)
+- add specificity (get insane laughs 2x per year, get it in 10 days, etc.)
 
-Advertise reactions.
+https://www.tiktok.com/@itsturnmeroyal/video/7244847149249236251
+https://www.tiktok.com/@itsturnmeroyal/video/7245252090786876699
+https://www.tiktok.com/@itsturnmeroyal/video/7389641322866560289
+https://www.tiktok.com/@bradensmith02/video/6983083928227679493
+https://www.tiktok.com/@unapologeticallysarat/video/7336796875183476010
+https://www.tiktok.com/@royalwhaaat/video/7081215992013032710
+https://www.tiktok.com/@funwithfinney/video/7492613317366697222
+https://www.tiktok.com/@historywithcara/video/7461868798723853614
+https://www.facebook.com/turnmeroyal/videos/1768263673624043/
+https://www.facebook.com/reel/1134794324340269
+https://www.facebook.com/reel/2771640229656251
+https://www.facebook.com/ads/library/?id=1553398299760072
+https://www.facebook.com/ads/library/?id=997842385972902
+https://www.facebook.com/ads/library/?id=1110000968369975
+https://www.facebook.com/ads/library/?id=1347926590037844
+https://www.facebook.com/ads/library/?id=1357185166385698
+https://www.facebook.com/ads/library/?id=1933342237357781
+https://www.facebook.com/ads/library/?id=1982462622396699
+https://www.facebook.com/ads/library/?id=2180082945817460
+https://www.facebook.com/ads/library/?id=2288728085273657
+https://www.facebook.com/ads/library/?id=2251873595563243
+https://www.facebook.com/ads/library/?id=1473934361446355
+https://www.facebook.com/ads/library/?id=3678013465672071
+https://www.facebook.com/ads/library/?id=910779248740934
+https://www.facebook.com/ads/library/?id=876939165258966
+https://www.facebook.com/ads/library/?id=2802959173394220
+https://www.facebook.com/ads/library/?id=1438029954757597
+https://www.facebook.com/ads/library/?id=1038125245377534
+https://www.facebook.com/ads/library/?id=954141870327659
 
-Videos like:
+## Ad Content
 
-Girlfriend uploads boyfriend...
+1. base character prompt:
 
-3 seconds later...
+- create a prompt for a hyperrealistic ai influencer for model X, called name, age, demographic, etc., created on iphone 9:16
+- should be close to demographic
+- may have multiple influencers
 
-"...WHAT?!"
+2. generate image from base character prompt
 
-Show:
+- save image
 
-before
+3. generate starting frame using character image (2.) as reference
 
-↓
+```
+Transform the subject from the reference image into a candid UGC-style photo. Shot on iPhone front camera, handheld at arm's length, slightly tilted angle. Subject is mid-sentence holding [PRODUCT] up toward the camera, casual eye contact, natural unposed expression.
+Setting: [bathroom mirror]. Lighting: harsh overhead fluorescent with mild shadows under eyes, or natural window light from one side. Background slightly cluttered with everyday items (toothbrush, coffee mug, keys, laundry). Photo quality: soft focus, mild motion blur, slight JPEG compression, no protessional retouching. Subject wears casual loungewear or workout clothes, hair slightly undone. Vertical 9:16 framing, subject occupying upper two-thirds of frame, product clearly visible and in focus.
+Color grade: cool, slightly underexposed, true-to-life skin tones with visible pores and minor impertections.
+```
 
-generation
+- save image
 
-↓
+4. create scripts
 
-canvas on wall
+- look for real, well performing UGC scripts on ig, tiktok, etc. in similar niche
+- check out their profile, find other well performing content
+- transcribe (tokscript) and put all in one doc
+- ask ai:
 
-↓
+```
+Here is existing organic content that has done very well in my niche. Here is the product. Here is my buyer avatar.
+Here is the CTA. Create 5 variations with organic YouTube style Tiktok and Instagram reel scripting.
+```
 
-person opening it
+- should ideally have hook, build up, value/pivot, soft cta
 
-Those perform far better than showing prompts or interfaces.
+5. generate video from starting frame
+
+```
+UGC-style video of a young woman in her bathroom showcasing the lip balm product "Glossier" into the camera and speaking (in an Australian accent): "Can you tell the difference between a real natural lip balm and a cheap toxic lip balm?"
+```
+
+- ideally break up script from 4. into its components (hook, cta, etc.), and generate videos separately for each
+- edit cuts/on-screen captions manually with capcut, davinci resolve etc.
