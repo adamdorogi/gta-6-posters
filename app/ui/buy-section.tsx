@@ -21,7 +21,7 @@ export default function BuySection({
 }) {
   const [unit, setUnit] = useState<"in" | "cm">("in");
   const [selectedSize, setSelectedSize] = useState<string>(
-    Object.keys(products)[0],
+    Object.keys(products)[1],
   );
 
   return (
