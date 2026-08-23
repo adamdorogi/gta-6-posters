@@ -6,6 +6,7 @@ import FaqSection from "./faq-section";
 import BuySection from "./buy-section";
 import { useState } from "react";
 import ReactionsSection from "./reactions-section";
+import MockupSection from "./mockup-section";
 
 export default function PreviewComponent({
   generations,
@@ -46,6 +47,7 @@ export default function PreviewComponent({
         setSelectedIndex={setSelectedIndex}
       />
       <BuySection selectedGeneration={generations[selectedIndex]} />
+      <MockupSection hideScrollButton={true} />
       <ReactionsSection videoFiles={videoFiles} />
       <FaqSection />
       <BuySection selectedGeneration={generations[selectedIndex]} />
