@@ -1,26 +1,5 @@
 # TODO
 
-0. plan pricing. calculate profits, CACs, GST, etc.
-
-1. test
-
-- check stripe setup
-- uncomment upscale
-- clear all database rows
-- run new generation in incognity window
-- make purchase on live website for one variant
-- refund?
-
-- MAYBE: one last run on printify webhooks
-- COMMENT ID
-
-2. create and test email account (namecheap?) (reply to order confirmation etc.)
-
-- profile picture, gif?
-
-3. top up openrouter and replicate
-4. done.
-
 - maybe:
   - upsell/follow up emails (e.g. Want another style of the same photo?)
   - mockups above couch !
@@ -397,6 +376,8 @@ Stack:
 - Printify (for POD)
 - Resend (for email)
 - TikTok pixel and Meta pixel (for ads tracking)
+
+Website: https://www.turnroyal.com/
 ```
 
 - What should CTA buttons say? Download? Digital Only? Canvas + Digital
@@ -409,13 +390,14 @@ Stack:
 - 50 purchases per ad group per week
 - Advantage+ Sales
 - optimise for sales
-- women above 25/30 or broad
-- start at $100, scale up after following few (3) days
+- broad
+- scale from $100-$150
+- scale to $360 after first week. increase to 15-20 creatives
 - 1 campaign, lots of creative. each creative for each target audience (e.g. dog owner, mafia boss couple, viking dad, etc.)
 - CTA: "create yours free" / "try it" / "try it free"
-- 8-12 different creatives, 10-15
-- after we have traffic/data, create another campaign for retargeting
-- for good performing ads, create alternatives
+- 10 different creatives
+- creative is now the targeting. up the creative volume
+- after we have 50 purchases/week, scale up, and replicate good performing ads
 - creative types (no subtle differences, make them diverse and varied)
   1. transformation ad, before/after; normal video of dog/bf, transformation happens, person opening it, physical canvas in hands/on wall -> create yours
   2. reaction videos! (can be UGC, emotional)
@@ -444,35 +426,48 @@ Stack:
 - hemingway writing grader (below 5th grade)
 - add specificity (get insane laughs 2x per year, get it in 10 days, etc.)
 
-https://www.tiktok.com/@itsturnmeroyal/video/7244847149249236251
-https://www.tiktok.com/@itsturnmeroyal/video/7245252090786876699
+saved https://www.tiktok.com/@itsturnmeroyal/video/7244847149249236251
+saved https://www.tiktok.com/@itsturnmeroyal/video/7245252090786876699
 https://www.tiktok.com/@itsturnmeroyal/video/7389641322866560289
-https://www.tiktok.com/@bradensmith02/video/6983083928227679493
+saved https://www.tiktok.com/@bradensmith02/video/6983083928227679493
 https://www.tiktok.com/@unapologeticallysarat/video/7336796875183476010
 https://www.tiktok.com/@royalwhaaat/video/7081215992013032710
-https://www.tiktok.com/@funwithfinney/video/7492613317366697222
-https://www.tiktok.com/@historywithcara/video/7461868798723853614
+remake/use as inspo https://www.tiktok.com/@funwithfinney/video/7492613317366697222
+remake/use as inspo https://www.tiktok.com/@historywithcara/video/7461868798723853614
 https://www.facebook.com/turnmeroyal/videos/1768263673624043/
 https://www.facebook.com/reel/1134794324340269
 https://www.facebook.com/reel/2771640229656251
-https://www.facebook.com/ads/library/?id=1553398299760072
-https://www.facebook.com/ads/library/?id=997842385972902
-https://www.facebook.com/ads/library/?id=1110000968369975
-https://www.facebook.com/ads/library/?id=1347926590037844
-https://www.facebook.com/ads/library/?id=1357185166385698
+remake/use as inspo https://www.facebook.com/ads/library/?id=1553398299760072
+emotional remake/use as inspo https://www.facebook.com/ads/library/?id=997842385972902
+remake/use as inspo https://www.facebook.com/ads/library/?id=1110000968369975
+remake/use as inspo https://www.facebook.com/ads/library/?id=1347926590037844
+remake/use as inspo https://www.facebook.com/ads/library/?id=1357185166385698
 https://www.facebook.com/ads/library/?id=1933342237357781
-https://www.facebook.com/ads/library/?id=1982462622396699
-https://www.facebook.com/ads/library/?id=2180082945817460
-https://www.facebook.com/ads/library/?id=2288728085273657
-https://www.facebook.com/ads/library/?id=2251873595563243
+remake/use as inspo https://www.facebook.com/ads/library/?id=1982462622396699
+emotional https://www.facebook.com/ads/library/?id=2180082945817460
+x https://www.facebook.com/ads/library/?id=2288728085273657
+x https://www.facebook.com/ads/library/?id=2251873595563243
 https://www.facebook.com/ads/library/?id=1473934361446355
-https://www.facebook.com/ads/library/?id=3678013465672071
+x https://www.facebook.com/ads/library/?id=3678013465672071
 https://www.facebook.com/ads/library/?id=910779248740934
 https://www.facebook.com/ads/library/?id=876939165258966
-https://www.facebook.com/ads/library/?id=2802959173394220
+remake/use as inspo https://www.facebook.com/ads/library/?id=2802959173394220
 https://www.facebook.com/ads/library/?id=1438029954757597
 https://www.facebook.com/ads/library/?id=1038125245377534
-https://www.facebook.com/ads/library/?id=954141870327659
+emotional https://www.facebook.com/ads/library/?id=954141870327659
+
+videos:
+
+1. ✅ (human) princess chick
+2. ✅ (human) beetlejuice (edit emoji)
+3. ✅ (human) spiderman dude (cut out promo code)
+4. ✅ (human) reaction video (w voiceover, ugc style) (family dad, bearded bf, viking bf)
+5. ✅ (human) emotional (couple, https://www.facebook.com/ads/library/?id=997842385972902)
+6. ✅ (pet) emotional (dead pet, https://www.facebook.com/ads/library/?id=954141870327659) / unboxing (unboxing, hanging) (https://www.facebook.com/ads/library/?id=2180082945817460)
+7. ✅ (human) princess https://www.tiktok.com/@itsturnmeroyal/video/7327268196359081248
+8. ✅ (pet) style montage (loop through all)
+9. ✅ transformation (before/after pic, https://www.tiktok.com/@funwithfinney/video/7492613317366697222)
+10. ✅ POV: i turned my X into Y (ugc style), or a remake of one of the ugc-like ads (https://www.facebook.com/ads/library/?id=1553398299760072, https://www.facebook.com/ads/library/?id=1110000968369975, https://www.facebook.com/ads/library/?id=1347926590037844, https://www.facebook.com/ads/library/?id=1357185166385698)
 
 ## Ad Content
 
