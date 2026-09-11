@@ -360,6 +360,7 @@ Pricing:
     - Upscale cost: 0.16 USD + 0.48 USD (0.91 AUD)
     - Profit: 56.79 AUD
 - Free shipping included
+- Profit calculations involve all relevant fees, liabilities, spendings
 
 Target audience:
 - Australia only

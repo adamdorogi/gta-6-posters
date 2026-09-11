@@ -100,6 +100,10 @@ export default function GenerationForm({
                 <button
                   disabled={isLoading}
                   onClick={async () => {
+                    if (previews.length > 3) {
+                      setError("You can only upload up to 3 photos.");
+                      return;
+                    }
                     setIsLoading(true);
                     setError(null);
                     const metaEventId = crypto.randomUUID();

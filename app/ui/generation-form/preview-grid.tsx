@@ -52,20 +52,22 @@ export default function PreviewGrid({
           )}
         </div>
       ))}
-      <button
-        onClick={onAdd}
-        className="flex items-center justify-center h-20 md:h-24 w-20 md:w-24 shrink-0 rounded-lg bg-primary-accent hover:bg-primary-accent/75 transition-all cursor-pointer"
-      >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary">
-          <Image
-            src="/add.svg"
-            alt="Add Icon"
-            width={24}
-            height={24}
-            priority
-          />
-        </div>
-      </button>
+      {items.length < 3 && (
+        <button
+          onClick={onAdd}
+          className="flex items-center justify-center h-20 md:h-24 w-20 md:w-24 shrink-0 rounded-lg bg-primary-accent hover:bg-primary-accent/75 transition-all cursor-pointer"
+        >
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary">
+            <Image
+              src="/add.svg"
+              alt="Add Icon"
+              width={24}
+              height={24}
+              priority
+            />
+          </div>
+        </button>
+      )}
     </div>
   );
 }
