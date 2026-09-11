@@ -25,7 +25,7 @@ export default function MockupSection({
 
         <div className="mt-8 grid items-center gap-6 lg:grid-cols-2 lg:gap-10">
           <Image
-            src="/mockup.jpg"
+            src="/mockup.png"
             alt="Turn Royal canvas mockup — a premium AI portrait print on museum-quality canvas"
             width={576}
             height={576}

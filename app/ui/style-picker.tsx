@@ -6,11 +6,13 @@ type Style = {
 };
 
 const SHOWCASE_PREVIEWS: Record<string, string> = {
-  royal: "/showcase/royal/Sample royal portrait of a woman.webp",
-  cowboy: "/showcase/cowboy/Sample cowboy portrait of a man.webp",
-  mafiaBoss: "/showcase/mafia-boss/Sample mafia boss portrait of a couple.webp",
-  superhero: "/showcase/superhero/Sample superhero portrait of a family.webp",
-  viking: "/showcase/viking/Sample viking portrait of a father and son.webp",
+  royal: "/showcase/royal/Sample royal portrait of a rough collie.webp",
+  cowboy: "/showcase/cowboy/Sample cowboy portrait of a cat and dog.webp",
+  mafiaBoss:
+    "/showcase/mafia-boss/Sample mafia boss portrait of an orange cat.jpeg",
+  superhero:
+    "/showcase/superhero/Sample superhero portrait of 2 cats and 2 dogs.webp",
+  viking: "/showcase/viking/Sample viking portrait of a dog.webp",
 };
 
 function getPreviewSrc(style: Style) {

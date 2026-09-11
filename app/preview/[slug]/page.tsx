@@ -4,7 +4,7 @@ import { supabase } from "@/app/utils/supabase";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import PreviewComponent from "@/app/ui/preview-component";
-import { getVideoFiles } from "@/app/utils/videos";
+import { getShowcaseImages } from "@/app/utils/showcase";
 
 export const metadata: Metadata = {
   title: "Your Royal Portrait",
@@ -52,7 +52,7 @@ export default async function Preview({
         generationGroupId={generationGroupId}
         styleId={styleId}
         userPrompt={userPrompt}
-        videoFiles={await getVideoFiles()}
+        portraitFiles={await getShowcaseImages()}
       />
       <Footer />
     </div>

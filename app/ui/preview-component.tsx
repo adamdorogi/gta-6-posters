@@ -5,7 +5,7 @@ import OrderConfirmation from "./order-confirmation";
 import FaqSection from "./faq-section";
 import BuySection from "./buy-section";
 import { useState } from "react";
-import ReactionsSection from "./reactions-section";
+import ShowcaseSection from "./showcase-section";
 import MockupSection from "./mockup-section";
 
 export default function PreviewComponent({
@@ -14,7 +14,7 @@ export default function PreviewComponent({
   generationGroupId,
   styleId,
   userPrompt,
-  videoFiles,
+  portraitFiles,
 }: {
   generations: {
     publicUrl: string | null;
@@ -30,7 +30,7 @@ export default function PreviewComponent({
   generationGroupId: string;
   styleId: string;
   userPrompt: string;
-  videoFiles: string[];
+  portraitFiles: string[];
 }) {
   const [selectedIndex, setSelectedIndex] = useState(generations.length - 1);
 
@@ -48,7 +48,7 @@ export default function PreviewComponent({
       />
       <BuySection selectedGeneration={generations[selectedIndex]} />
       <MockupSection hideScrollButton={true} />
-      <ReactionsSection videoFiles={videoFiles} />
+      <ShowcaseSection portraitFiles={portraitFiles} />
       <FaqSection />
       <BuySection selectedGeneration={generations[selectedIndex]} />
     </main>

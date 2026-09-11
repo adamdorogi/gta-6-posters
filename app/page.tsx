@@ -10,8 +10,7 @@ import ScrollToTopButton from "@/app/ui/scroll-to-top-button";
 import QASection from "./ui/faq-section";
 import TryFreeSection from "./ui/try-free-section";
 import { Metadata } from "next";
-import ReactionsSection from "./ui/reactions-section";
-import { getVideoFiles } from "./utils/videos";
+import ShowcaseSection from "./ui/showcase-section";
 import MockupSection from "./ui/mockup-section";
 
 export const metadata: Metadata = {
@@ -41,7 +40,7 @@ export default async function Home() {
             <div className="flex min-w-0 flex-col gap-4 lg:gap-6 justify-center items-center text-center py-4 lg:py-8 lg:col-span-7 lg:items-start lg:text-left">
               <div className="px-4 lg:px-12 max-w-4xl flex flex-col gap-2 items-center lg:items-start">
                 <h1 className="text-4xl lg:text-6xl/17 italic font-serif font-black tracking-tight text-primary-foreground leading-tight">
-                  Turn your loved ones into a{" "}
+                  Turn your pets into a{" "}
                   <span className="text-accent">masterpiece!</span>
                 </h1>
                 <p className="text-sm lg:text-base text-muted leading-relaxed">
@@ -93,7 +92,7 @@ export default async function Home() {
         <MockupSection />
 
         {/* Reactions Section */}
-        <ReactionsSection videoFiles={await getVideoFiles()} />
+        <ShowcaseSection portraitFiles={await getShowcaseImages()} />
 
         {/* Features Section */}
         <section
@@ -123,9 +122,9 @@ export default async function Home() {
                   image: "/feature-magic.png",
                 },
                 {
-                  title: "Works with any photo",
+                  title: "Works with any pet",
                   caption:
-                    "Pets, couples, families, loved ones. Any photo becomes a masterpiece.",
+                    "Cats, dogs, birds, fish. Any pet becomes a masterpiece.",
                   image: "/feature-photo.png",
                 },
                 {

@@ -1,23 +1,13 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import { useState } from "react";
 
-function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
+function PortraitCarousel({ portraitFiles }: { portraitFiles: string[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const videoRefs = useRef<HTMLVideoElement[]>([]);
 
   const SLIDE_WIDTH = 320;
-  const total = videoFiles.length;
-
-  useEffect(() => {
-    videoRefs.current.forEach((video, i) => {
-      if (i === activeIndex) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    });
-  }, [activeIndex]);
+  const total = portraitFiles.length;
 
   const prev = () => setActiveIndex((i) => (i - 1 + total) % total);
   const next = () => setActiveIndex((i) => (i + 1) % total);
@@ -27,7 +17,7 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
       <div className="relative flex items-center justify-center w-full mx-auto overflow-hidden">
         <button
           onClick={prev}
-          aria-label="Previous video"
+          aria-label="Previous portrait"
           className="absolute z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-white/80 text-primary transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
           style={{
             left: `calc(50% - ${SLIDE_WIDTH / 2}px - 48px)`,
@@ -50,8 +40,8 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
         </button>
 
         <div className="overflow-x-visible w-full">
-          <div className="relative" style={{ height: SLIDE_WIDTH * (16 / 9) }}>
-            {videoFiles.map((fileName, idx) => {
+          <div className="relative" style={{ height: SLIDE_WIDTH * (4 / 3) }}>
+            {portraitFiles.map((fileName, idx) => {
               const distance = Math.abs(idx - activeIndex);
               const maxDistance = Math.max(total - 1, 1);
               const normalizedDistance = distance / maxDistance;
@@ -66,36 +56,26 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
                   className="absolute flex-none px-2 duration-300 ease-out"
                   style={{
                     left: `calc(50% + ${leftOffset}px)`,
-                    transform: "translateX(-50%)",
+                    top: "50%",
+                    transform: "translate(-50%, -50%)",
                     width: `${SLIDE_WIDTH}px`,
                   }}
                 >
-                  <video
-                    ref={(el) => {
-                      if (el) videoRefs.current[idx] = el;
-                    }}
-                    playsInline
+                  <Image
+                    alt={`Portrait ${idx + 1}`}
+                    src={fileName}
                     width={SLIDE_WIDTH}
-                    height={SLIDE_WIDTH * (16 / 9)}
-                    controls={idx === activeIndex}
-                    controlsList="nodownload"
-                    muted
-                    preload="none"
-                    poster={`/posters/${fileName}.jpg`}
-                    className="w-full h-auto rounded-xl shadow-lg transition-all duration-300 cursor-pointer"
+                    height={SLIDE_WIDTH * (4 / 3)}
+                    className="w-full h-auto rounded-xl shadow-lg align-middle transition-all duration-300 cursor-pointer"
                     style={{
                       opacity,
                       transform: `scale(${scale})`,
                       transformOrigin: "center center",
                     }}
-                    onEnded={next}
                     onClick={() => {
                       if (idx !== activeIndex) setActiveIndex(idx);
                     }}
-                  >
-                    <source src={`/videos/${fileName}.mp4`} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
+                  />
                 </div>
               );
             })}
@@ -104,7 +84,7 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
 
         <button
           onClick={next}
-          aria-label="Next video"
+          aria-label="Next portrait"
           className="absolute z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-white/80 text-primary transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
           style={{
             left: `calc(50% + ${SLIDE_WIDTH / 2}px)`,
@@ -128,11 +108,11 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
       </div>
 
       <div className="flex justify-center gap-2">
-        {videoFiles.map((_, idx) => (
+        {portraitFiles.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setActiveIndex(idx)}
-            aria-label={`Go to video ${idx + 1}`}
+            aria-label={`Go to portrait ${idx + 1}`}
             className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
               idx === activeIndex ? "bg-primary w-6" : "bg-primary/30"
             }`}
@@ -143,4 +123,4 @@ function VideoCarousel({ videoFiles }: { videoFiles: string[] }) {
   );
 }
 
-export default VideoCarousel;
+export default PortraitCarousel;

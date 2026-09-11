@@ -32,13 +32,14 @@ export default function FaqSection() {
           <FaqItem
             question="Is my photo good enough?"
             answers={[
-              "Most photos work beautifully. For the best results, choose a clear, well-lit photo with the person or pet facing the camera. Phone photos are perfect too.",
+              "Most photos work beautifully. For the best results, choose a clear, well-lit photo with your pet facing the camera. Phone photos are perfect too.",
             ]}
           />
           <FaqItem
-            question="Can I include pets or groups?"
+            question="Can I include humans or groups?"
             answers={[
               "Absolutely! You can create portraits of pets, couples, families, and groups. Simply upload a photo with everyone included, choose your preferred style, and we’ll turn it into a timeless piece of artwork.",
+              "Please note, if you include humans in your portrait, they may not look exactly like the original photo in the final artwork.",
             ]}
           />
           <FaqItem
