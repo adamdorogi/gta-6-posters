@@ -49,7 +49,7 @@ export default function Footer() {
           >
             Turn Royal
           </Link>
-          . Crafting timeless memories.
+          . Turning pets into royalty.
         </p>
       </div>
     </footer>
