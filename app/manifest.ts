@@ -3,7 +3,7 @@ import { metadata } from "./layout";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Turn Royal: Get Turned Into Royalty",
+    name: "Turn Royal: Turn Your Pet Into Royalty",
     short_name: "Turn Royal",
     description: metadata.description!,
     start_url: "/",

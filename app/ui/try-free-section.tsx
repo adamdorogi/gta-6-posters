@@ -21,8 +21,8 @@ export default function TryFreeSection() {
           {[
             {
               icon: "🎁",
-              title: "A Gift They’ll Remember",
-              desc: "A personalised portrait made for birthdays, anniversaries, milestones and special moments.",
+              title: "A Gift for Pet Lovers",
+              desc: "A portrait of their beloved pet, made for birthdays, anniversaries and special moments.",
             },
             {
               icon: "🇦🇺",

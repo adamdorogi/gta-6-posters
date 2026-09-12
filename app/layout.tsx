@@ -23,7 +23,7 @@ const merriweather = Merriweather({
 export const metadata: Metadata = {
   title: { default: "Turn Royal", template: "%s | Turn Royal" },
   description:
-    "Turn your favourite photo into a timeless royal portrait, printed in Australia. Preview it in seconds, then order a premium canvas or 12K digital download.",
+    "Turn your pet photos into a timeless royal portrait, printed in Australia. Preview it in seconds, then order a premium canvas or 12K digital download.",
   metadataBase: new URL("https://www.turnroyal.com"),
   openGraph: { siteName: "Turn Royal" },
   alternates: {

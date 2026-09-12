@@ -14,7 +14,7 @@ import ShowcaseSection from "./ui/showcase-section";
 import MockupSection from "./ui/mockup-section";
 
 export const metadata: Metadata = {
-  title: "Get Turned Into Royalty | Turn Royal",
+  title: "Turn Your Pet Into Royalty | Turn Royal",
 };
 
 export default async function Home() {
