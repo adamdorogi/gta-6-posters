@@ -118,7 +118,7 @@ export default async function Home() {
                 {
                   title: "AI magic",
                   caption:
-                    "Stunning portraits in seconds. Made to make you look legendary.",
+                    "Stunning portraits in seconds. Made to make your pet look legendary.",
                   image: "/feature-magic.png",
                 },
                 {
