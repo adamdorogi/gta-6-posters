@@ -113,11 +113,7 @@ async function generateImage(generationId: string, userId: string, generationGro
       prompt.push(`ADDITIONAL USER DIRECTION\nApply only where consistent with the image roles, cast, expressions, and style above.\n${group.user_prompt}`);
     }
 
-    // Grok accepts three images total, including the style reference.
-    const fitsGrok = attachments.length <= 3;
-    const model = fitsGrok
-      ? "x-ai/grok-imagine-image-2.0"
-      : "google/gemini-3.1-flash-image";
+    const model = "google/gemini-nano-banana-2.1";
 
     const response = await openRouter.images.generate({
       imageGenerationRequest: {
@@ -127,7 +123,7 @@ async function generateImage(generationId: string, userId: string, generationGro
         inputReferences: attachments,
         size: "1K",
         aspectRatio: "3:4",
-        outputFormat: fitsGrok ? "jpeg" : undefined,
+        outputFormat: "jpeg",
       },
     });
     const b64 = "data" in response ? response.data?.[0]?.b64Json : undefined;

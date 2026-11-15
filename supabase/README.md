@@ -20,8 +20,8 @@ and the soundtrack artwork in `references/3`. Upload a new reference to
 Storage before applying a migration that points to it.
 
 The generation function labels the first attachment as style guidance and
-sends every upload after it as a subject photo. Grok Imagine handles one or
-two uploads. Gemini 3.1 Flash Image handles three uploads plus the reference.
+sends every upload after it as a subject photo. MiniMax H3 Image handles
+generation and accepts up to 16 images per request, including the style reference.
 
 ## Restore to a new hosted project
 
