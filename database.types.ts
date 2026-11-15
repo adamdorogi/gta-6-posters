@@ -186,6 +186,7 @@ export type Database = {
           name: string
           prompt: string
           rank: number
+          reference_path: string
         }
         Insert: {
           created_at?: string
@@ -193,6 +194,7 @@ export type Database = {
           name: string
           prompt: string
           rank?: number
+          reference_path: string
         }
         Update: {
           created_at?: string
@@ -200,6 +202,7 @@ export type Database = {
           name?: string
           prompt?: string
           rank?: number
+          reference_path?: string
         }
         Relationships: []
       }

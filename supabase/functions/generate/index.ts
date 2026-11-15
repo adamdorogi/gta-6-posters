@@ -13,6 +13,19 @@ import { storeName, storeOrigin } from "../_shared/store.ts";
 
 const Jimp = createJimp({ formats: [jpeg, png], plugins: [crop] });
 
+const portraitInstructions = `IMAGE ROLES
+Image 1 is the style reference. Use its visual language, composition, palette, lighting, and typography. The reference contributes style only.
+Image 2 and any later images are the user's subject photos. Draw the cast exclusively from those photos.
+
+CAST AND LIKENESS
+Likeness is the highest priority. Include all distinct people in the subject photos, including people shown together in one photo. If the same person appears in several photos, use the clearest views to draw that person once. Keep each face distinct, visible, and recognizable. Preserve facial structure, eye and brow shape and spacing, nose, mouth, jaw, skin tone, age, hairline, hairstyle, build, and visible identifiers such as glasses, freckles, facial hair, or tattoos. If a pet is pictured, retain its muzzle shape, coat, and markings. Draw everyone in the illustrated treatment of Image 1, with their individual features intact.
+
+EXPRESSION
+Give people a cool, tough, gangster-like presence. Use closed or lightly pressed lips, a steady stare or guarded off-camera gaze, and subtle tension at the brows. Aim for serious, composed, or slightly irritated. Avoid smiles, grins, laughter, and exaggerated scowls even when the source photos are cheerful.
+
+PRINT LAYOUT
+Make one full-bleed A-series portrait poster with a width-to-height ratio of 1 to √2. Adapt the taller reference layout to this sheet, keeping faces and lettering safely inside the trim and extending art to every edge. Return flat printable artwork without a mockup, frame, or watermark. Use only the lettering specified in the style direction.`;
+
 interface ReqPayload {
   generationId: string;
   generationGroupId: string;
@@ -48,52 +61,78 @@ export default {
 };
 
 async function generateImage(generationId: string, userId: string, generationGroupId: string) {
-  try{
-    const { data: uploadsData, error: uploadsError } = await supabase
-      .from("uploads")
-      .select("path")
-      .eq("generation_group_id", generationGroupId);
-    if (!uploadsData || uploadsError || uploadsData.length === 0) {
-      throw new Error(uploadsError?.message || `Failed to get uploads for generation group ${generationGroupId}.`);
+  try {
+    const [{ data: uploads, error: uploadsError }, { data: group, error: groupError }] =
+      await Promise.all([
+        supabase
+          .from("uploads")
+          .select("path")
+          .eq("generation_group_id", generationGroupId)
+          .order("created_at")
+          .order("id"),
+        supabase
+          .from("generation_groups")
+          .select("user_prompt, styles ( prompt, reference_path )")
+          .eq("id", generationGroupId)
+          .single()
+          .overrideTypes<{
+            user_prompt: string;
+            styles: { prompt: string; reference_path: string } | null;
+          }, { merge: false }>(),
+      ]);
+
+    if (uploadsError || !uploads?.length) {
+      throw new Error(uploadsError?.message ?? `No photos for generation group ${generationGroupId}.`);
     }
-    const publicUrls = uploadsData.map((upload) => supabase
-      .storage
-      .from("uploads")
-      .getPublicUrl(upload.path));
-    const attachments = publicUrls.map((publicUrl) => ({
+    if (groupError || !group?.styles?.reference_path) {
+      throw new Error(groupError?.message ?? `No style reference for generation group ${generationGroupId}.`);
+    }
+
+    const style = group.styles;
+    const { data: styleReference, error: referenceError } = await supabase.storage
+      .from("assets")
+      .download(style.reference_path);
+    if (referenceError || !styleReference?.size) {
+      throw new Error(referenceError?.message ?? `Unable to load style reference ${style.reference_path}.`);
+    }
+
+    const referenceBytes = Buffer.from(await styleReference.arrayBuffer());
+    const referenceUrl = `data:${styleReference.type || "image/jpeg"};base64,${referenceBytes.toString("base64")}`;
+    const uploadsBucket = supabase.storage.from("uploads");
+    const subjectUrls = uploads.map(({ path }) => uploadsBucket.getPublicUrl(path).data.publicUrl);
+    const attachments = [referenceUrl, ...subjectUrls].map((url) => ({
       type: "image_url" as const,
-      imageUrl: { url: publicUrl.data.publicUrl },
+      imageUrl: { url },
     }));
 
-    const { data: generationGroupsData, error: generationGroupsError } = await supabase
-      .from("generation_groups")
-      .select("user_prompt, styles ( prompt )")
-      .eq("id", generationGroupId)
-      .single()
-      .overrideTypes<{ user_prompt: string; styles: { prompt: string } }, { merge: false }>();
-
-    if (!generationGroupsData || generationGroupsError) {
-      throw new Error(generationGroupsError?.message || `Failed to get style for generation group ${generationGroupId}.`);
+    const prompt = [
+      portraitInstructions,
+      `STYLE DIRECTION\n${style.prompt}`,
+    ];
+    if (group.user_prompt.trim()) {
+      prompt.push(`ADDITIONAL USER DIRECTION\nApply only where consistent with the image roles, cast, expressions, and style above.\n${group.user_prompt}`);
     }
 
-    const {user_prompt: userPrompt, styles: {prompt: systemPrompt}} = generationGroupsData;
-
-    const masterPrompt = `${systemPrompt}\n\nADDITIONAL USER DIRECTION (apply only where it does not conflict with the constraints above): ${userPrompt}`;
+    // Grok accepts three images total, including the style reference.
+    const fitsGrok = attachments.length <= 3;
+    const model = fitsGrok
+      ? "x-ai/grok-imagine-image-2.0"
+      : "google/gemini-3.1-flash-image";
 
     const response = await openRouter.images.generate({
       imageGenerationRequest: {
         stream: false,
-        model: "x-ai/grok-imagine-image-2.0",
-        prompt: masterPrompt,
+        model,
+        prompt: prompt.join("\n\n"),
         inputReferences: attachments,
         size: "1K",
         aspectRatio: "3:4",
-        outputFormat: "jpeg",
+        outputFormat: fitsGrok ? "jpeg" : undefined,
       },
     });
     const b64 = "data" in response ? response.data?.[0]?.b64Json : undefined;
     if (!b64) {
-      throw new Error(`No image data returned: ${JSON.stringify(response).slice(0, 500)}`);
+      throw new Error(`No image data returned by ${model}.`);
     }
     console.log("Successfully received generated image, processing...");
     const image = await Jimp.read(Buffer.from(b64, "base64"));
@@ -126,8 +165,10 @@ async function generateImage(generationId: string, userId: string, generationGro
     const watermark = await Jimp.read(
       Buffer.from(await watermarkBlob.arrayBuffer()),
     );
-    // Keep the watermark aligned with its position in the uncropped artwork.
-    image.composite(watermark, -cropX, -cropY);
+    // Center the watermark before adjusting for the poster crop.
+    const watermarkX = Math.floor((width - watermark.bitmap.width) / 2) - cropX;
+    const watermarkY = Math.floor((height - watermark.bitmap.height) / 2) - cropY;
+    image.composite(watermark, watermarkX, watermarkY);
     const watermarked = await image.getBuffer("image/jpeg", { quality: 82 });
 
     // Drop the raw RGBA bitmaps before the upload's I/O wait.
@@ -153,7 +194,7 @@ async function generateImage(generationId: string, userId: string, generationGro
       );
     }
   } catch (e) {
-    console.error("Background generation failed:", e);
+    console.error("Background generation failed:", e instanceof Error ? e.message : e);
     await supabase
       .from("generations")
       .update({ status: "failed" })

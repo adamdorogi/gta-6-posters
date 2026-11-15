@@ -7,8 +7,21 @@ Edge Functions.
 `seed.sql` contains the three current `public.styles` rows. An existing hosted
 database receives prompt changes through migrations when you run
 `supabase db push --remote=<project-ref>`. The private `assets` bucket contains
-the poster preview watermark. A fresh restore starts without customer records,
-orders, uploads, generations, or Auth users.
+the poster preview watermark and a reference JPEG for each style. A fresh
+restore starts without customer records, orders, uploads, generations, or
+Auth users.
+
+## Style references
+
+Each style row has a `reference_path` relative to the private `assets` bucket.
+The reference JPEGs in `storage/assets/style-references/` are resized copies
+of the cover artwork in `references/1`, Jason and Lucia 01 in `references/2`,
+and the soundtrack artwork in `references/3`. Upload a new reference to
+Storage before applying a migration that points to it.
+
+The generation function labels the first attachment as style guidance and
+sends every upload after it as a subject photo. Grok Imagine handles one or
+two uploads. Gemini 3.1 Flash Image handles three uploads plus the reference.
 
 ## Restore to a new hosted project
 
@@ -87,9 +100,9 @@ shown by `supabase status`. Set the Next.js `SUPABASE_URL` and
 `SUPABASE_SECRET_KEY` to the local API URL and secret key if running the app
 against this stack.
 
-Verify the three styles and both `assets` objects before routing traffic to
-a replacement project. The SHA-256 checksums for the archived objects are
-listed below. The CLI applies the project's 50 MiB upload limit to each
+Verify the three styles, their references, and the watermark before routing
+traffic to a replacement project. The SHA-256 checksums for the original
+bucket objects are listed below. The CLI applies the project's 50 MiB upload limit to each
 bucket and infers the zero-byte placeholder's media type as text/plain.
 Storage generates new upload timestamps and ETags on restore.
 
