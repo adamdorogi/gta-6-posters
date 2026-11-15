@@ -3,11 +3,11 @@ export const storeCurrency = "USD";
 export const printSizes = ["Small", "Medium", "Large", "XL"] as const;
 
 export const products = {
-  Small: { label: "A4", price: 5900, widthMm: 210, heightMm: 297 },
-  Medium: { label: "A3", price: 6900, widthMm: 297, heightMm: 420 },
-  Large: { label: "A2", price: 8900, widthMm: 420, heightMm: 594 },
-  XL: { label: "A1", price: 16900, widthMm: 594, heightMm: 841 },
-  Digital: { label: "Digital", price: 2900 },
+  Small: { label: "A4", price: 2400, widthMm: 210, heightMm: 297 },
+  Medium: { label: "A3", price: 2900, widthMm: 297, heightMm: 420 },
+  Large: { label: "A2", price: 3400, widthMm: 420, heightMm: 594 },
+  XL: { label: "A1", price: 4400, widthMm: 594, heightMm: 841 },
+  Digital: { label: "Digital", price: 400 },
 } as const;
 
 export type ProductSize = keyof typeof products;
