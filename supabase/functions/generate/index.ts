@@ -6,9 +6,9 @@ import { Buffer } from "node:buffer";
 import { createJimp } from "npm:@jimp/core@1.6.1";
 import jpeg from "npm:@jimp/js-jpeg@1.6.1";
 import png from "npm:@jimp/js-png@1.6.1";
-import { methods as blit } from "npm:@jimp/plugin-blit@1.6.1";
+import { methods as crop } from "npm:@jimp/plugin-crop@1.6.1";
 
-const Jimp = createJimp({ formats: [jpeg, png], plugins: [blit] });
+const Jimp = createJimp({ formats: [jpeg, png], plugins: [crop] });
 
 interface ReqPayload {
   generationId: string;
@@ -98,13 +98,22 @@ async function generateImage(generationId: string, userId: string, generationGro
       throw new Error(`No image data returned: ${JSON.stringify(response).slice(0, 500)}`);
     }
     console.log("Successfully received generated image, processing...");
-    const original = Buffer.from(b64, "base64");
+    const image = await Jimp.read(Buffer.from(b64, "base64"));
     const path = `${userId}/${generationGroupId}/${generationId}.jpeg`;
 
-    // Upload the clean file first so it can be collected before we allocate bitmaps.
+    // The model renders at 3:4. Center-crop to the 1:√2 A-series paper ratio.
+    const { width, height } = image.bitmap;
+    const posterWidth = Math.min(width, Math.round(height * Math.SQRT1_2));
+    const posterHeight = Math.min(height, Math.round(width / Math.SQRT1_2));
+    const cropX = Math.floor((width - posterWidth) / 2);
+    const cropY = Math.floor((height - posterHeight) / 2);
+    image.crop({ x: cropX, y: cropY, w: posterWidth, h: posterHeight });
+
     const { error: originalError } = await supabase.storage
       .from("generations")
-      .upload(path, original, { contentType: "image/jpeg" });
+      .upload(path, await image.getBuffer("image/jpeg", { quality: 95 }), {
+        contentType: "image/jpeg",
+      });
     if (originalError) {
       throw new Error(`Failed to upload generation ${path}: ${originalError.message}`);
     }
@@ -116,16 +125,16 @@ async function generateImage(generationId: string, userId: string, generationGro
       throw new Error(watermarkError?.message ?? "Failed to download watermark.");
     }
 
-    const image = await Jimp.read(original);
     const watermark = await Jimp.read(
       Buffer.from(await watermarkBlob.arrayBuffer()),
     );
-    image.composite(watermark, 0, 0);
+    // Keep the watermark aligned with its position in the uncropped artwork.
+    image.composite(watermark, -cropX, -cropY);
     const watermarked = await image.getBuffer("image/jpeg", { quality: 82 });
 
     // Drop the raw RGBA bitmaps before the upload's I/O wait.
-    image.bitmap.data = new Uint8Array(0);
-    watermark.bitmap.data = new Uint8Array(0);
+    image.bitmap.data = Buffer.alloc(0);
+    watermark.bitmap.data = Buffer.alloc(0);
 
     const { error: watermarkedUploadError } = await supabase.storage
       .from("watermarked-generations")

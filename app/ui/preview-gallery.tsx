@@ -118,7 +118,7 @@ export default function PreviewGallery({
                 alt="Generated Image"
                 sizes="576px"
                 fill
-                className="object-cover"
+                className="object-contain"
                 priority
                 loading="eager"
                 fetchPriority="high"
@@ -218,7 +218,7 @@ export default function PreviewGallery({
                     src={gen.publicUrl}
                     alt={`Thumbnail ${idx}`}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                     sizes="96px"
                     draggable={false}
                     priority
