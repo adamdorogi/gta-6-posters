@@ -239,7 +239,7 @@ async function submitPrintifyOrder(orderId: string, generationUrl: string, name:
 
   const printify = new Printify({
     accessToken: Deno.env.get("PRINTIFY_API_TOKEN"),
-    shopId: '27733486',
+    shopId: '29761765',
     timeout: 10 * 60 * 1000 // 10 mins
   });
 
