@@ -150,7 +150,7 @@ Large, tightly set headings give sections the weight of a poster title. Controls
 ### Secondary
 
 - **Peach** highlights sale details and the featured print price, with **dark peach-label text** on the peach pill.
-- A lilac, pink, and peach gradient spans the announcement bar (`linear-gradient(105deg, #bca5da, #efb2ce 42%, #ffc69f 67%, #dab0d9)`). The wordmark uses three separate stripes in the same hues.
+- A lilac, pink, and peach gradient spans the announcement bar (`linear-gradient(105deg, #bca5da, #efb2ce 42%, #ffc69f 67%, #dab0d9)`). The VI mark uses a peach-to-lilac gradient through blush.
 
 ### Neutral
 
@@ -161,7 +161,7 @@ Large, tightly set headings give sections the weight of a poster title. Controls
 
 ## Typography
 
-Barlow Condensed supplies the wordmark, headlines, feature titles, and prices. It uses 900 for display text and 700 for smaller titles. Inter supplies paragraph text, fields, labels, and action text. Both fall back to sans-serif.
+Barlow Condensed supplies the VI mark, wordmark, headlines, feature titles, prices, and social preview lettering. It uses 900 for display text and 700 for smaller titles. Inter supplies paragraph text, fields, labels, and action text. Both fall back to sans-serif.
 
 - **Display** uses uppercase Barlow Condensed at 900. The main line scales from `1.75rem` to `4.125rem` with `10.8cqi` inside the hero copy container. The blush line scales from `2.875rem` to `6rem` with `17.6cqi` and a tighter 0.89 line height.
 - **Headlines** use uppercase Barlow Condensed at 900, a 0.95 line height, and balanced wrapping. Section headings use `clamp(2.5rem, 5.4vw, 4.875rem)`. The purchase heading uses `clamp(2.5rem, 4.4vw, 4.45rem)`.

@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
   <title>GTA 6 Posters</title>
+  <defs>
+    <linearGradient id="vi-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#ffc99f"/>
+      <stop offset=".52" stop-color="#f6b7ce"/>
+      <stop offset="1" stop-color="#c3aadf"/>
+    </linearGradient>
+  </defs>
   <rect width="128" height="128" rx="28" fill="#211632"/>
-  <g transform="translate(10 0) skewX(-9)">
-    <path fill="#ffc99f" d="M36 36h58v13H36z"/>
-    <path fill="#f6b7ce" d="M36 57h58v13H36z"/>
-    <path fill="#c3aadf" d="M36 78h58v13H36z"/>
-  </g>
+  <path fill="url(#vi-gradient)" d="M41.46 97.026 27.74 31.268V30.876Q27.74 29.7 29.112 29.7H45.968Q47.438 29.7 47.536 31.072L51.946 65.764Q51.946 66.058 52.24 66.058Q52.534 66.058 52.534 65.764L56.552 31.072Q56.65 29.7 58.12 29.7H74.486Q76.152 29.7 75.858 31.268L61.942 97.026Q61.648 98.3 60.276 98.3H43.126Q41.754 98.3 41.46 97.026ZM81.836 96.83V31.17Q81.836 30.484 82.228 30.092Q82.62 29.7 83.306 29.7H98.79Q99.476 29.7 99.868 30.092Q100.26 30.484 100.26 31.17V96.83Q100.26 97.516 99.868 97.908Q99.476 98.3 98.79 98.3H83.306Q82.62 98.3 82.228 97.908Q81.836 97.516 81.836 96.83Z"/>
 </svg>
