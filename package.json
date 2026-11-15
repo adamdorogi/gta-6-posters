@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "vercel": "npx --yes vercel@65.11.0",
+    "vercel:env:push": "node scripts/vercel-env-push.mjs"
   },
   "dependencies": {
     "@stripe/stripe-js": "^9.13.0",

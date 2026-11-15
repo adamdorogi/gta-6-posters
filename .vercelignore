@@ -1,0 +1,5 @@
+# Local credentials, including pulled and prepared environment files
+.env*
+
+# Supabase is restored and deployed independently of the Next.js app
+supabase/

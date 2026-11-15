@@ -4,6 +4,12 @@ The database migration, style catalog, storage assets, and Edge Functions are in
 [`supabase/`](supabase/). Follow the [restore instructions](supabase/README.md)
 to set up a new Supabase project and connect it to Vercel.
 
+## Vercel recovery
+
+The [Vercel guide](docs/vercel.md) covers linking this checkout, pulling
+readable variables, restoring credentials, and deploying to a replacement
+project.
+
 # TODO
 
 - maybe:
