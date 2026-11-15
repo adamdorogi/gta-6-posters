@@ -1,0 +1,129 @@
+project_id = "ai-canvas"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[db.pooler]
+default_pool_size = 15
+max_client_conn = 200
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[realtime]
+enabled = true
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[storage.s3_protocol]
+enabled = true
+
+[storage.image_transformation]
+enabled = true
+
+[storage.analytics]
+enabled = true
+max_namespaces = 10
+max_tables = 10
+max_catalogs = 2
+
+[storage.vector]
+enabled = false
+max_buckets = 10
+max_indexes = 5
+
+[storage.buckets.assets]
+public = false
+objects_path = "./storage/assets"
+
+[storage.buckets.generations]
+public = true
+allowed_mime_types = ["image/*"]
+
+[storage.buckets.uploads]
+public = true
+allowed_mime_types = ["image/*"]
+
+[storage.buckets.upscaled-generations]
+public = true
+allowed_mime_types = ["image/*"]
+
+[storage.buckets.watermarked-generations]
+public = true
+allowed_mime_types = ["image/*"]
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = []
+jwt_expiry = 3600
+enable_signup = true
+enable_anonymous_sign_ins = false
+enable_manual_linking = false
+
+[auth.rate_limit]
+email_sent = 2
+sms_sent = 30
+anonymous_users = 30
+token_refresh = 150
+sign_in_sign_ups = 30
+token_verifications = 30
+web3 = 30
+
+[auth.email]
+enabled = true
+double_confirm_changes = true
+enable_confirmations = true
+secure_password_change = false
+max_frequency = "1m"
+otp_length = 8
+otp_expiry = 3600
+
+[auth.sms]
+enabled = false
+enable_confirmations = true
+template = "Your code is {{ .Code }}"
+max_frequency = "5s"
+
+[auth.mfa]
+max_enrolled_factors = 10
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[auth.mfa.phone]
+enroll_enabled = false
+verify_enabled = false
+otp_length = 6
+template = "Your code is {{ .Code }}"
+max_frequency = "5s"
+
+[edge_runtime]
+enabled = true
+policy = "per_worker"
+deno_version = 2
+
+[functions.generate]
+verify_jwt = false
+
+[functions.printify-webhook]
+verify_jwt = false
+
+[functions.process-order]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false

@@ -1,3 +1,9 @@
+## Supabase recovery
+
+The database migration, style catalog, storage assets, and Edge Functions are in
+[`supabase/`](supabase/). Follow the [restore instructions](supabase/README.md)
+to set up a new Supabase project and connect it to Vercel.
+
 # TODO
 
 - maybe:
