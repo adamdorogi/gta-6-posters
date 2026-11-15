@@ -1,4 +1,5 @@
 import Image from "next/image";
+import printInRoom from "@/public/posters/print-in-room.webp";
 import ScrollToTopButton from "./scroll-to-top-button";
 
 const details = [
@@ -44,10 +45,8 @@ export default function MockupSection({
         </div>
         <figure className="print-layout__image">
           <Image
-            src="/posters/print-in-room.webp"
-            alt="GTA 6-style poster of a golden retriever in a convertible, displayed on a wall"
-            width={1200}
-            height={960}
+            src={printInRoom}
+            alt="Unframed A2 GTA 6 Cover Art poster pinned to a peach wall in a sunlit room"
             sizes="(min-width: 960px) 46vw, 100vw"
             className="h-auto w-full rounded-xl object-cover"
           />
