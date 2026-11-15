@@ -30,15 +30,6 @@ file_size_limit = "50MiB"
 [storage.s3_protocol]
 enabled = true
 
-[storage.image_transformation]
-enabled = true
-
-[storage.analytics]
-enabled = true
-max_namespaces = 10
-max_tables = 10
-max_catalogs = 2
-
 [storage.vector]
 enabled = false
 max_buckets = 10
