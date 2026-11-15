@@ -46,20 +46,18 @@ export default function CreditsCountdown({
   };
 
   return credits === 5 ? null : (
-    <div className="flex opacity-80 items-center gap-1 px-3 py-1 rounded-full bg-primary-accent text-primary text-xs font-medium">
-      <span className="font-bold">{credits}</span>
-      <span className="opacity-80">
+    <div className="flex flex-wrap items-center justify-end gap-x-1.5 rounded-full border border-border bg-surface px-2.5 py-1.5 text-[0.65rem] font-medium text-muted-foreground tabular-nums sm:px-3 sm:text-xs">
+      <span className="whitespace-nowrap">
+        <strong className="font-bold text-primary">{credits}</strong>
         {" "}
         {credits == 1 ? "credit" : "credits"} left
       </span>
       {remainingSeconds > 0 && credits < 5 && (
-        <>
-          <span className="w-1 h-1 rounded-full bg-primary opacity-80" />
-          <span className="opacity-80">Resets in </span>
-          <span className="text-primary font-bold">
-            {formatTime(remainingSeconds)}
-          </span>
-        </>
+        <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+          <span className="size-1 rounded-full bg-primary opacity-80" />
+          Resets in{" "}
+          <strong className="font-bold text-primary">{formatTime(remainingSeconds)}</strong>
+        </span>
       )}
     </div>
   );

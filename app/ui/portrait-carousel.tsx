@@ -1,126 +1,109 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import type { PosterExample } from "@/app/utils/showcase";
 
-function PortraitCarousel({ portraitFiles }: { portraitFiles: string[] }) {
-  const [activeIndex, setActiveIndex] = useState(0);
+function centerPortrait(scroller: HTMLDivElement, index: number, behavior: ScrollBehavior) {
+  const slide = scroller.children.item(index) as HTMLElement | null;
+  if (slide) {
+    scroller.scrollTo({
+      left: slide.offsetLeft - (scroller.clientWidth - slide.offsetWidth) / 2,
+      behavior,
+    });
+  }
+}
 
-  const SLIDE_WIDTH = 320;
-  const total = portraitFiles.length;
+export default function PortraitCarousel({ posters }: { posters: PosterExample[] }) {
+  const total = posters.length;
+  const initialIndex = Math.floor(total / 2);
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
+  const viewport = useRef<HTMLDivElement>(null);
 
-  const prev = () => setActiveIndex((i) => (i - 1 + total) % total);
-  const next = () => setActiveIndex((i) => (i + 1) % total);
+  useLayoutEffect(() => {
+    if (viewport.current) centerPortrait(viewport.current, initialIndex, "instant");
+  }, [initialIndex]);
+
+  if (total === 0) return null;
+
+  const goTo = (index: number) => {
+    const scroller = viewport.current;
+    if (!scroller) return;
+
+    const targetIndex = (index + total) % total;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setActiveIndex(targetIndex);
+    centerPortrait(scroller, targetIndex, reduceMotion ? "instant" : "smooth");
+  };
 
   return (
-    <div className="relative flex flex-col items-center">
-      <div className="relative flex items-center justify-center w-full mx-auto overflow-hidden">
-        <button
-          onClick={prev}
-          aria-label="Previous portrait"
-          className="absolute z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-white/80 text-primary transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
-          style={{
-            left: `calc(50% - ${SLIDE_WIDTH / 2}px - 48px)`,
-            top: "50%",
-            transform: "translateY(-50%)",
-          }}
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+    <div className="portrait-carousel">
+      <div
+        ref={viewport}
+        className="portrait-carousel__viewport"
+        onScroll={(event) => {
+          const scroller = event.currentTarget;
+          const first = scroller.children.item(0) as HTMLElement | null;
+          const second = scroller.children.item(1) as HTMLElement | null;
+          if (first && second) {
+            const stride = second.offsetLeft - first.offsetLeft;
+            setActiveIndex(Math.max(0, Math.min(total - 1, Math.round(scroller.scrollLeft / stride))));
+          }
+        }}
+      >
+        {posters.map(({ src, alt }, index) => (
+          <button
+            key={src}
+            type="button"
+            className="portrait-carousel__slide"
+            aria-current={index === activeIndex ? "true" : undefined}
+            onClick={() => goTo(index)}
           >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
-
-        <div className="overflow-x-visible w-full">
-          <div className="relative" style={{ height: SLIDE_WIDTH * (4 / 3) }}>
-            {portraitFiles.map((fileName, idx) => {
-              const distance = Math.abs(idx - activeIndex);
-              const maxDistance = Math.max(total - 1, 1);
-              const normalizedDistance = distance / maxDistance;
-
-              const scale = 1 - normalizedDistance;
-              const opacity = Math.max(0, 1 - normalizedDistance * 4);
-              const leftOffset = (idx - activeIndex) * SLIDE_WIDTH;
-
-              return (
-                <div
-                  key={fileName}
-                  className="absolute flex-none px-2 duration-300 ease-out"
-                  style={{
-                    left: `calc(50% + ${leftOffset}px)`,
-                    top: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: `${SLIDE_WIDTH}px`,
-                  }}
-                >
-                  <Image
-                    alt={`Portrait ${idx + 1}`}
-                    src={fileName}
-                    width={SLIDE_WIDTH}
-                    height={SLIDE_WIDTH * (4 / 3)}
-                    className="w-full h-auto rounded-xl shadow-lg align-middle transition-all duration-300 cursor-pointer"
-                    style={{
-                      opacity,
-                      transform: `scale(${scale})`,
-                      transformOrigin: "center center",
-                    }}
-                    onClick={() => {
-                      if (idx !== activeIndex) setActiveIndex(idx);
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <button
-          onClick={next}
-          aria-label="Next portrait"
-          className="absolute z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-white/80 text-primary transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
-          style={{
-            left: `calc(50% + ${SLIDE_WIDTH / 2}px)`,
-            top: "50%",
-            transform: "translateY(-50%)",
-          }}
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </button>
+            <Image
+              alt={alt}
+              src={src}
+              fill
+              sizes="(min-width: 768px) 376px, 76vw"
+              className="object-cover"
+            />
+          </button>
+        ))}
       </div>
 
-      <div className="flex justify-center gap-2">
-        {portraitFiles.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setActiveIndex(idx)}
-            aria-label={`Go to portrait ${idx + 1}`}
-            className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
-              idx === activeIndex ? "bg-primary w-6" : "bg-primary/30"
-            }`}
-          />
-        ))}
+      <div className="mt-4 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          onClick={() => goTo(activeIndex - 1)}
+          aria-label="Previous poster"
+          className="icon-button"
+        >
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="m14 6-6 6 6 6" />
+          </svg>
+        </button>
+        <div className="flex items-center">
+          {posters.map(({ src }, index) => (
+            <button
+              key={src}
+              type="button"
+              onClick={() => goTo(index)}
+              aria-label={`Go to poster ${index + 1}`}
+              aria-current={index === activeIndex ? "true" : undefined}
+              className="carousel-dot"
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() => goTo(activeIndex + 1)}
+          aria-label="Next poster"
+          className="icon-button"
+        >
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="m10 6 6 6-6 6" />
+          </svg>
+        </button>
       </div>
     </div>
   );
 }
-
-export default PortraitCarousel;

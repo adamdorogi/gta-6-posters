@@ -1,96 +1,98 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { event as metaEvent } from "@/app/utils/meta-pixel-events";
 import { event as tikTokEvent } from "@/app/utils/tiktok-pixel-events";
+import { formatPrice, getProductDetails, storeCurrency, type ProductSize } from "@/app/utils/pricing";
+import { site } from "@/app/utils/site";
 
 export default function BuyButton({
   generationId,
   size,
-  price,
   text,
   iconPath,
-  iconAlt,
   disabled = false,
+  appearance = "primary",
 }: {
   generationId: string;
-  size: string;
-  price: number;
+  size: ProductSize;
   text: string;
   iconPath: string;
-  iconAlt: string;
   disabled?: boolean;
+  appearance?: "primary" | "secondary";
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const [error, setError] = useState("");
+  const product = getProductDetails(size);
+
+  async function openCheckout() {
+    setError("");
+    setIsLoading(true);
+    try {
+      const metaEventId = crypto.randomUUID();
+      const tikTokEventId = crypto.randomUUID();
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ generationId, size, metaEventId, tikTokEventId }),
+      });
+      const { url } = await response.json();
+      if (!response.ok || typeof url !== "string") {
+        throw new Error("Checkout is unavailable.");
+      }
+
+      const eventData = {
+        content_ids: [product.id],
+        content_name: product.name,
+        content_type: "product",
+        value: product.price / 100,
+        currency: storeCurrency,
+        num_items: 1,
+      };
+      try {
+        metaEvent("InitiateCheckout", eventData, { eventID: metaEventId });
+        tikTokEvent("InitiateCheckout", {
+          ...eventData,
+          contents: [{
+            content_id: product.id,
+            content_name: product.name,
+            content_type: "product",
+            price: product.price / 100,
+            quantity: 1,
+            brand: site.name,
+          }],
+        }, { event_id: tikTokEventId });
+      } catch (error) {
+        console.warn("Checkout analytics unavailable.", error);
+      }
+      window.location.assign(url);
+    } catch {
+      setError("We couldn’t open checkout. Please try again.");
+      setIsLoading(false);
+    }
+  }
 
   return (
-    <button
-      disabled={isLoading || disabled}
-      onClick={async () => {
-        setIsLoading(true);
-        const metaEventId = crypto.randomUUID();
-        const tikTokEventId = crypto.randomUUID();
-        metaEvent(
-          "InitiateCheckout",
-          {
-            content_ids: [`personalised-canvas-${size}`],
-            content_name: `Personalised Canvas ${size}`,
-            content_type: "product",
-            currency: "AUD",
-            value: price / 100,
-            num_items: 1,
-          },
-          { eventID: metaEventId },
-        );
-        tikTokEvent(
-          "InitiateCheckout",
-          {
-            content_ids: [`personalised-canvas-${size}`],
-            content_name: `Personalised Canvas ${size}`,
-            content_type: "product",
-            contents: [
-              {
-                content_id: `personalised-canvas-${size}`,
-                content_name: `Personalised Canvas ${size}`,
-                content_type: "product",
-                price: price / 100,
-                quantity: 1,
-                brand: "Turn Royal",
-              },
-            ],
-            value: price / 100,
-            currency: "AUD",
-            num_items: 1,
-          },
-          { event_id: tikTokEventId },
-        );
-        const resp = await fetch("/api/checkout", {
-          method: "POST",
-          body: JSON.stringify({
-            generationId,
-            size,
-            metaEventId,
-            tikTokEventId,
-          }),
-        });
-        const response = await resp.json();
-        const { url } = response;
-        router.push(url);
-      }}
-      className="flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-bold text-base transition-all hover:opacity-90 active:scale-[0.98] shadow-xl cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
-    >
-      {isLoading ? (
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
-      ) : (
-        <>
-          <Image src={iconPath} alt={iconAlt} width={20} height={20} priority />
-          <span>{text}</span>
-          <span className="opacity-70">•</span>
-          <span className="opacity-70">${price / 100}</span>
-        </>
-      )}
-    </button>
+    <>
+      <button
+        type="button"
+        disabled={isLoading || disabled}
+        aria-busy={isLoading}
+        onClick={openCheckout}
+        className={`site-button w-full ${appearance === "secondary" ? "site-button--outline" : ""}`}
+      >
+        {isLoading ? (
+          <span>Opening checkout…</span>
+        ) : (
+          <>
+            <Image src={iconPath} alt="" width={20} height={20} />
+            <span>{text}</span>
+            <span aria-hidden="true" className="opacity-70">•</span>
+            <span className="opacity-70">{formatPrice(product.price)}</span>
+          </>
+        )}
+      </button>
+      {error && <p role="alert" className="text-sm text-primary">{error}</p>}
+    </>
   );
 }

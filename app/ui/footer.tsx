@@ -1,18 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "./logo";
+import { site } from "../utils/site";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary py-6 px-6 text-xs text-muted">
-      <div className="mx-auto flex max-w-5xl flex-col gap-3 text-left">
+    <footer className="border-t border-border bg-[#120f1b] py-9 text-xs text-muted-foreground">
+      <div className="site-container flex flex-col gap-5 text-left">
         <div className="flex items-start justify-between">
-          <Logo light />
+          <Logo />
 
           <Link
-            href="mailto:hello@turnroyal.com"
-            aria-label="Email Turn Royal"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-muted/20 transition-opacity duration-200 ease-in-out hover:opacity-80"
+            href={`mailto:${site.email}`}
+            aria-label={`Email ${site.name}`}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border transition-colors hover:bg-surface"
           >
             <Image src="/email.svg" alt="Email Icon" width={20} height={20} />
           </Link>
@@ -32,14 +33,14 @@ export default function Footer() {
             Terms
           </Link>
           <Link
-            href="mailto:hello@turnroyal.com"
+            href={`mailto:${site.email}`}
             className="transition-opacity duration-200 ease-in-out hover:opacity-80"
           >
             Contact
           </Link>
         </div>
 
-        <div className="h-px w-full bg-muted/20" />
+        <div className="h-px w-full bg-border" />
 
         <p>
           © {new Date().getFullYear()}{" "}
@@ -47,9 +48,9 @@ export default function Footer() {
             href="/"
             className="transition-opacity duration-200 ease-in-out hover:opacity-80"
           >
-            Turn Royal
+            {site.name}
           </Link>
-          . Turning pets into royalty.
+
         </p>
       </div>
     </footer>

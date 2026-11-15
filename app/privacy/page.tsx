@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import NavBar from "../ui/nav-bar";
 import Footer from "../ui/footer";
 import Link from "next/link";
+import { site } from "../utils/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/privacy" },
   title: "Privacy Policy",
   description:
-    "Read how Turn Royal collects, uses and protects your personal information, uploaded photos, payment details and order information when you use our website.",
+    "Learn how GTA 6 Posters handles photo uploads, order data, payments, and privacy requests.",
 };
 
 export default function Privacy() {
@@ -14,15 +16,15 @@ export default function Privacy() {
     <div className="min-h-screen bg-background">
       <NavBar />
       <main className="flex-1 min-h-screen max-w-[680px] mx-auto px-4 py-10 text-foreground font-sans">
-        <h1 className="font-serif font-black italic text-3xl md:text-4xl mb-8 text-foreground">
+        <h1 className="section-title mb-8">
           Privacy Policy
         </h1>
         <div className="space-y-6 text-sm leading-6 text-muted-foreground">
-          <p>Last updated: August 6, 2026</p>
+          <p>Last updated: November 15, 2026</p>
           <p>
-            This Privacy Policy describes how <strong>turnroyal.com</strong>{" "}
-            (the “Site”, “Turn Royal”, “we”, “us”, or “our”), collects, uses,
-            and shares your personal information when you use our AI portrait
+            This Privacy Policy describes how <strong>{site.domain}</strong>{" "}
+            (the “Site”, “GTA 6 Posters”, “we”, “us”, or “our”), collects, uses,
+            and shares your personal information when you use our AI poster
             generation service. By using the Site, you agree to the collection
             and use of information in accordance with this policy.
           </p>
@@ -38,12 +40,12 @@ export default function Privacy() {
               1.1 Photos You Upload
             </h3>
             <p>
-              When you use our AI portrait generation service, you upload one or
+              When you use our AI poster generation service, you upload one or
               more photographs. These photos are transmitted to our servers and
-              processed by our AI system to generate royal-style portraits. We
+              processed by our AI system to generate GTA 6-style posters. We
               store uploaded photos securely and use them solely for the purpose
-              of generating your portrait(s). Photos are not shared with third
-              parties except as necessary for AI processing (see Section 4).
+              of creating your poster. See Section 4 for the services that
+              process the photos and the finished artwork.
             </p>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
               1.2 Order Information
@@ -59,7 +61,7 @@ export default function Privacy() {
                 store full payment card details)
               </li>
               <li>
-                Shipping address (for physical print and canvas orders only)
+                Shipping address and recipient phone number (for printed poster orders only). Some destinations require customs information in the shipping address.
               </li>
               <li>Order details (product type, size, amount paid)</li>
             </ul>
@@ -99,7 +101,7 @@ export default function Privacy() {
               <li>
                 <strong>Provide the service:</strong> Process your uploaded
                 photos through our AI system to generate portraits, deliver
-                digital downloads, and fulfill physical print/canvas orders.
+                digital downloads, and fulfill printed poster orders.
               </li>
               <li>
                 <strong>Process payments:</strong> Complete transactions
@@ -138,21 +140,18 @@ export default function Privacy() {
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
                 <strong>Purpose limitation:</strong> Uploaded photos are used
-                solely for generating AI portraits. We do not use your photos
+                solely for generating AI posters. We do not use your photos
                 for training AI models, selling to third parties, or any purpose
                 other than fulfilling your portrait request.
               </li>
               <li>
-                <strong>AI processing:</strong> Your photos are sent to our AI
-                provider (Google) for portrait generation. The AI provider
-                processes the images in real time and does not retain them after
-                generation is complete.
+                <strong>AI processing:</strong> Your photos are sent through
+                OpenRouter to the image provider used to generate your artwork.
               </li>
               <li>
                 <strong>Storage:</strong> Uploaded photos are stored securely in
-                our cloud infrastructure (Supabase Storage) with encryption at
-                rest (AES-256), encrypted transport (TLS), and access controls.
-                Only your session can access your uploads.
+                Supabase Storage. Anyone with an image or preview link can
+                open it. Only share links you want others to see.
               </li>
               <li>
                 <strong>No biometric templates:</strong> We do not extract,
@@ -167,10 +166,10 @@ export default function Privacy() {
                 deletion of your photos and generated portraits at any time by
                 contacting us at{" "}
                 <Link
-                  href="mailto:hello@turnroyal.com"
+                  href={`mailto:${site.email}`}
                   className="text-primary hover:underline"
                 >
-                  hello@turnroyal.com
+                  {site.email}
                 </Link>
                 .
               </li>
@@ -186,10 +185,10 @@ export default function Privacy() {
               <li>
                 <strong>Immediate deletion on request:</strong> contact{" "}
                 <Link
-                  href="mailto:hello@turnroyal.com"
+                  href={`mailto:${site.email}`}
                   className="text-primary hover:underline"
                 >
-                  hello@turnroyal.com
+                  {site.email}
                 </Link>{" "}
                 to request deletion at any time.
               </li>
@@ -222,6 +221,14 @@ export default function Privacy() {
               </li>
             </ul>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
+              Printing and Delivery
+            </h3>
+            <p>
+              <strong>Printify</strong> and its fulfillment partners receive
+              the finished artwork and the recipient details needed to print
+              and ship your order.
+            </p>
+            <h3 className="font-semibold text-foreground mt-4 mb-1">
               Data Storage
             </h3>
             <ul className="list-disc pl-5 mt-2 space-y-1">
@@ -243,10 +250,8 @@ export default function Privacy() {
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>
                 <strong>OpenRouter</strong> — Primary AI provider. Processes
-                your uploaded photos to generate AI portraits. Photos are
-                transmitted securely and processed in real time. OpenRouter does
-                not retain your images after processing per OpenRouter&apos;s
-                API terms.
+                your uploaded photos to generate AI posters. Photos are
+                transmitted securely and processed in real time.
               </li>
               <li>
                 <strong>Replicate</strong> — Used to upscale generated images
@@ -472,12 +477,11 @@ export default function Privacy() {
                 based on your consent, you may withdraw it at any time.
               </li>
               <li>
-                <strong>Your photos are never sold or shared:</strong> We do not
+                <strong>Use of your photos:</strong> We do not
                 sell, lease, trade, or share your uploaded photographs or
                 generated portraits with any third party for marketing, AI
-                training, or commercial purposes. The only third party that ever
-                receives your photos is the AI provider used to generate your
-                portrait (OpenRouter and Replicate), as described in Section 4.
+                training, or unrelated commercial purposes. Section 4 describes
+                the services that create and fulfill your poster order.
               </li>
               <li>
                 <strong>No sale of personal information:</strong> We do not
@@ -506,10 +510,10 @@ export default function Privacy() {
             <p className="mt-2">
               To exercise any of these rights, email{" "}
               <Link
-                href="mailto:hello@turnroyal.com"
+                href={`mailto:${site.email}`}
                 className="text-primary hover:underline"
               >
-                hello@turnroyal.com
+                {site.email}
               </Link>
               . We respond to verifiable requests within 30 days. Residents of
               the EU, EEA, and UK additionally have the right to lodge a
@@ -519,7 +523,7 @@ export default function Privacy() {
               Biometric data notice (Illinois BIPA and similar state laws):
             </h3>
             <p className="mt-1">
-              Our AI generates royal-style portraits from photos you upload. The
+              Our AI generates GTA 6-style posters from photos you upload. The
               computer-vision processing on facial features is performed
               transiently and in-memory by our AI provider (OpenRouter and
               Replicate); we do not retain a biometric template, faceprint, or
@@ -566,10 +570,10 @@ export default function Privacy() {
               someone under 18 has provided us with personal data, please
               contact us at{" "}
               <Link
-                href="mailto:hello@turnroyal.com"
+                href={`mailto:${site.email}`}
                 className="text-primary hover:underline"
               >
-                hello@turnroyal.com
+                {site.email}
               </Link>{" "}
               and we will take steps to delete such information. This commitment
               is at least as protective as the United States Children&apos;s
@@ -624,14 +628,14 @@ export default function Privacy() {
               <li>
                 <strong>Email:</strong>{" "}
                 <Link
-                  href="mailto:hello@turnroyal.com"
+                  href={`mailto:${site.email}`}
                   className="text-primary hover:underline"
                 >
-                  hello@turnroyal.com
+                  {site.email}
                 </Link>
               </li>
               <li>
-                <strong>Website:</strong> turnroyal.com
+                <strong>Website:</strong> {site.domain}
               </li>
             </ul>
           </section>

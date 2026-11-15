@@ -1,12 +1,14 @@
-// Setup type definitions for built-in Supabase Runtime APIs
+/// <reference path="../_shared/edge-runtime.d.ts" />
+
 import "jsr:@supabase/functions-js@2.112.3/edge-runtime.d.ts";
 import { withSupabase } from "jsr:@supabase/server@1.4.1";
 import { createClient } from "jsr:@supabase/supabase-js@2.112.3";
 import { Stripe } from "npm:stripe@22.5.0";
 import { encodeHex } from "jsr:@std/encoding@1.0.11/hex";
+import { storeName } from "../_shared/store.ts";
 
 
-async function hashString(message: string) {
+async function hashString(message?: string) {
   if (!message) return undefined;
   const messageBuffer = new TextEncoder().encode(message);
   const hashBuffer = await crypto.subtle.digest("SHA-256", messageBuffer);
@@ -22,7 +24,7 @@ const supabase = createClient(
 )
 
 export default {
-  fetch: withSupabase({ auth: ["none"] }, async (req, ctx) => {
+  fetch: withSupabase({ auth: ["none"] }, async (req) => {
     let event;
 
     let stripeSecretKey;
@@ -58,14 +60,24 @@ export default {
       console.log(`Webhook request received: ${event.id}`);
 
       const session = event.data.object;
-      const { generationId, size, productName, userAgent, ipAddress, userId, fbc, fbp, ttp, ttclid } = session.metadata!;
-      const {
-        name,
-        address: { city, country, line1, line2, postal_code: postalCode, state },
-      } = session.collected_information?.shipping_details || {address:{}};
-      const { email, name: name2, address: {country: country2} } = session.customer_details! || {address:{}};
-      const customerName = name || name2;
-      const customerCountry = country || country2;
+      const { generationId, size, productId, productName, printFormat, userAgent, ipAddress, userId, fbc, fbp, ttp, ttclid } = session.metadata ?? {};
+      if (!generationId || !size || session.payment_status !== "paid") {
+        return new Response(null, { status: 204 });
+      }
+
+      const shipping = session.collected_information?.shipping_details;
+      const { city, country, line1, line2, postal_code: postalCode, state } = shipping?.address ?? {};
+      const customer = session.customer_details;
+      const email = customer?.email || session.customer_email;
+      const customerName = shipping?.name || customer?.name || "";
+      const customerCountry = country || customer?.address?.country;
+      const currency = session.currency?.toUpperCase();
+      const total = session.amount_total;
+      if (!email || !currency || total === null) {
+        return Response.json({ error: "Checkout details are incomplete." }, { status: 500 });
+      }
+      const contentId = productId || "personalized-poster";
+      const contentName = productId ? productName : "Personalized Poster";
 
       console.log("Generation ID:", generationId);
       console.log("Size:", size);
@@ -77,6 +89,7 @@ export default {
           size,
           name: customerName,
           email,
+          phone: customer?.phone ?? null,
           city,
           country: customerCountry,
           line1,
@@ -84,8 +97,10 @@ export default {
           postal_code: postalCode,
           state,
           product_name: productName,
+          print_format: printFormat === "paper-poster" ? printFormat : null,
           stripe_event_id: event.id,
-          total_price: session.amount_total,
+          total_price: total,
+          currency,
         }, { onConflict: "stripe_event_id", ignoreDuplicates: true })
         .select("id, order_number")
         .maybeSingle();
@@ -137,17 +152,16 @@ export default {
               ct: await hashString(city?.trim().toLowerCase()),
             },
             custom_data: {
-              content_ids: [`personalised-canvas-${size}`],
-              content_name: `Personalised Canvas ${size}`,
+              content_ids: [contentId],
+              content_name: contentName,
               content_type: "product",
-              currency: "AUD",
-              value: session.amount_total / 100,
+              currency,
+              value: total / 100,
               num_items: 1,
             },
           },
         ],
       };
-      console.log(`Meta tracking payload: ${JSON.stringify(metaPayload)}`);
       EdgeRuntime.waitUntil(fetch(
         `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${Deno.env.get("META_ACCESS_TOKEN")!}`,
         {
@@ -180,15 +194,15 @@ export default {
             properties: {
               contents: [
                 {
-                  price: session.amount_total / 100,
+                  price: total / 100,
                   quantity: 1,
-                  content_id: `personalised-canvas-${size}`,
-                  content_name: `Personalised Canvas ${size}`,
-                  brand: "Turn Royal",
+                  content_id: contentId,
+                  content_name: contentName,
+                  brand: storeName,
                 },
               ],
-              currency: "AUD",
-              value: session.amount_total / 100,
+              currency,
+              value: total / 100,
               content_type: "product",
             },
             page: {
@@ -198,7 +212,6 @@ export default {
           },
         ],
       };
-      console.log(`TikTok tracking payload: ${JSON.stringify(tikTokPayload)}`);
       EdgeRuntime.waitUntil(fetch("https://business-api.tiktok.com/open_api/v1.3/event/track/", {
         method: "POST",
         headers: {

@@ -1,6 +1,7 @@
-import { headers } from "next/headers";
+import { after } from "next/server";
 import Stripe from "stripe";
-import { products } from "@/app/utils/pricing";
+import { getProductDetails, isProductSize, storeCurrency } from "@/app/utils/pricing";
+import { site } from "@/app/utils/site";
 import { supabase } from "@/app/utils/supabase";
 import {
   getFbp,
@@ -11,160 +12,55 @@ import {
   getTtclid,
   getUserId,
 } from "@/app/utils/user";
+import { shippingCountries } from "./shipping-countries";
 
 export async function POST(request: Request) {
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-    const headersList = await headers();
-    const referrer = (headersList.get("referer") as string).split("?")[0];
-    const { generationId, size, metaEventId, tikTokEventId } =
-      await request.json();
-
-    if (products[size] === undefined) {
-      return new Response(JSON.stringify({ error: "Invalid size." }), {
-        status: 400,
-      });
+    const { generationId, size, metaEventId, tikTokEventId } = await request.json();
+    if (typeof generationId !== "string" || !isProductSize(size)) {
+      return Response.json({ error: "Invalid poster or size." }, { status: 400 });
     }
 
-    // Send events to Meta and TikTok
-    const [ipAddress, userAgent, userId, fbc, fbp, ttp, ttclid] =
-      await Promise.all([
-        getIpAddress(),
-        getUserAgent(),
-        getUserId(),
-        getFbc(),
-        getFbp(),
-        getTtp(),
-        getTtclid(),
-      ]);
-
-    // Meta event
-    const metaPayload = {
-      test_event_code:
-        process.env.NODE_ENV === "production" ? null : "TEST14619",
-      data: [
-        {
-          event_name: "InitiateCheckout",
-          event_time: Math.floor(Date.now() / 1000),
-          action_source: "website",
-          event_source_url: referrer,
-          event_id: metaEventId,
-          user_data: {
-            client_ip_address: ipAddress,
-            client_user_agent: userAgent,
-            fbc,
-            fbp,
-            external_id: userId,
-          },
-          custom_data: {
-            content_ids: [`personalised-canvas-${size}`],
-            content_name: `Personalised Canvas ${size}`,
-            content_type: "product",
-            currency: "AUD",
-            value: products[size].price / 100,
-            num_items: 1,
-          },
-        },
-      ],
-    };
-    fetch(
-      `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${process.env.META_ACCESS_TOKEN}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(metaPayload),
-      },
-    );
-
-    // TikTok event
-    const tikTokPayload = {
-      event_source: "web",
-      event_source_id: "D99O34JC77U7PB56ORFG",
-      test_event_code:
-        process.env.NODE_ENV === "production" ? null : "TEST21861",
-      data: [
-        {
-          event: "InitiateCheckout",
-          event_time: Math.floor(Date.now() / 1000),
-          event_id: tikTokEventId,
-          user: {
-            ttclid,
-            ttp,
-            ip: ipAddress,
-            user_agent: userAgent,
-            external_id: userId,
-          },
-          properties: {
-            contents: [
-              {
-                price: products[size].price / 100,
-                quantity: 1,
-                content_id: `personalised-canvas-${size}`,
-                content_name: `Personalised Canvas ${size}`,
-                brand: "Turn Royal",
-              },
-            ],
-            currency: "AUD",
-            value: products[size].price / 100,
-            content_type: "product",
-          },
-          page: {
-            url: referrer,
-            referrer,
-          },
-        },
-      ],
-    };
-    fetch(`https://business-api.tiktok.com/open_api/v1.3/event/track/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Token": process.env.TIKTOK_ACCESS_TOKEN as string,
-      },
-      body: JSON.stringify(tikTokPayload),
-    });
-
-    const { data: generationData, error: generationError } = await supabase
+    const { data: generation, error: generationError } = await supabase
       .from("generations")
-      .select("path")
+      .select("path, generation_group_id")
       .eq("id", generationId)
+      .eq("status", "succeeded")
       .single();
 
-    if (generationError || !generationData) {
-      console.error("Error fetching generation data:", generationError);
-      return new Response(JSON.stringify({ error: "Invalid generation ID." }), {
-        status: 400,
-      });
+    if (generationError || !generation?.path) {
+      return Response.json({ error: "The poster preview is unavailable." }, { status: 400 });
     }
 
-    const generationPath = generationData.path;
-    if (!generationPath) {
-      throw new Error("Generation does not have an associated image path.");
-    }
-
+    const product = getProductDetails(size);
+    const isPrint = size !== "Digital";
+    const origin = process.env.VERCEL_ENV === "production" ? site.origin : new URL(request.url).origin;
+    const returnUrl = new URL(`/preview/${generation.generation_group_id}`, origin);
     const imageUrl = supabase.storage
       .from("watermarked-generations")
-      .getPublicUrl(generationPath).data.publicUrl;
+      .getPublicUrl(generation.path).data.publicUrl;
+    const [ipAddress, userAgent, userId, fbc, fbp, ttp, ttclid] = await Promise.all([
+      getIpAddress(),
+      getUserAgent(),
+      getUserId(),
+      getFbc(),
+      getFbp(),
+      getTtp(),
+      getTtclid(),
+    ]);
 
-    const productName =
-      size === "Digital"
-        ? "Digital Download"
-        : `${products[size].width}" × ${products[size].height}" Canvas Print + Digital Download`;
-    const productDescription =
-      size === "Digital"
-        ? "12K Ultra HD"
-        : "Free shipping (5–10 business days)";
-
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: "payment",
       submit_type: "pay",
       payment_method_types: ["card"],
+      adaptive_pricing: { enabled: false },
       metadata: {
         generationId,
         size,
-        productName,
+        productId: product.id,
+        productName: product.name,
+        printFormat: isPrint ? "paper-poster" : null,
         userAgent,
         ipAddress,
         userId,
@@ -173,64 +69,120 @@ export async function POST(request: Request) {
         ttp: ttp || null,
         ttclid: ttclid || null,
       },
-      shipping_address_collection:
-        size === "Digital"
-          ? undefined
-          : {
-              allowed_countries: ["AU"],
-            },
-      // Shrinks image preview
-      // shipping_options: [
-      //   {
-      //     shipping_rate_data: {
-      //       type: "fixed_amount",
-      //       fixed_amount: {
-      //         amount: 0,
-      //         currency: "aud",
-      //       },
-      //       display_name: "Free shipping",
-      //       delivery_estimate: {
-      //         minimum: {
-      //           unit: "business_day",
-      //           value: 5,
-      //         },
-      //         maximum: {
-      //           unit: "business_day",
-      //           value: 7,
-      //         },
-      //       },
-      //     },
-      //   },
-      // ],
+      shipping_address_collection: isPrint ? { allowed_countries: shippingCountries } : undefined,
+      phone_number_collection: isPrint ? { enabled: true } : undefined,
+      custom_text: isPrint ? {
+        shipping_address: {
+          message: "Use Latin characters for the shipping address. Enter any required customs ID in Address line 2 (CPF for Brazil, RFC or CURP for Mexico, RUN or RUT for Chile, PCCC for South Korea, RIF for Venezuela).",
+        },
+      } : undefined,
       line_items: [
         {
           price_data: {
             product_data: {
-              name: productName,
-              description: productDescription,
+              name: product.name,
+              description: isPrint
+                ? "Unframed glossy paper poster. Standard shipping is included."
+                : "High-resolution digital file with no watermark. The download link is sent by email.",
               metadata: { generationId, size },
               images: [imageUrl],
             },
-            unit_amount: products[size].price,
-            currency: "aud",
+            unit_amount: product.price,
+            currency: storeCurrency.toLowerCase(),
           },
           quantity: 1,
         },
       ],
-      success_url: `${referrer}?success`,
-      cancel_url: referrer,
+      success_url: `${returnUrl.href}?success`,
+      cancel_url: returnUrl.href,
     });
 
-    return Response.json({
-      url: checkoutSession.url,
+    const isLive = checkoutSession.livemode;
+    const value = product.price / 100;
+    const eventTime = Math.floor(Date.now() / 1000);
+    after(async () => {
+      const requests = [];
+      if (process.env.META_ACCESS_TOKEN) {
+        const metaUrl = new URL("https://graph.facebook.com/v25.0/1725434085130628/events");
+        metaUrl.searchParams.set("access_token", process.env.META_ACCESS_TOKEN);
+        requests.push(fetch(metaUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: AbortSignal.timeout(5000),
+          body: JSON.stringify({
+            test_event_code: isLive ? undefined : "TEST14619",
+            data: [{
+              event_name: "InitiateCheckout",
+              event_time: eventTime,
+              action_source: "website",
+              event_source_url: returnUrl.href,
+              event_id: metaEventId,
+              user_data: {
+                client_ip_address: ipAddress,
+                client_user_agent: userAgent,
+                fbc,
+                fbp,
+                external_id: userId,
+              },
+              custom_data: {
+                content_ids: [product.id],
+                content_name: product.name,
+                content_type: "product",
+                currency: storeCurrency,
+                value,
+                num_items: 1,
+              },
+            }],
+          }),
+        }));
+      }
+
+      if (process.env.TIKTOK_ACCESS_TOKEN) {
+        requests.push(fetch("https://business-api.tiktok.com/open_api/v1.3/event/track/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Token": process.env.TIKTOK_ACCESS_TOKEN,
+          },
+          signal: AbortSignal.timeout(5000),
+          body: JSON.stringify({
+            event_source: "web",
+            event_source_id: "D99O34JC77U7PB56ORFG",
+            test_event_code: isLive ? undefined : "TEST21861",
+            data: [{
+              event: "InitiateCheckout",
+              event_time: eventTime,
+              event_id: tikTokEventId,
+              user: {
+                ttclid,
+                ttp,
+                ip: ipAddress,
+                user_agent: userAgent,
+                external_id: userId,
+              },
+              properties: {
+                contents: [{
+                  price: value,
+                  quantity: 1,
+                  content_id: product.id,
+                  content_name: product.name,
+                  brand: site.name,
+                }],
+                currency: storeCurrency,
+                value,
+                content_type: "product",
+              },
+              page: { url: returnUrl.href, referrer: returnUrl.href },
+            }],
+          }),
+        }));
+      }
+      await Promise.allSettled(requests);
     });
-  } catch (err) {
-    console.error("Error creating checkout session:", err);
-    return new Response(
-      JSON.stringify({ error: "Failed to create checkout session." }),
-      {
-        status: 400,
-      },
-    );
+
+    return Response.json({ url: checkoutSession.url });
+  } catch (error) {
+    console.error("Error creating checkout session:", error);
+    return Response.json({ error: "Failed to create checkout session." }, { status: 400 });
   }
 }

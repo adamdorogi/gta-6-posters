@@ -3,3 +3,6 @@
 
 # Supabase is restored and deployed independently of the Next.js app
 supabase/
+
+# Local style references are inputs for development
+references/

@@ -1,15 +1,14 @@
-# AI Canvas Supabase restore
+# GTA 6 Posters Supabase setup and recovery
 
-This snapshot was taken from AI Canvas (`hlsradpnbpghmtdqtjkk`, Tokyo,
-`ap-northeast-1`) on November 15, 2026. It includes the Postgres 17 schema,
-database functions, constraints, grants, row-level security, project
-configuration, and all four deployed Edge Functions.
+The hosted project is **GTA 6 Posters** (`ptlpmahgepugdmzxicha`). This repository
+contains the Postgres schema and migrations, project configuration, and four
+Edge Functions.
 
-`seed.sql` contains all five rows from `public.styles`, including their
-original IDs, prompts, timestamps, and ranks. `storage/assets/` contains both
-objects in the private `assets` bucket, including `.emptyFolderPlaceholder`.
-The four other buckets start empty. Customer records, orders, uploads,
-generations, and Auth users start empty as well.
+`seed.sql` contains the three current `public.styles` rows. An existing hosted
+database receives prompt changes through migrations when you run
+`supabase db push --remote=<project-ref>`. The private `assets` bucket contains
+the poster preview watermark. A fresh restore starts without customer records,
+orders, uploads, generations, or Auth users.
 
 ## Restore to a new hosted project
 
@@ -50,10 +49,10 @@ You can use `npx supabase@3.1.0` in place of `supabase`.
    ```
 
    The four functions are `generate`, `process-order`, `stripe-webhook`,
-   and `printify-webhook`. The config preserves their deployed
-   `verify_jwt` settings. The two internal functions authenticate with a
-   Supabase secret API key. Direct imports are pinned to the versions
-   found in the deployed bundles.
+   and `printify-webhook`. The two internal functions authenticate with a
+   Supabase secret API key. Use a Resend key authorized to send from
+   `gta6posters.com`. The code sends all order and shipping messages from
+   `GTA 6 Posters <hello@gta6posters.com>`.
 
 4. Point the live and test Stripe webhook endpoints for
    `checkout.session.completed` to
@@ -63,7 +62,10 @@ You can use `npx supabase@3.1.0` in place of `supabase`.
    the file and rerun `supabase secrets set`. Point the Printify shop webhooks
    for `order:sent-to-production`, `order:shipment:created`, and
    `order:shipment:delivered` to
-   `https://<new-ref>.supabase.co/functions/v1/printify-webhook`.
+   `https://<new-ref>.supabase.co/functions/v1/printify-webhook`. The paper
+   product is Printify blueprint 443, provider 30 (OPT OnDemand), with four
+   vertical glossy variants. Keep the store's Printify shop ID and token
+   aligned.
 
 5. In Vercel, set `SUPABASE_URL` to the new project's URL and
    `SUPABASE_SECRET_KEY` to its secret API key in each environment that
@@ -85,7 +87,7 @@ shown by `supabase status`. Set the Next.js `SUPABASE_URL` and
 `SUPABASE_SECRET_KEY` to the local API URL and secret key if running the app
 against this stack.
 
-Verify the five styles and both `assets` objects before routing traffic to
+Verify the three styles and both `assets` objects before routing traffic to
 a replacement project. The SHA-256 checksums for the archived objects are
 listed below. The CLI applies the project's 50 MiB upload limit to each
 bucket and infers the zero-byte placeholder's media type as text/plain.
@@ -94,4 +96,4 @@ Storage generates new upload timestamps and ETags on restore.
 | Object | Bytes | SHA-256 |
 | --- | ---: | --- |
 | `.emptyFolderPlaceholder` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
-| `watermark.png` | 23371 | `09906a5575aec5705e010310c4434e5eecdae2f504d8e837655b1f0f24c4fd9c` |
+| `watermark.png` | 11358 | `3aa6eacbd1c9f53b4f516b58f26e669966eaee6dc6683daed33aa188a6982e23` |

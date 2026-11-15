@@ -6,8 +6,8 @@ export default async function NavBar() {
   const credits = await getCredits();
 
   return (
-    <nav className="bg-primary-foreground max-w-full border-b border-border">
-      <div className="flex items-center justify-between px-6 py-3 max-w-5xl mx-auto w-full">
+    <nav className="site-nav">
+      <div className="site-container flex min-h-[4.25rem] items-center justify-between gap-3 py-3">
         <Logo />
         <CreditsCountdown
           key={`${credits.credits}-${credits.remainingSeconds}`}

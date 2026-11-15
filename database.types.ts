@@ -101,52 +101,73 @@ export type Database = {
       }
       orders: {
         Row: {
-          city: string
-          country: string
+          city: string | null
+          country: string | null
           created_at: string
+          currency: string | null
           email: string
           generation_id: string
           id: string
-          line1: string
+          line1: string | null
           line2: string | null
           name: string
-          postal_code: string
+          order_number: number
+          phone: string | null
+          postal_code: string | null
+          print_format: string | null
           printify_id: string | null
+          product_name: string | null
           size: Database["public"]["Enums"]["canvas_size"]
-          state: string
+          state: string | null
           status: Database["public"]["Enums"]["order_status"]
+          stripe_event_id: string
+          total_price: number
         }
         Insert: {
-          city?: string
-          country?: string
+          city?: string | null
+          country?: string | null
           created_at?: string
+          currency?: string | null
           email?: string
           generation_id: string
           id?: string
-          line1?: string
+          line1?: string | null
           line2?: string | null
           name?: string
-          postal_code?: string
+          order_number?: number
+          phone?: string | null
+          postal_code?: string | null
+          print_format?: string | null
           printify_id?: string | null
+          product_name?: string | null
           size: Database["public"]["Enums"]["canvas_size"]
-          state?: string
+          state?: string | null
           status?: Database["public"]["Enums"]["order_status"]
+          stripe_event_id: string
+          total_price: number
         }
         Update: {
-          city?: string
-          country?: string
+          city?: string | null
+          country?: string | null
           created_at?: string
+          currency?: string | null
           email?: string
           generation_id?: string
           id?: string
-          line1?: string
+          line1?: string | null
           line2?: string | null
           name?: string
-          postal_code?: string
+          order_number?: number
+          phone?: string | null
+          postal_code?: string | null
+          print_format?: string | null
           printify_id?: string | null
+          product_name?: string | null
           size?: Database["public"]["Enums"]["canvas_size"]
-          state?: string
+          state?: string | null
           status?: Database["public"]["Enums"]["order_status"]
+          stripe_event_id?: string
+          total_price?: number
         }
         Relationships: [
           {
@@ -233,7 +254,7 @@ export type Database = {
       }
     }
     Enums: {
-      canvas_size: "Small" | "Medium" | "Large" | "XL"
+      canvas_size: "Small" | "Medium" | "Large" | "XL" | "Digital"
       generation_status: "in_progress" | "failed" | "succeeded"
       order_status: "pending" | "submitted"
     }
@@ -363,7 +384,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      canvas_size: ["Small", "Medium", "Large", "XL"],
+      canvas_size: ["Small", "Medium", "Large", "XL", "Digital"],
       generation_status: ["in_progress", "failed", "succeeded"],
       order_status: ["pending", "submitted"],
     },

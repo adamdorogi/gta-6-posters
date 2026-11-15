@@ -14,7 +14,6 @@ export default function PreviewComponent({
   generationGroupId,
   styleId,
   userPrompt,
-  portraitFiles,
 }: {
   generations: {
     publicUrl: string | null;
@@ -30,25 +29,28 @@ export default function PreviewComponent({
   generationGroupId: string;
   styleId: string;
   userPrompt: string;
-  portraitFiles: string[];
 }) {
   const [selectedIndex, setSelectedIndex] = useState(generations.length - 1);
 
   return (
-    <main className="flex flex-1 w-full mx-auto flex-col items-center bg-background">
+    <main className="flex w-full flex-1 flex-col items-center bg-background">
       <OrderConfirmation />
-      <PreviewGallery
-        generations={generations}
-        styles={styles}
-        generationGroupId={generationGroupId}
-        styleId={styleId}
-        userPrompt={userPrompt}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
-      />
-      <BuySection selectedGeneration={generations[selectedIndex]} />
+      <div className="preview-stage w-full">
+        <div className="site-container preview-layout">
+          <PreviewGallery
+            generations={generations}
+            styles={styles}
+            generationGroupId={generationGroupId}
+            styleId={styleId}
+            userPrompt={userPrompt}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+          />
+          <BuySection selectedGeneration={generations[selectedIndex]} position="beside-artwork" />
+        </div>
+      </div>
       <MockupSection hideScrollButton={true} />
-      <ShowcaseSection portraitFiles={portraitFiles} />
+      <ShowcaseSection />
       <FaqSection />
       <BuySection selectedGeneration={generations[selectedIndex]} />
     </main>

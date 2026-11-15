@@ -2,7 +2,7 @@ import PromoBanner from "./ui/promo-banner";
 import GenerationForm from "./ui/generation-form";
 import ShowcaseCarousel from "./ui/showcase-carousel";
 import { supabase } from "./utils/supabase";
-import { getShowcaseImages } from "./utils/showcase";
+import { heroPosters } from "./utils/showcase";
 import Image from "next/image";
 import NavBar from "./ui/nav-bar";
 import Footer from "./ui/footer";
@@ -12,10 +12,67 @@ import TryFreeSection from "./ui/try-free-section";
 import { Metadata } from "next";
 import ShowcaseSection from "./ui/showcase-section";
 import MockupSection from "./ui/mockup-section";
+import { site } from "./utils/site";
 
 export const metadata: Metadata = {
-  title: "Turn Your Pet Into Royalty | Turn Royal",
+  title: { absolute: `Custom Posters From Your Photos | ${site.name}` },
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Make a Custom GTA 6-Style Poster",
+    description: site.description,
+    siteName: site.name,
+    type: "website",
+    url: "/",
+  },
 };
+
+const websiteUrl = new URL("/", site.origin).href;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${websiteUrl}#website`,
+      url: websiteUrl,
+      name: site.name,
+      description: site.description,
+      publisher: { "@id": `${websiteUrl}#store` },
+    },
+    {
+      "@type": "OnlineStore",
+      "@id": `${websiteUrl}#store`,
+      url: websiteUrl,
+      name: site.name,
+      email: site.email,
+      logo: new URL("/icon-512.png", site.origin).href,
+    },
+  ],
+};
+
+const features = [
+  {
+    title: "Start for free",
+    caption:
+      "Get 5 free credits every 12 hours, so you can explore different styles before ordering.",
+    icon: "/add.svg",
+  },
+  {
+    title: "Three poster styles",
+    caption:
+      "Choose comic-book Cover Art, a cinematic Character poster, or The Album’s sunset artwork.",
+    icon: "/sparkle.svg",
+  },
+  {
+    title: "Bring your crew",
+    caption: "Start with a selfie, a couple’s photo, or a group shot. Pets can join in, too.",
+    icon: "/frame.svg",
+  },
+  {
+    title: "Worldwide shipping",
+    caption: "Get your custom poster delivered or choose a high-resolution digital download.",
+    icon: "/box.svg",
+  },
+];
 
 export default async function Home() {
   const { data: styles } = await supabase
@@ -23,154 +80,97 @@ export default async function Home() {
     .select("id, name")
     .order("rank", { ascending: true });
 
-  const showcaseImages = await getShowcaseImages();
-
   return (
-    <div className="flex flex-col min-h-screen font-sans text-foreground">
+    <div className="flex min-h-screen flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+        }}
+      />
       <PromoBanner />
       <NavBar />
 
       <main className="flex-1">
-        {/* Hero Section */}
-        <div
-          id="create"
-          className="bg-linear-135 from-gradient-light to-gradient-dark text-primary-foreground"
-        >
-          <section className="max-w-5xl mx-auto w-full grid lg:grid-cols-12 items-stretch">
-            <div className="flex min-w-0 flex-col gap-4 lg:gap-6 justify-center items-center text-center py-4 lg:py-8 lg:col-span-7 lg:items-start lg:text-left">
-              <div className="px-4 lg:px-12 max-w-4xl flex flex-col gap-2 items-center lg:items-start">
-                <h1 className="text-4xl lg:text-6xl/17 italic font-serif font-black tracking-tight text-primary-foreground leading-tight">
-                  Turn your pets into a{" "}
-                  <span className="text-accent">masterpiece!</span>
+        <section id="create" className="hero">
+          <div className="site-container hero-layout">
+            <div className="hero-copy">
+              <div className="hero-intro mb-6 md:mb-8">
+                <h1 className="hero-title">
+                  Turn your photo into a <span>GTA 6 poster</span>
                 </h1>
-                <p className="text-sm lg:text-base text-muted leading-relaxed">
-                  Free Preview · No credit card or registration required
+                <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-balance text-muted-foreground md:text-base">
+                  Upload a selfie or group photo and preview your custom GTA 6-style poster for free.
                 </p>
               </div>
 
               <GenerationForm styles={styles || []} />
 
-              <div className="lg:hidden relative h-[200px] overflow-hidden w-full">
-                <div className="absolute inset-0">
-                  <ShowcaseCarousel
-                    images={showcaseImages}
-                    layout="horizontal"
-                  />
-                </div>
+              <div className="hero-visual--mobile">
+                <ShowcaseCarousel images={heroPosters} layout="horizontal" />
               </div>
 
-              <div className="px-4 lg:px-12 max-w-4xl flex flex-wrap gap-6 justify-center lg:justify-start">
-                {["Free Preview", "No Signup", "Private & Secure"].map(
-                  (benefit, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-3 text-sm text-muted"
-                    >
-                      <Image
-                        src="/tick.svg"
-                        alt="Tick Icon"
-                        width={12}
-                        height={12}
-                        priority
-                      />
-                      <span>{benefit}</span>
-                    </div>
-                  ),
-                )}
-              </div>
+              <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-muted-foreground md:mt-6 md:text-sm">
+                {["Free Preview", "No Signup", "Three Art Styles"].map((benefit) => (
+                  <li key={benefit} className="inline-flex items-center gap-1.5">
+                    <Image src="/tick.svg" alt="Tick Icon" width={13} height={13} />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="hidden lg:block relative overflow-hidden lg:col-span-5">
-              <div className="pr-12 absolute inset-0">
-                <ShowcaseCarousel images={showcaseImages} />
-              </div>
+            <div className="hero-visual--desktop">
+              <ShowcaseCarousel images={heroPosters} />
             </div>
-          </section>
-        </div>
-
-        {/* Mockup Section */}
-        <MockupSection />
-
-        {/* Reactions Section */}
-        <ShowcaseSection portraitFiles={await getShowcaseImages()} />
-
-        {/* Features Section */}
-        <section
-          id="features"
-          className="bg-linear-135 from-gradient-light to-gradient-dark py-10 md:py-16 px-4 md:px-8 mx-auto bg-muted w-full text-primary-foreground"
-        >
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-4xl font-serif italic font-black mb-2 md:mb-3">
-              Why customers love <span className="text-accent">Turn Royal</span>
-            </h2>
-            <p className="text-base max-w-xl mx-auto">
-              Free preview, high quality prints, delivered Australia-wide.
-            </p>
-
-            <div className="mt-4 md:mt-8 grid gap-2 md:gap-4 md:grid-cols-2">
-              {[
-                {
-                  title: "Start for free",
-                  caption:
-                    "Get 5 free credits every 12 hours, so you can explore different styles before ordering.",
-                  image: "/feature-free.png",
-                },
-                {
-                  title: "AI magic",
-                  caption:
-                    "Stunning portraits in seconds. Made to make your pet look legendary.",
-                  image: "/feature-magic.png",
-                },
-                {
-                  title: "Works with any pet",
-                  caption:
-                    "Cats, dogs, birds, fish. Any pet becomes a masterpiece.",
-                  image: "/feature-photo.png",
-                },
-                {
-                  title: "Printed in Australia",
-                  caption:
-                    "Premium canvas prints shipped free. Museum-worthy quality, guaranteed.",
-                  image: "/feature-shipping.png",
-                },
-              ].map((feature) => (
-                <div
-                  key={feature.title}
-                  className="flex items-center gap-4 rounded-2xl bg-primary-foreground p-4 md:p-5 text-left"
-                >
-                  <Image
-                    src={feature.image}
-                    alt={feature.title}
-                    width={64}
-                    height={64}
-                  />
-                  <div className="min-w-0">
-                    <h3 className="text-base font-bold leading-tight text-foreground">
-                      {feature.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-5 text-foreground">
-                      {feature.caption}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <ScrollToTopButton>
-              <Image
-                src="/sparkle.svg"
-                alt="Sparkle Icon"
-                width={24}
-                height={24}
-                priority
-                className="invert"
-              />
-              Create My Free Preview
-            </ScrollToTopButton>
           </div>
         </section>
 
-        {/* Q&A Section */}
+        <MockupSection />
+        <ShowcaseSection />
+
+        <section id="features" className="site-section border-y border-border bg-surface">
+          <div className="site-container grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-x-20">
+            <div className="self-start">
+              <h2 className="section-title">
+                A poster that <span className="text-primary">looks like you</span>
+              </h2>
+              <p className="section-lead mt-4">
+                Bring your favorite photo to Vice City with illustrated artwork made for your wall.
+              </p>
+            </div>
+
+            <ul className="divide-y divide-border border-y border-border lg:row-span-2">
+              {features.map((feature) => (
+                <li key={feature.title} className="grid grid-cols-[2rem_1fr] gap-4 py-4 md:py-5">
+                  <Image
+                    src={feature.icon}
+                    alt={feature.title}
+                    width={22}
+                    height={22}
+                    className="mt-1 brightness-0 invert"
+                  />
+                  <div>
+                    <h3 className="font-display text-2xl leading-none font-bold uppercase">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {feature.caption}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <div className="lg:self-end">
+              <ScrollToTopButton>
+                <Image src="/sparkle.svg" alt="Sparkle Icon" width={20} height={20} />
+                Create My Free Preview
+              </ScrollToTopButton>
+            </div>
+          </div>
+        </section>
+
         <QASection />
         <TryFreeSection />
       </main>

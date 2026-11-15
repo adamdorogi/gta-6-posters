@@ -1,14 +1,14 @@
-# Turn Royal Vercel setup and recovery
+# GTA 6 Posters Vercel setup and recovery
 
-The existing project is `turn-royal` under `adamdorogis-projects`. It uses
-the Next.js preset and Node.js 24.x. The repository contains a pinned Vercel
+The existing project is `gta-6-posters` under `adamdorogis-projects`. It uses
+the Next.js preset and Node.js 26.x. The repository contains a pinned Vercel
 CLI command. Run these commands from the repository root.
 
 ## Work with the existing project
 
 ```sh
 pnpm vercel login
-pnpm vercel link --yes --project turn-royal --scope adamdorogis-projects
+pnpm vercel link --yes --project gta-6-posters --scope adamdorogis-projects
 pnpm vercel project inspect --non-interactive
 pnpm vercel env ls
 ```
@@ -25,15 +25,15 @@ pnpm vercel env pull .env.vercel.preview.pulled --environment preview
 ```
 
 Vercel's pull command can export readable values. For the five app variables
-in `turn-royal`, it returns `[SENSITIVE]` placeholders. Recreating those
+in `gta-6-posters`, it returns `[SENSITIVE]` placeholders. Recreating those
 entries requires saved values or replacements from the original providers.
 Keep a copy of the values in a password manager.
 [Vercel Config and Secret types](https://vercel.com/changelog/environment-variables-now-use-config-and-secret-types)
 
 ## Restore to a new Vercel project
 
-1. Import `adamdorogi/ai-canvas` into a new Vercel project. Use the Next.js
-   preset, the repository root, and Node.js 24.x. Choose the Git branch
+1. Import `adamdorogi/gta-6-posters` into a new Vercel project. Use the Next.js
+   preset, the repository root, and Node.js 26.x. Choose the Git branch
    that should deploy to Production.
    [Vercel Git deployments](https://vercel.com/docs/git)
 
@@ -71,5 +71,5 @@ Keep a copy of the values in a password manager.
    pnpm vercel deploy --prod --project REPLACEMENT_PROJECT --scope adamdorogis-projects
    ```
 
-   For a live cutover, assign `turnroyal.com` and `www.turnroyal.com` to the
+   For a live cutover, assign `gta6posters.com` and `www.gta6posters.com` to the
    replacement project when it is ready to serve production traffic.

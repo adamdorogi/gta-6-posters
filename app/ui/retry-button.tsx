@@ -30,16 +30,14 @@ export default function RetryButton({
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      <div className="-m-4 -mt-8">
-        <StylePicker
-          selectedStyleId={styleId}
-          onChange={setStyleId}
-          styles={styles}
-        />
-      </div>
+      <StylePicker
+        selectedStyleId={styleId}
+        onChange={setStyleId}
+        styles={styles}
+      />
       <PromptField value={userPrompt} onChange={setUserPrompt} />
       {error && (
-        <div className="text-destructive text-sm text-center animate-in fade-in slide-in-from-top-2 duration-300">
+        <div className="text-center text-sm text-destructive">
           {error}
         </div>
       )}
@@ -75,7 +73,7 @@ export default function RetryButton({
             setIsLoading(false);
           }
         }}
-        className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+        className="site-button w-full"
       >
         {isLoading ? (
           <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
@@ -88,7 +86,7 @@ export default function RetryButton({
               height={24}
               priority
             />
-            Create New Version
+            Create Another Version
           </>
         )}
       </button>

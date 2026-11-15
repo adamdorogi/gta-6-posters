@@ -32,21 +32,21 @@ const UploadZone = ({
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-full"
+      className="upload-zone flex w-full flex-col items-center justify-center"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
       {clickable ? (
         <label
           htmlFor="file-input"
-          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-background p-4 text-foreground font-medium transition-all border-3 border-dashed border-primary-accent hover:border-ring cursor-pointer"
+          className="upload-zone__target cursor-pointer"
         >
           <div className="flex w-full flex-col items-center gap-2">
             {children}
           </div>
         </label>
       ) : (
-        <div className="flex w-full items-center justify-center gap-2 rounded-2xl bg-background p-4 text-foreground font-medium transition-all border-3 border-dashed border-primary-accent">
+        <div className="upload-zone__target">
           <div className="flex w-full flex-col items-center gap-2">
             {children}
           </div>
@@ -57,7 +57,9 @@ const UploadZone = ({
         type="file"
         multiple
         accept="image/*"
-        className="hidden"
+        className="sr-only"
+        aria-label="Upload a photo"
+        tabIndex={clickable ? 0 : -1}
         onChange={handleFileChange}
       />
     </div>

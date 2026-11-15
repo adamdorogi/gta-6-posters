@@ -19,7 +19,7 @@ export default function PreviewGrid({
   onAdd,
 }: PreviewGridProps) {
   return (
-    <div className="flex -mx-4 gap-2 overflow-x-auto px-4">
+    <div className="flex gap-2 overflow-x-auto p-1">
       {items.map((item, idx) => (
         <div
           key={idx}
@@ -35,7 +35,7 @@ export default function PreviewGrid({
           {item.uploadId ? (
             <button
               onClick={() => onRemove(idx)}
-              className="absolute top-1 right-1 bg-black/50 text-primary-foreground rounded-full w-5 h-5 text-[10px] flex items-center justify-center hover:bg-black/75 transition-all md:opacity-0 group-hover:opacity-100 cursor-pointer"
+              className="absolute top-1 right-1 bg-black/50 text-primary-foreground rounded-full w-7 h-7 flex items-center justify-center hover:bg-black/75 transition-colors cursor-pointer"
             >
               <Image
                 src="/cross.svg"
@@ -55,12 +55,13 @@ export default function PreviewGrid({
       {items.length < 3 && (
         <button
           onClick={onAdd}
-          className="flex items-center justify-center h-20 md:h-24 w-20 md:w-24 shrink-0 rounded-lg bg-primary-accent hover:bg-primary-accent/75 transition-all cursor-pointer"
+          className="flex items-center justify-center h-20 md:h-24 w-20 md:w-24 shrink-0 rounded-lg border border-border bg-surface hover:border-primary transition-colors cursor-pointer"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary">
             <Image
               src="/add.svg"
               alt="Add Icon"
+              className="brightness-0"
               width={24}
               height={24}
               priority

@@ -17,8 +17,8 @@ const MetaPixel = ({ userId }: { userId: string }) => {
 
     if (pathname.startsWith("/preview/")) {
       event("ViewContent", {
-        content_ids: ["personalised-canvas"],
-        content_name: "Personalised Canvas",
+        content_ids: ["personalized-poster"],
+        content_name: "Personalized Poster",
         content_type: "product",
       });
     }

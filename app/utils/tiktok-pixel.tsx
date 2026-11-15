@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { useEffect, useState } from "react";
 import { event, identify } from "./tiktok-pixel-events";
+import { site } from "./site";
 
 const TikTokPixel = ({ userId }: { userId: string }) => {
   const [loaded, setLoaded] = useState(false);
@@ -18,10 +19,10 @@ const TikTokPixel = ({ userId }: { userId: string }) => {
       event("ViewContent", {
         contents: [
           {
-            content_id: "personalised-canvas",
+            content_id: "personalized-poster",
             content_type: "product",
-            content_name: "Personalised Canvas",
-            brand: "Turn Royal",
+            content_name: "Personalized Poster",
+            brand: site.name,
           },
         ],
       });

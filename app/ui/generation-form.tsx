@@ -68,7 +68,7 @@ export default function GenerationForm({
   };
 
   return (
-    <div className="px-4 lg:px-12 max-w-4xl flex min-w-0 flex-col gap-2 md:gap-4 lg:gap-6 w-full">
+    <div className="flex w-full min-w-0 flex-col gap-4 md:gap-5">
       <StylePicker
         selectedStyleId={styleId}
         onChange={setStyleId}
@@ -77,7 +77,7 @@ export default function GenerationForm({
 
       <UploadZone onFilesSelected={handleFiles} clickable={files.length === 0}>
         {files.length > 0 ? (
-          <div className="flex flex-col gap-4 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="flex w-full flex-col gap-4">
             <PreviewGrid
               items={previews.map((preview, idx) => ({
                 preview,
@@ -92,7 +92,7 @@ export default function GenerationForm({
                 <PromptField value={userPrompt} onChange={setUserPrompt} />
 
                 {error && (
-                  <div className="text-destructive text-sm text-center animate-in fade-in slide-in-from-top-2 duration-300">
+                  <div className="text-center text-sm text-destructive">
                     {error}
                   </div>
                 )}
@@ -138,7 +138,7 @@ export default function GenerationForm({
                       setIsLoading(false);
                     }
                   }}
-                  className="inline-flex w-full items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="site-button w-full"
                 >
                   {isLoading ? (
                     <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
@@ -151,7 +151,7 @@ export default function GenerationForm({
                         height={24}
                         priority
                       />
-                      Create My Masterpiece
+                      Create My Poster
                     </>
                   )}
                 </button>
@@ -160,14 +160,14 @@ export default function GenerationForm({
           </div>
         ) : (
           <>
-            <div className="flex flex-col items-center gap-3 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-accent text-primary">
+            <div className="flex items-center justify-center gap-3 text-center">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary">
                 <Image
                   src="/upload.svg"
                   alt="Upload Icon"
-                  width={24}
-                  height={24}
-                  priority
+                  width={19}
+                  height={19}
+                  className="brightness-0"
                 />
               </div>
               <span className="hidden md:inline font-bold">

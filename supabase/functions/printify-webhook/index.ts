@@ -1,236 +1,82 @@
-// Setup type definitions for built-in Supabase Runtime APIs
 import "jsr:@supabase/functions-js@2.116.0/edge-runtime.d.ts";
 import { withSupabase } from "jsr:@supabase/server@1.5.3";
 import { createClient } from "jsr:@supabase/supabase-js@2.116.0";
-import { Resend } from "npm:resend@6.26.0";
+import { sendOrderEmail } from "../_shared/order-emails.ts";
 
-console.info("server started");
+const secretKeys = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS")!);
+const supabase = createClient(Deno.env.get("SUPABASE_URL")!, secretKeys.default);
 
-const SUPABASE_SECRET_KEYS = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS")!);
+const topics = {
+  "order:sent-to-production": "production",
+  "order:shipment:created": "shipped",
+  "order:shipment:delivered": "delivered",
+} as const;
 
-const supabase = createClient(
-  Deno.env.get("SUPABASE_URL")!,
-  SUPABASE_SECRET_KEYS["default"]
-)
-
-export default {
-  fetch: withSupabase({ auth: ["none"] }, async (req, ctx) => {
-    const requestJson = await req.json();
-
-    console.log(JSON.stringify(requestJson));
-
-    // requestJson.resource.id = "6aa026aee23c87dd2d01a9de";
-
-    if (requestJson.type === "order:sent-to-production") {
-      /*
-      {
-        "id": "653b6be8-2ff7-4ab5-a7a6-6889a8b3bbf5",
-        "type": "order:sent-to-production",
-        "created_at": "2022-05-17 15:00:00+00:00",
-        "resource": {
-          "id": "5a96f649b2439217d070f507",
-          "type": "order",
-          "data": {
-            "shop_id": 815256
-          }
-        }
-      }
-      */
-      const { orderNumber, firstName, email, item, previewUrl } = (await getOrderDetails(requestJson.resource.id)) ?? {};
-      if (orderNumber) {
-        const res = await sendSentToProductionEmail(orderNumber, firstName, email, item, previewUrl);
-        console.log(res);
-      }
-    }
-
-    if (requestJson.type === "order:shipment:created") {
-      /*
-      {
-        "id": "653b6be8-2ff7-4ab5-a7a6-6889a8b3bbf5",
-        "type": "order:shipment:created",
-        "created_at": "2022-05-17 15:00:00+00:00",
-        "resource": {
-          "id": "5a96f649b2439217d070f507",
-          "type": "order",
-          "data": {
-            "shop_id": 815256,
-            "shipped_at": "2022-05-17 15:00:00+00:00",
-            "carrier": {
-              "code": "USPS",
-              "tracking_number": "9400110200828911663274",
-              "tracking_url": "https://example.com/track/9400110200828911663274"
-            },
-            "skus": [
-              "6202"
-            ]
-          }
-        }
-      }
-      */
-      const { orderNumber, firstName, email, item, previewUrl } = (await getOrderDetails(requestJson.resource.id)) ?? {};
-      if (orderNumber) {
-        const { code: carrier, tracking_number: trackingNumber, tracking_url: trackingUrl } = requestJson.resource.data.carrier;
-        const res = await sendShipmentCreatedEmail(orderNumber, firstName, email, item, previewUrl, carrier, trackingNumber, trackingUrl);
-        console.log(res);
-      }
-    }
-
-    if (requestJson.type === "order:shipment:delivered") {
-      /*
-      {
-        "id": "653b6be8-2ff7-4ab5-a7a6-6889a8b3bbf5",
-        "type": "order:shipment:delivered",
-        "created_at": "2022-05-17 15:00:00+00:00",
-        "resource": {
-          "id": "5a96f649b2439217d070f507",
-          "type": "order",
-          "data": {
-            "shop_id": 815256,
-            "delivered_at": "2022-05-17 15:00:00+00:00",
-            "carrier": {
-              "code": "USPS",
-              "tracking_number": "9400110200828911663274",
-              "tracking_url": "https://example.com/track/9400110200828911663274"
-            },
-            "skus": [
-              "6202"
-            ]
-          }
-        }
-      }
-      */
-      const { orderNumber, firstName, email, item, previewUrl } = (await getOrderDetails(requestJson.resource.id)) ?? {};
-      if (orderNumber) {
-        const { code: carrier, tracking_number: trackingNumber, tracking_url: trackingUrl } = requestJson.resource.data.carrier;
-        const res = await sendShipmentDeliveredEmail(orderNumber, firstName, email, item, previewUrl, carrier, trackingNumber, trackingUrl);
-        console.log(res);
-      }
-    }
-
-    // return 200 OK
-    return new Response(null, { status: 200 });
-  }),
+type PrintifyEvent = {
+  type?: keyof typeof topics;
+  resource?: { id?: string; data?: { carrier?: { tracking_number?: string } } };
+};
+type PrintifyOrder = {
+  sent_to_production_at?: string;
+  shipments?: { carrier?: string; number?: string; url?: string; delivered_at?: string }[];
 };
 
-async function getOrderDetails(printifyOrderId: string) {
-  const { data, error } = await supabase
-    .from("orders")
-    .select("order_number, name, email, product_name, generations(path)")
-    .eq("printify_id", printifyOrderId)
-    .maybeSingle();
-
-  if (!data || error) {
-    return undefined;
-  }
-
-  const firstName = data.name?.trim()?.split(/\s+/)[0];
-
-  const previewUrl = supabase.storage
-    .from("generations")
-    .getPublicUrl(data.generations?.path ?? "")
-    .data.publicUrl;
-
-  return {
-    orderNumber: data.order_number,
-    firstName,
-    email: data.email,
-    item: data.product_name,
-    previewUrl,
-  };
-}
-
-async function sendSentToProductionEmail(orderNumber: number, firstName: string, email: string, item: string, previewUrl: string) {
-  const resend = new Resend(Deno.env.get("RESEND_API_KEY")!);
-
-  return runWithRetry(
-    () =>
-      resend.emails.send({
-      from: 'Turn Royal <hello@turnroyal.com>',
-      to: email,
-      template: {
-        id: 'sent-to-production',
-        variables: {
-          ORDER_NUMBER: orderNumber,
-          NAME: firstName,
-          ITEM: item,
-          PREVIEW_URL: previewUrl,
-        },
-      },
-    }),
-    "Sending sent to production email..."
-  );
-}
-
-async function sendShipmentCreatedEmail(orderNumber: number, firstName: string, email: string, item: string, previewUrl: string, carrier: string, trackingNumber: string, trackingUrl: string) {
-  const resend = new Resend(Deno.env.get("RESEND_API_KEY")!);
-
-  return runWithRetry(
-    () =>
-      resend.emails.send({
-      from: 'Turn Royal <hello@turnroyal.com>',
-      to: email,
-      template: {
-        id: 'shipment-created',
-        variables: {
-          ORDER_NUMBER: orderNumber,
-          NAME: firstName,
-          ITEM: item,
-          PREVIEW_URL: previewUrl,
-          CARRIER: carrier,
-          TRACKING_URL: trackingUrl,
-          TRACKING_NUMBER: trackingNumber,
-        },
-      },
-    }),
-    "Sending shipment created email..."
-  );
-}
-
-async function sendShipmentDeliveredEmail(orderNumber: number, firstName: string, email: string, item: string, previewUrl: string, carrier: string, trackingNumber: string, trackingUrl: string) {
-  const resend = new Resend(Deno.env.get("RESEND_API_KEY")!);
-
-  return runWithRetry(
-    () =>
-      resend.emails.send({
-      from: 'Turn Royal <hello@turnroyal.com>',
-      to: email,
-      template: {
-        id: 'shipment-delivered',
-        variables: {
-          ORDER_NUMBER: orderNumber,
-          NAME: firstName,
-          ITEM: item,
-          PREVIEW_URL: previewUrl,
-          CARRIER: carrier,
-          TRACKING_URL: trackingUrl,
-          TRACKING_NUMBER: trackingNumber,
-        },
-      },
-    }),
-    "Sending shipment delivered email..."
-  );
-}
-
-async function runWithRetry<T>(
-  fn: () => Promise<T>,
-  description: string,
-  maxRetries = 3
-): Promise<T> {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+export default {
+  fetch: withSupabase({ auth: ["none"] }, async (req) => {
     try {
-      console.log(`${description} (attempt ${attempt}/${maxRetries})...`);
-      return await fn();
-    } catch (error) {
-      console.error(
-        `${description} failed on attempt ${attempt}:`,
-        error
-      );
-
-      if (attempt === maxRetries) {
-        throw error;
+      const event: PrintifyEvent = await req.json();
+      const printifyId = event.resource?.id;
+      if (!event.type || !Object.hasOwn(topics, event.type) || typeof printifyId !== "string") {
+        return new Response(null, { status: 204 });
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const kind = topics[event.type];
+      const { data: order, error } = await supabase
+        .from("orders")
+        .select("order_number, name, email, product_name, generations(path)")
+        .eq("printify_id", printifyId)
+        .maybeSingle()
+        .overrideTypes<{
+          order_number: number;
+          name: string;
+          email: string;
+          product_name: string | null;
+          generations: { path: string | null } | null;
+        }, { merge: false }>();
+      if (error) throw new Error(`Unable to load the print order: ${error.code}`);
+      if (!order) return new Response(null, { status: 204 });
+
+      // Use the supplier's actual order details for any status and tracking sent to the customer.
+      const response = await fetch(`https://api.printify.com/v1/shops/29761765/orders/${encodeURIComponent(printifyId)}.json`, {
+        headers: { Authorization: `Bearer ${Deno.env.get("PRINTIFY_API_TOKEN")}` },
+        signal: AbortSignal.timeout(10_000),
+      });
+      if (!response.ok) throw new Error(`Unable to verify Printify order (${response.status}).`);
+      const printOrder: PrintifyOrder = await response.json();
+      const trackingNumber = event.resource?.data?.carrier?.tracking_number;
+      const shipments = printOrder.shipments?.filter((shipment) =>
+        (kind !== "delivered" || shipment.delivered_at) &&
+        (!trackingNumber || shipment.number === trackingNumber)
+      );
+      const tracking = shipments?.[0];
+      if (kind === "production" ? !printOrder.sent_to_production_at : !tracking) {
+        return new Response(null, { status: 204 });
+      }
+
+      const generationPath = order.generations?.path;
+      const artworkUrl = generationPath
+        ? supabase.storage.from("watermarked-generations").getPublicUrl(generationPath).data.publicUrl
+        : undefined;
+      const sent = await sendOrderEmail(
+        order.email,
+        { orderNumber: order.order_number, name: order.name, item: order.product_name, artworkUrl },
+        kind === "production" ? { kind } : { kind, tracking },
+        `print-${kind}/${printifyId}/${tracking?.number ?? ""}`,
+      );
+      return new Response(null, { status: sent ? 200 : 502 });
+    } catch (error) {
+      console.error("Unable to handle Printify order update:", error);
+      return new Response(null, { status: 500 });
     }
-  }
-}
+  }),
+};

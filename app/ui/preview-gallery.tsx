@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import RetryButton from "./retry-button";
@@ -44,7 +44,12 @@ export default function PreviewGallery({
 }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+  const editDialog = useRef<HTMLDialogElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    if (isEditModalOpen) editDialog.current?.showModal();
+  }, [isEditModalOpen]);
 
   useEffect(() => {
     const inProgressIndex = generations.findLastIndex(
@@ -102,181 +107,141 @@ export default function PreviewGallery({
   }, [router, inProgress]);
 
   const selectedGeneration = generations[selectedIndex];
+  const hasArtwork = Boolean(selectedGeneration?.path && selectedGeneration?.publicUrl);
 
   return (
-    <div className="flex flex-col items-center w-full mx-auto bg-white">
-      <div className="flex flex-col items-center md:pt-6 pb-2 w-full bg-linear-to-b from-background to-background to-80%">
-        {/* Main Image Container */}
-        <div
-          onContextMenu={(e) => e.preventDefault()}
-          className="relative aspect-[3/4] group w-full max-w-full md:max-w-xl overflow-hidden md:rounded-2xl bg-muted mb-2"
-        >
-          {selectedGeneration?.path && selectedGeneration?.publicUrl ? (
-            <>
-              <Image
-                src={selectedGeneration.publicUrl}
-                alt="Generated Image"
-                sizes="576px"
-                fill
-                className="object-contain"
-                priority
-                loading="eager"
-                fetchPriority="high"
-                draggable={false}
-              />
-              {/* Edit Button Overlay */}
-              <button
-                onClick={() => setIsEditModalOpen(true)}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-ring text-foreground rounded-full text-base font-semibold transition-[scale] duration-200 hover:scale-105 border border-ring cursor-pointer flex items-center gap-1"
+    <div className="preview-gallery">
+      <div className="preview-art" onContextMenu={(event) => event.preventDefault()}>
+        {selectedGeneration?.path && selectedGeneration.publicUrl ? (
+          <Image
+            src={selectedGeneration.publicUrl}
+            alt="Your generated GTA 6-style poster"
+            sizes="(min-width: 1024px) 460px, (min-width: 640px) 460px, 92vw"
+            fill
+            className="object-contain"
+            loading="eager"
+            fetchPriority="high"
+            draggable={false}
+          />
+        ) : selectedGeneration?.status === "in_progress" ? (
+          <>
+            <Image
+              src="/posters/coast-at-dusk.webp"
+              alt="Placeholder Image"
+              sizes="460px"
+              fill
+              className="object-cover opacity-35"
+              draggable={false}
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+              <div className="h-2 w-3/4 overflow-hidden rounded-full bg-muted">
+                <div className="h-full bg-primary animate-progress" />
+              </div>
+              <div
+                className="loading-copy-window relative mt-4 h-6 w-full overflow-hidden text-sm font-medium sm:text-base"
+                aria-live="polite"
+                aria-atomic="true"
               >
-                <Image
-                  src="/edit.svg"
-                  alt="Edit Icon"
-                  width={16}
-                  height={16}
-                  priority
-                />
-                Edit
-              </button>
-            </>
-          ) : selectedGeneration?.status === "in_progress" ? (
-            <>
-              <Image
-                src={"/placeholder.webp"}
-                alt="Placeholder Image"
-                sizes="576px"
-                fill
-                className="object-cover"
-                priority
-                draggable={false}
-              />
-              <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-                <div className="w-3/4 h-3 bg-muted rounded-full overflow-hidden border-2 border-muted">
-                  <div className="h-full bg-primary animate-progress" />
-                </div>
-                <div
-                  className="loading-copy-window relative mt-4 h-6 w-full overflow-hidden text-sm font-medium text-foreground/80 sm:text-base"
-                  aria-live="polite"
-                  aria-atomic="true"
-                >
-                  <div className="loading-copy-track flex flex-col">
-                    {loadingMessages
-                      .concat(loadingMessages[0])
-                      .map((message, index) => (
-                        <span
-                          key={`${message}-${index}`}
-                          className="flex h-6 items-center justify-center text-center font-serif font-bold text-muted"
-                        >
-                          {message}
-                        </span>
-                      ))}
-                  </div>
+                <div className="loading-copy-track flex flex-col">
+                  {loadingMessages
+                    .concat(loadingMessages[0])
+                    .map((message, index) => (
+                      <span
+                        key={`${message}-${index}`}
+                        className="flex h-6 items-center justify-center text-center font-semibold"
+                      >
+                        {message}
+                      </span>
+                    ))}
                 </div>
               </div>
-            </>
-          ) : (
-            <>
-              <span className="absolute inset-0 flex items-center justify-center text-base text-center font-medium text-muted-foreground">
-                Generation failed. Please try again.
-              </span>
-              {/* Retry Button Overlay */}
-              <button
-                onClick={() => setIsEditModalOpen(true)}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-base font-semibold transition-[scale] duration-200 hover:scale-105 border border-primary cursor-pointer flex items-center gap-1"
-              >
-                <Image
-                  src="/retry.svg"
-                  alt="Retry Icon"
-                  width={16}
-                  height={16}
-                  priority
-                />
-                Retry
-              </button>
-            </>
-          )}
-        </div>
-
-        {/* Thumbnails */}
-        <div className="relative w-full max-w-4xl">
-          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-6 bg-gradient-to-r from-background to-transparent" />
-          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-6 bg-gradient-to-l from-background to-transparent" />
-          <div className="flex flex-nowrap gap-4 overflow-y-hidden px-6 py-4 w-fit max-w-full mx-auto no-scrollbar">
-            {generations.map((gen, idx) => (
-              <button
-                key={gen.id}
-                onClick={() => setSelectedIndex(idx)}
-                onContextMenu={(e) => e.preventDefault()}
-                className={`relative w-16 h-21 shrink-0 rounded-md overflow-hidden transition-[box-shadow,scale] duration-200 cursor-pointer ${
-                  selectedIndex === idx
-                    ? "ring-2 ring-primary-accent ring-offset-2 ring-offset-primary scale-[1.05]"
-                    : "ring-2 ring-border"
-                }`}
-              >
-                {gen.publicUrl ? (
-                  <Image
-                    src={gen.publicUrl}
-                    alt={`Thumbnail ${idx}`}
-                    fill
-                    className="object-contain"
-                    sizes="96px"
-                    draggable={false}
-                    priority
-                  />
-                ) : gen.status === "failed" ? (
-                  <div className="w-full h-full bg-muted flex items-center justify-center">
-                    <Image
-                      src="/warning.svg"
-                      alt="Warning Icon"
-                      className="object-cover"
-                      width={18}
-                      height={18}
-                      priority
-                      sizes="18px"
-                      draggable={false}
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-1/2 aspect-square z-1 animate-spin rounded-full border-2 border-muted border-t-transparent" />
-                    </div>
-                    <Image
-                      src={"/placeholder.webp"}
-                      alt="Placeholder Thumbnail"
-                      fill
-                      className="object-cover"
-                      sizes="96px"
-                      priority
-                      draggable={false}
-                    />
-                  </>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
+            </div>
+          </>
+        ) : (
+          <span className="absolute inset-0 grid place-items-center p-5 text-center text-sm font-medium text-muted-foreground">
+            Generation failed. Please try again.
+          </span>
+        )}
       </div>
 
-      {/* Edit Modal */}
-      {isEditModalOpen && (
-        <div
-          className="fixed inset-0 z-50 p-4 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
-          onClick={() => setIsEditModalOpen(false)}
-        >
-          <div
-            className="bg-background rounded-3xl p-4 w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200"
-            onClick={(e) => e.stopPropagation()}
+      <div className="preview-toolbar">
+        <div className="preview-thumbnails">
+          {generations.map((generation, index) => (
+            <button
+              key={generation.id}
+              type="button"
+              className="preview-thumbnail"
+              aria-pressed={selectedIndex === index}
+              onClick={() => setSelectedIndex(index)}
+              onContextMenu={(event) => event.preventDefault()}
+            >
+              {generation.publicUrl ? (
+                <Image
+                  src={generation.publicUrl}
+                  alt={`Thumbnail ${index}`}
+                  fill
+                  className="object-contain"
+                  sizes="72px"
+                  loading={selectedIndex === index ? "eager" : "lazy"}
+                  draggable={false}
+                />
+              ) : generation.status === "failed" ? (
+                <Image src="/warning.svg" alt="Warning Icon" width={18} height={18} />
+              ) : (
+                <>
+                  <Image
+                    src="/posters/coast-at-dusk.webp"
+                    alt="Placeholder Thumbnail"
+                    fill
+                    sizes="72px"
+                    className="object-cover opacity-40"
+                    draggable={false}
+                  />
+                  <span className="z-10 size-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                </>
+              )}
+            </button>
+          ))}
+        </div>
+        {(hasArtwork || selectedGeneration?.status === "failed") && (
+          <button
+            type="button"
+            onClick={() => setIsEditModalOpen(true)}
+            className="site-button site-button--outline shrink-0"
           >
-            <div className="flex justify-between items-center mb-8">
-              <h3 className="text-2xl font-bold text-foreground">
-                Edit Your Portrait
+            <Image
+              src={hasArtwork ? "/edit.svg" : "/retry.svg"}
+              alt={hasArtwork ? "Edit Icon" : "Retry Icon"}
+              width={16}
+              height={16}
+            />
+            {hasArtwork ? "Edit" : "Retry"}
+          </button>
+        )}
+      </div>
+
+      {isEditModalOpen && (
+        <dialog
+          ref={editDialog}
+          className="edit-dialog"
+          aria-labelledby="edit-portrait-title"
+          onClose={() => setIsEditModalOpen(false)}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) event.currentTarget.close();
+          }}
+        >
+          <div className="p-5 sm:p-7">
+            <div className="mb-6 flex items-start justify-between gap-4">
+              <h3 id="edit-portrait-title" className="font-display text-4xl leading-none font-black uppercase">
+                Edit Your Poster
               </h3>
               <button
-                onClick={() => setIsEditModalOpen(false)}
-                className="p-2 w-11 rounded-full hover:bg-muted transition-colors text-muted-foreground cursor-pointer"
+                type="button"
+                className="icon-button shrink-0"
+                aria-label="Close"
+                onClick={() => editDialog.current?.close()}
               >
-                <span className="text-xl">✕</span>
+                <Image src="/cross.svg" alt="" width={16} height={16} loading="eager" />
               </button>
             </div>
             <RetryButton
@@ -285,10 +250,10 @@ export default function PreviewGallery({
               styles={styles}
               styleIdProp={styleId}
               userPromptProp={userPrompt}
-              onDone={() => setIsEditModalOpen(false)}
+              onDone={() => editDialog.current?.close()}
             />
           </div>
-        </div>
+        </dialog>
       )}
     </div>
   );

@@ -1,32 +1,13 @@
+"use client";
+
+import { useId } from "react";
 import Image from "next/image";
+import { stylePreviews } from "@/app/utils/showcase";
 
 type Style = {
   id: string;
   name: string;
 };
-
-const SHOWCASE_PREVIEWS: Record<string, string> = {
-  royal: "/showcase/royal/Sample royal portrait of a rough collie.webp",
-  cowboy: "/showcase/cowboy/Sample cowboy portrait of a cat and dog.webp",
-  mafiaBoss:
-    "/showcase/mafia-boss/Sample mafia boss portrait of an orange cat.jpeg",
-  superhero:
-    "/showcase/superhero/Sample superhero portrait of 2 cats and 2 dogs.webp",
-  viking: "/showcase/viking/Sample viking portrait of a dog.webp",
-};
-
-function getPreviewSrc(style: Style) {
-  const normalized =
-    `${style.id} ${style.name.replace(/\s/g, "")}`.toLowerCase();
-
-  for (const key of Object.keys(SHOWCASE_PREVIEWS)) {
-    if (normalized.includes(key.toLowerCase())) {
-      return SHOWCASE_PREVIEWS[key];
-    }
-  }
-
-  return SHOWCASE_PREVIEWS.royal;
-}
 
 export default function StylePicker({
   selectedStyleId,
@@ -37,55 +18,41 @@ export default function StylePicker({
   onChange: (styleId: string) => void;
   styles: Style[];
 }) {
-  return (
-    <div className="min-w-0 w-full rounded-2xl bg-background">
-      <div className="ml-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground px-4 pt-3">
-        Pick a style
-      </div>
-      <div
-        className="flex min-w-0 h-[176px] max-w-full gap-3 overflow-x-auto px-4 py-4"
-        role="radiogroup"
-        aria-label="Choose a style"
-      >
-        {styles.map((style) => {
-          const selected = style.id === selectedStyleId;
-          const previewSrc = getPreviewSrc(style);
+  const groupName = useId();
 
+  return (
+    <fieldset className="min-w-0 w-full" aria-label="Choose a style">
+      <legend className="mb-2.5 text-xs font-bold tracking-[0.11em] text-primary uppercase">
+        Pick a style
+      </legend>
+      <div className="style-options">
+        {styles.map((style) => {
+          const name = style.name.toLowerCase();
+          const preview = stylePreviews[name] || stylePreviews["cover art"];
+          const position = preview === stylePreviews["cover art"] ? "object-top" : "object-[center_27%]";
           return (
-            <button
-              key={style.id}
-              type="button"
-              onClick={() => onChange(style.id)}
-              aria-pressed={selected}
-              className={`group cursor-pointer relative w-[108px] aspect-[3/4] shrink-0 overflow-hidden rounded-xl text-left transition-[scale,box-shadow] duration-100  ${selected && "scale-[1.03] ring-2 ring-accent ring-offset-2 "}`}
-            >
-              <div
-                className={`relative aspect-[3/4] overflow-hidden rounded-xl`}
-              >
+            <label key={style.id} className="style-option">
+              <input
+                type="radio"
+                className="sr-only"
+                name={groupName}
+                checked={style.id === selectedStyleId}
+                onChange={() => onChange(style.id)}
+              />
+              <span className="style-option__image">
                 <Image
-                  src={previewSrc}
-                  alt={`${style.name} style preview`}
+                  src={preview}
+                  alt=""
                   fill
-                  sizes="172px"
-                  className={`object-cover transition-transform duration-500 ${selected ? "scale-[1.04]" : "group-hover:scale-105"}`}
-                  priority
-                  fetchPriority="high"
+                  sizes="(min-width: 1024px) 180px, 30vw"
+                  className={`object-cover ${position}`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-3">
-                  <div className="min-w-0">
-                    <p
-                      className={`truncate text-base font-semibold transition-colors duration-100 text-pretty ${selected ? "text-accent font-bold" : "text-primary-foreground/90"}`}
-                    >
-                      {style.name}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </button>
+              </span>
+              <span className="style-option__name">{style.name}</span>
+            </label>
           );
         })}
       </div>
-    </div>
+    </fieldset>
   );
 }

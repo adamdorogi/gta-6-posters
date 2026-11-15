@@ -1,12 +1,12 @@
-// Setup type definitions for built-in Supabase Runtime APIs
+/// <reference path="../_shared/edge-runtime.d.ts" />
+
 import "jsr:@supabase/functions-js@2.116.0/edge-runtime.d.ts";
 import { withSupabase } from "jsr:@supabase/server@1.5.3";
 import { createClient } from "jsr:@supabase/supabase-js@2.116.0";
-import Printify from "npm:printify-sdk-js@1.4.0";
 import Replicate from "npm:replicate@1.4.0";
-import { Resend } from "npm:resend@6.26.0";
 import { S3Client } from "npm:@aws-sdk/client-s3@3.1127.0";
 import { Upload } from "npm:@aws-sdk/lib-storage@3.1127.0";
+import { sendOrderEmail } from "../_shared/order-emails.ts";
 
 interface ReqPayload {
   orderId: string;
@@ -19,135 +19,105 @@ const supabase = createClient(
   SUPABASE_SECRET_KEYS["default"]
 )
 
-const variants = {
-  Small: {id: 80696, scale: 1.038}, // 1.037299339
-  Medium: {id: 80698, scale: 1},
-  Large: {id: 80709, scale: 1.06}, // 1.059771033
-  XL: {id: 80722, scale: 1},
-}
+// Printify 443, OPT OnDemand, vertical glossy paper.
+const posterVariants = { Small: 62354, Medium: 62338, Large: 62342, XL: 62344 } as const;
+// Checkouts created before the poster release can still be open in Stripe.
+const legacyVariants = {
+  Small: { id: 80696, scale: 1.038 },
+  Medium: { id: 80698, scale: 1 },
+  Large: { id: 80709, scale: 1.06 },
+  XL: { id: 80722, scale: 1 },
+} as const;
+
+type PrintSize = keyof typeof posterVariants;
+type Order = {
+  id: string;
+  order_number: number;
+  name: string;
+  email: string;
+  phone: string | null;
+  city: string | null;
+  country: string | null;
+  line1: string | null;
+  line2: string | null;
+  postal_code: string | null;
+  state: string | null;
+  size: PrintSize | "Digital";
+  print_format: "paper-poster" | null;
+  total_price: number;
+  currency: string | null;
+  product_name: string | null;
+  printify_id: string | null;
+  status: "pending" | "submitted";
+  generations: { id: string; path: string; is_upscaled: boolean };
+};
 
 export default {
-  fetch: withSupabase({ auth: ["secret"] }, async (req, ctx) => {
+  fetch: withSupabase({ auth: ["secret"] }, async (req) => {
     const { orderId }: ReqPayload = await req.json();
 
-    const { data, error } = await supabase
-        .from("orders")
-        .select("id, order_number, name, email, city, country, line1, line2, postal_code, state, size, total_price, product_name, generations(id, path, is_upscaled)")
-        .eq("id", orderId)
-        .single();
+    const { data: order, error } = await supabase
+      .from("orders")
+      .select("id, order_number, name, email, phone, city, country, line1, line2, postal_code, state, size, print_format, total_price, currency, product_name, printify_id, status, generations(id, path, is_upscaled)")
+      .eq("id", orderId)
+      .single()
+      .overrideTypes<Order, { merge: false }>();
 
-    if (error) {
-      console.error("🚨 Error creating order:", error);
-      return new Response(
-        JSON.stringify({ error: "Failed to create order." }),
-        {
-          status: 500,
-        },
-      );
+    if (error || !order?.generations?.path) {
+      console.error("Unable to load order for fulfillment:", error?.code ?? "missing artwork");
+      return Response.json({ error: "Failed to load order." }, { status: 500 });
     }
 
-    EdgeRuntime.waitUntil(processOrder(orderId, data.order_number, data.generations.id, data.generations.path, data.generations.is_upscaled, data.name, data.email, data.city, data.country, data.line1, data.line2, data.postal_code, data.state, data.size, data.total_price / 100, data.product_name));
+    if (order.status === "submitted") return new Response(null, { status: 204 });
+    EdgeRuntime.waitUntil(processOrder(order));
     return new Response(null, { status: 202 });
   }),
 };
 
-async function processOrder(orderId: string, orderNumber: number, generationId: string, generationPath: string, isUpscaled: boolean, name: string, email: string, city: string, country: string, line1: string, line2: string | undefined, postalCode: string, state: string, size: string, total: number, productName: string) {
+async function processOrder(order: Order) {
+  const generation = order.generations;
+  const generationUrl = supabase.storage.from("generations").getPublicUrl(generation.path).data.publicUrl;
+  const artworkUrl = supabase.storage.from("watermarked-generations").getPublicUrl(generation.path).data.publicUrl;
+  const emailOrder = { orderNumber: order.order_number, name: order.name, item: order.product_name, artworkUrl };
+
   try {
-    // 1. send order confirmation email
-    const generationUrl = supabase.storage
-        .from("generations")
-        .getPublicUrl(generationPath).data.publicUrl;
-    const orderConfirmationEmailResponse = await sendOrderConfirmationEmail(email, orderNumber, productName, name, generationUrl, total);
-    console.log("Order confirmation email response:", orderConfirmationEmailResponse);
+    await sendOrderEmail(
+      order.email,
+      emailOrder,
+      { kind: "confirmed", amount: order.total_price, currency: order.currency },
+      `order-confirmed/${order.id}`,
+      "adam.dorogi@gmail.com",
+    );
 
-    // 2. upscale
-    if (!isUpscaled) {
-      await upscaleUrl(generationUrl, generationPath)
-      await supabase
-          .from("generations")
-          .update({is_upscaled: true})
-          .eq("id", generationId);
+    if (!generation.is_upscaled) {
+      await upscaleUrl(generationUrl, generation.path);
+      const { error } = await supabase.from("generations").update({ is_upscaled: true }).eq("id", generation.id);
+      if (error) throw new Error(`Unable to save artwork status: ${error.code}`);
     }
 
-    const upscaledGenerationUrl = supabase.storage
-        .from("upscaled-generations")
-        .getPublicUrl(generationPath).data.publicUrl;
-
-    // 3. submit printify order
-    if (size !== "Digital") {
-      const printifyId = await submitPrintifyOrder(orderId, upscaledGenerationUrl, name, email, city, country, line1, line2, postalCode, state, size);
-      await supabase
-        .from("orders")
-        .update({printify_id: printifyId})
-        .eq("id", orderId);
+    const prints = supabase.storage.from("upscaled-generations");
+    const artworkFile = prints.getPublicUrl(generation.path).data.publicUrl;
+    const downloadUrl = prints.getPublicUrl(generation.path, { download: "gta-6-poster.jpg" }).data.publicUrl;
+    if (order.size !== "Digital" && !order.printify_id) {
+      const printifyId = await submitPrintifyOrder(order, order.size, artworkFile);
+      const { error } = await supabase.from("orders").update({ printify_id: printifyId }).eq("id", order.id);
+      if (error) throw new Error(`Unable to save the print order ID: ${error.code}`);
     }
 
-    // 4. send digital email
-    const digitalDownloadEmailResponse = await sendDigitalDownloadEmail(email, orderNumber, name, upscaledGenerationUrl, generationUrl);
-    console.log("Digital download email response:", digitalDownloadEmailResponse);
+    const downloadSent = await sendOrderEmail(
+      order.email,
+      emailOrder,
+      { kind: "download", downloadUrl },
+      `order-download/${order.id}`,
+    );
+    if (!downloadSent) throw new Error("The digital download email is pending.");
 
-    // 5. mark order as completed
-    await supabase
-        .from("orders")
-        .update({status: "submitted"})
-        .eq("id", orderId);
-    console.log("✅ Successful order.");
-  } catch (e) {
-    console.log("🚨 ERROR:");
-    console.log(e);
+    const { error } = await supabase.from("orders").update({ status: "submitted" }).eq("id", order.id);
+    if (error) throw new Error(`Unable to save the order status: ${error.code}`);
+    console.log(`Order #${order.order_number} fulfilled.`);
+  } catch (error) {
+    console.error(`Unable to fulfill order #${order.order_number}:`, error);
   }
-}
-
-async function sendOrderConfirmationEmail(email: string, orderNumber: number, item: string, name: string, previewUrl: string, price: number) {
-  const resend = new Resend(Deno.env.get("RESEND_API_KEY")!);
-
-  const nameParts = name.trim().split(/\s+/);
-  const firstName = nameParts.shift() || "";
-
-  return runWithRetry(
-    () =>
-      resend.emails.send({
-      from: 'Turn Royal <hello@turnroyal.com>',
-      to: email,
-      bcc: 'adam.dorogi@gmail.com',
-      template: {
-        id: 'order-confirmation',
-        variables: {
-          ITEM: item,
-          PRICE: price,
-          NAME: firstName,
-          PREVIEW_URL: previewUrl,
-          ORDER_NUMBER: orderNumber
-        },
-      },
-    }),
-    "Sending order confirmation email..."
-  );
-}
-
-async function sendDigitalDownloadEmail(email: string, orderNumber: number, name: string, downloadUrl: string, previewUrl: string) {
-  const resend = new Resend(Deno.env.get("RESEND_API_KEY")!);
-
-  const nameParts = name.trim().split(/\s+/);
-  const firstName = nameParts.shift() || "";
-
-  return runWithRetry(
-    () =>
-    resend.emails.send({
-    from: 'Turn Royal <hello@turnroyal.com>',
-    to: email,
-    template: {
-      id: 'digital-download',
-      variables: {
-        NAME: firstName,
-        DOWNLOAD_URL: downloadUrl,
-        ORDER_NUMBER: orderNumber,
-        PREVIEW_URL: previewUrl,
-      },
-    },
-  }),
-    "Sending digital download email..."
-  );
 }
 
 async function upscaleUrl(url: string, path: string) {
@@ -168,13 +138,14 @@ async function upscaleUrl(url: string, path: string) {
     face_enhancement_creativity: 0.5
   };
 
-  const output1 = await runWithRetry(
+  const output1: unknown = await runWithRetry(
     () =>
       replicate.run("topazlabs/image-upscale", {
         input: input1,
       }),
     "Creating first (6x) upscale"
   );
+  if (typeof output1 !== "string") throw new Error("The first upscale returned no image URL.");
 
   // 2. Second upscale
   const input2 = {
@@ -188,13 +159,14 @@ async function upscaleUrl(url: string, path: string) {
       face_enhancement_creativity: 0.5
     };
 
-  const output2 = await runWithRetry(
+  const output2: unknown = await runWithRetry(
     () =>
       replicate.run("topazlabs/image-upscale", {
         input: input2,
       }),
     "Creating second (2x) upscale"
-  ) as string;
+  );
+  if (typeof output2 !== "string") throw new Error("The second upscale returned no image URL.");
 
   // 3. Download file
   const src = await fetch(output2, {
@@ -232,77 +204,73 @@ async function upscaleUrl(url: string, path: string) {
   await upload.done();
 }
 
-async function submitPrintifyOrder(orderId: string, generationUrl: string, name: string, email: string, city: string, country: string, line1: string, line2: string | undefined, postalCode: string, state: string, size: string) {
-  const nameParts = name.trim().split(/\s+/);
-  const firstName = nameParts.shift() || "";
-  const lastName = nameParts.join(" ");
+async function submitPrintifyOrder(order: Order, size: PrintSize, artworkUrl: string) {
+  const [firstName, ...lastName] = order.name.trim().split(/\s+/);
+  const item = order.print_format === "paper-poster"
+    ? {
+      print_provider_id: 30,
+      blueprint_id: 443,
+      variant_id: posterVariants[size],
+      print_areas: { front: artworkUrl },
+    }
+    : {
+      print_provider_id: 66,
+      blueprint_id: 1061,
+      variant_id: legacyVariants[size].id,
+      print_areas: {
+        front: [{ src: artworkUrl, scale: legacyVariants[size].scale, y: 0.5, x: 0.5, angle: 0 }],
+      },
+      print_details: { print_on_side: "regular" },
+    };
 
-  const printify = new Printify({
-    accessToken: Deno.env.get("PRINTIFY_API_TOKEN"),
-    shopId: '29761765',
-    timeout: 10 * 60 * 1000 // 10 mins
+  const shipping = {
+    first_name: firstName,
+    last_name: lastName.join(" "),
+    email: order.email,
+    phone: order.phone ?? undefined,
+    country: order.country,
+    region: order.state ?? "",
+    address1: order.line1,
+    address2: order.line2 ?? "",
+    city: order.city,
+    zip: order.postal_code ?? "",
+  };
+  const body = JSON.stringify({
+    external_id: order.id,
+    line_items: [{ ...item, quantity: 1 }],
+    shipping_method: 1,
+    send_shipping_notification: false,
+    address_to: shipping,
   });
 
-  const data = {
-    external_id: orderId,
-    line_items: [
-      {
-        print_provider_id: 66,
-        blueprint_id: 1061,
-        variant_id: variants[size].id,
-        print_areas: {
-          front: [
-            {
-              src: generationUrl,
-              scale: variants[size].scale,
-              y: 0.5,
-              x: 0.5,
-              angle: 0
-            }
-          ],
-        },
-        print_details: {
-          print_on_side: "regular"
-        },
-        quantity: 1,
+  return await runWithRetry(async () => {
+    const response = await fetch("https://api.printify.com/v1/shops/29761765/orders.json", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${Deno.env.get("PRINTIFY_API_TOKEN")}`,
+        "Content-Type": "application/json",
       },
-    ],
-    shipping_method: 1,
-    is_printify_express: false,
-    is_economy_shipping: false,
-    send_shipping_notification: false,
-    address_to: {
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      // phone: '0574 69 21 90',
-      country: country,
-      region: state,
-      address1: line1,
-      address2: line2,
-      city: city,
-      zip: postalCode,
-    },
-  };
-  const result = await runWithRetry(
-    () =>
-      printify.orders.submit(data),
-    "Submitting Printify order..."
-  ) as any;
+      signal: AbortSignal.timeout(60_000),
+      body,
+    });
 
-  console.log(result);
-  
-  return result.id;
+    const result = await response.json();
+    if (response.ok && typeof result.id === "string") return result.id;
+    if (response.status === 409 && result.order?.external_id === order.id && typeof result.order.id === "string") {
+      return result.order.id;
+    }
+    throw new Error(`Printify order submission failed (${response.status}, code ${result.code ?? "unknown"}).`);
+  }, "Submitting print order");
 }
 
 async function runWithRetry<T>(
   fn: () => Promise<T>,
-  description: string,
-  maxRetries = 3
+  description: string
 ): Promise<T> {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+  const maxAttempts = 3;
+  for (let attempt = 1; ; attempt++) {
     try {
-      console.log(`${description} (attempt ${attempt}/${maxRetries})...`);
+      console.log(`${description} (attempt ${attempt}/${maxAttempts})...`);
       return await fn();
     } catch (error) {
       console.error(
@@ -310,7 +278,7 @@ async function runWithRetry<T>(
         error
       );
 
-      if (attempt === maxRetries) {
+      if (attempt === maxAttempts) {
         throw error;
       }
 

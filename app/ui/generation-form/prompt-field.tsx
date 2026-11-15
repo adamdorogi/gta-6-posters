@@ -10,12 +10,12 @@ export default function PromptField({ value, onChange }: PromptFieldProps) {
     <div className="relative w-full">
       <input
         type="text"
-        placeholder="Personalise — add a crown…"
+        placeholder="Add a detail, like a sunset or outfit…"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-3 py-2.5 pr-24 rounded-xl border border-border bg-white text-base md:text-sm text-foreground focus:outline-none focus:border-primary transition-all"
+        className="w-full rounded-lg border border-border bg-input px-4 py-3 pr-24 text-base text-foreground transition-colors placeholder:text-muted-foreground focus:border-primary"
       />
-      <span className="pointer-events-none absolute right-3 top-1/2 flex h-7 -translate-y-1/2 items-center rounded-full bg-primary-accent/75 px-3 text-xs leading-none text-primary/75">
+      <span className="pointer-events-none absolute right-3 top-1/2 flex h-7 -translate-y-1/2 items-center rounded-full bg-primary-accent px-3 text-xs leading-none text-muted-foreground">
         Optional
       </span>
     </div>

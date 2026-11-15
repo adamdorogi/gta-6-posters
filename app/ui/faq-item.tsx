@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 
 type FaqItemProps = {
   question: string;
@@ -9,22 +9,24 @@ type FaqItemProps = {
 
 export default function FaqItem({ question, answers }: FaqItemProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const answerId = useId();
 
   return (
-    <div className="overflow-hidden rounded-2xl bg-primary-foreground mt-2">
+    <div className="border-t border-border">
       <button
         type="button"
         aria-expanded={isOpen}
+        aria-controls={answerId}
         onClick={() => setIsOpen((current) => !current)}
-        className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left cursor-pointer"
+        className="flex min-h-13 w-full cursor-pointer items-center justify-between gap-4 py-3 text-left hover:text-primary"
       >
-        <span className="text-base font-bold text-foreground text-base">
+        <span className="text-sm font-semibold leading-relaxed md:text-base">
           {question}
         </span>
 
         <span
-          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-all duration-300 ${
-            isOpen ? "rotate-180 bg-accent-dark" : "rotate-0 bg-accent"
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-primary transition-transform duration-200 ${
+            isOpen ? "rotate-180 bg-primary-accent" : "rotate-0"
           }`}
           aria-hidden="true"
         >
@@ -45,17 +47,17 @@ export default function FaqItem({ question, answers }: FaqItemProps) {
       </button>
 
       <div
-        className={`grid overflow-hidden px-4 transition-all duration-300 ease-out ${
+        id={answerId}
+        aria-hidden={!isOpen}
+        className={`grid overflow-hidden transition-[grid-template-rows,padding] duration-200 ease-out motion-reduce:transition-none ${
           isOpen ? "grid-rows-[1fr] pb-5" : "grid-rows-[0fr] pb-0"
         }`}
       >
         <div className="min-h-0">
-          <div className="h-px bg-muted" />
-
           {answers.map((answer, index) => (
             <p
               key={index}
-              className="pt-5 text-base leading-relaxed text-foreground text-base"
+              className="max-w-[70ch] py-1.5 text-sm leading-relaxed text-muted-foreground md:text-base"
             >
               {answer}
             </p>

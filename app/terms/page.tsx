@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import NavBar from "../ui/nav-bar";
 import Footer from "../ui/footer";
 import Link from "next/link";
+import { site } from "../utils/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/terms" },
   title: "Terms of Service",
   description:
-    "Read Turn Royal's Terms and Conditions covering orders, digital downloads, canvas purchases, refunds, shipping, website use and customer responsibilities.",
+    "Read the GTA 6 Posters terms for photo uploads, generated artwork, poster and digital orders, shipping, and refunds.",
 };
 
 export default function Terms() {
@@ -14,18 +16,18 @@ export default function Terms() {
     <div className="min-h-screen bg-background">
       <NavBar />
       <main className="flex-1 min-h-screen max-w-[680px] mx-auto px-4 py-10 bg-background text-foreground font-sans">
-        <h1 className="font-serif font-black italic text-3xl md:text-4xl mb-8 text-foreground">
+        <h1 className="section-title mb-8">
           Terms of Service
         </h1>
         <div className="space-y-6 text-sm leading-6 text-muted-foreground">
-          <p>Last updated: August 6, 2026</p>
+          <p>Last updated: November 15, 2026</p>
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-2">
               1. Overview
             </h2>
             <p>
-              Throughout this website, <strong>turnroyal.com</strong> (the
-              “Site”, “Turn Royal”, “we”, “us”, or “our”), the terms “you” and
+              Throughout this website, <strong>{site.domain}</strong> (the
+              “Site”, “GTA 6 Posters”, “we”, “us”, or “our”), the terms “you” and
               “your” refer to the user of the Site.
             </p>
             <p className="mt-2">
@@ -40,13 +42,13 @@ export default function Terms() {
               2. Service Description
             </h2>
             <p>
-              Turn Royal provides an AI-powered portrait generation service. You
+              GTA 6 Posters provides an AI-powered poster creation service. You
               upload one or more photographs, our artificial intelligence system
-              (powered by OpenRouter and Replicate) transforms them into royal
+              (powered by OpenRouter and Replicate) transforms them into GTA 6-style
               and Renaissance-style portraits, and you can preview watermarked
               versions for free. You may then purchase digital downloads of
               unwatermarked portraits, or order physical fine art prints —
-              canvases.
+              posters.
             </p>
             <p className="mt-2">
               We reserve the right to modify, suspend, or discontinue the
@@ -168,7 +170,7 @@ export default function Terms() {
               and privacy law, and the laws of your country of residence).
             </p>
             <p className="mt-2">
-              Turn Royal does not pre-screen, review, or moderate every uploaded
+              GTA 6 Posters does not pre-screen, review, or moderate every uploaded
               photo. We do not endorse, verify, or assume responsibility for any
               user-uploaded content, and we accept{" "}
               <strong>no liability whatsoever</strong> for any photo you upload,
@@ -192,10 +194,10 @@ export default function Terms() {
               periodically. You may request immediate deletion of your photos at
               any time by emailing{" "}
               <Link
-                href="mailto:hello@turnroyal.com"
+                href={`mailto:${site.email}`}
                 className="text-primary hover:underline"
               >
-                hello@turnroyal.com
+                {site.email}
               </Link>
               . For the complete retention schedule, see Section 3 of our{" "}
               <Link className="text-primary hover:underline" href="/privacy">
@@ -259,12 +261,12 @@ export default function Terms() {
               Watermarked preview images are provided for evaluation purposes
               only. The watermark is permanently embedded in the image pixels
               and may not be removed, obscured, or circumvented. Unpurchased
-              watermarked previews remain the property of Turn Royal.
+              watermarked previews remain the property of GTA 6 Posters.
             </p>
             <p className="mt-2">
               All other content on the Site, including but not limited to the
               design, layout, text, graphics, logos, and software, is the
-              property of Turn Royal and is protected by applicable intellectual
+              property of GTA 6 Posters and is protected by applicable intellectual
               property laws.
             </p>
           </section>
@@ -276,7 +278,7 @@ export default function Terms() {
               6.1 Pricing
             </h3>
             <p>
-              All prices are displayed in Australian Dollars (AUD) and are
+              All prices are displayed in US dollars (USD) and are
               inclusive of applicable taxes unless otherwise stated. We reserve
               the right to change prices at any time without notice. Price
               changes do not affect orders that have already been completed.
@@ -309,18 +311,18 @@ export default function Terms() {
               experience technical issues with your download, please contact us
               at{" "}
               <Link
-                href="mailto:hello@turnroyal.com"
+                href={`mailto:${site.email}`}
                 className="text-primary hover:underline"
               >
-                hello@turnroyal.com
+                {site.email}
               </Link>{" "}
               and we will work to resolve the issue.
             </p>
             <h3 className="font-semibold text-foreground mt-4 mb-1">
-              6.4 Physical Prints: Canvases
+              6.4 Printed Posters
             </h3>
             <p>
-              For physical products (fine art prints: canvases), refunds or
+              For printed posters, refunds or
               replacements are available under the following conditions:
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
@@ -353,12 +355,12 @@ export default function Terms() {
               6.5 Shipping &amp; Delivery
             </h3>
             <p>
-              We print, package, and ship orders worldwide. Once your portrait
-              has been printed and tracking becomes available, you will receive
-              an email with the tracking details.
+              Standard shipping is included to eligible destinations worldwide.
+              You can check available destinations before paying. Once tracking
+              is available, you will receive an email with the details.
             </p>
             <p className="mt-2">
-              Our standard shipping timeframe is 5–10 business days. Please note
+              Delivery times vary by destination and carrier. Please note
               that while we do our best to ensure timely dispatch, we are unable
               to take responsibility for delays caused by the shipping carrier.
               In such cases, we recommend contacting the courier directly with
@@ -366,7 +368,7 @@ export default function Terms() {
             </p>
             <p className="mt-2">
               By making a purchase on our website, you acknowledge and agree
-              that Turn Royal is not obligated to provide a refund, correction,
+              that GTA 6 Posters is not obligated to provide a refund, correction,
               or reprint of the generated artwork if you contact us or raise a
               dispute more than 14 days after delivery, or more than 14 days
               from the date you received the digital file download link in the
@@ -374,15 +376,15 @@ export default function Terms() {
             </p>
             <p className="mt-2">
               We kindly ask that you carefully review the quality of the
-              physical canvas, framed canvas, or digital download before
+              printed poster or digital download before
               purchasing and inspect your order promptly upon delivery. If you
               experience any issues with your order, please contact us
               immediately at{" "}
               <Link
-                href="mailto:hello@turnroyal.com"
+                href={`mailto:${site.email}`}
                 className="text-primary hover:underline"
               >
-                hello@turnroyal.com
+                {site.email}
               </Link>
               .
             </p>
@@ -461,7 +463,7 @@ export default function Terms() {
               9. Limitation of Liability
             </h2>
             <p>
-              To the maximum extent permitted by applicable law, Turn Royal and
+              To the maximum extent permitted by applicable law, GTA 6 Posters and
               its officers, directors, employees, agents, and affiliates shall
               not be liable for any indirect, incidental, special,
               consequential, or punitive damages, including but not limited to
@@ -486,7 +488,7 @@ export default function Terms() {
               10. Indemnification
             </h2>
             <p>
-              You agree to indemnify, defend, and hold harmless Turn Royal and
+              You agree to indemnify, defend, and hold harmless GTA 6 Posters and
               its officers, directors, employees, and agents from and against
               any claims, liabilities, damages, losses, and expenses (including
               reasonable legal fees) arising out of or in any way connected
@@ -589,14 +591,14 @@ export default function Terms() {
               <li>
                 <strong>Email:</strong>{" "}
                 <Link
-                  href="mailto:hello@turnroyal.com"
+                  href={`mailto:${site.email}`}
                   className="text-primary hover:underline"
                 >
-                  hello@turnroyal.com
+                  {site.email}
                 </Link>
               </li>
               <li>
-                <strong>Website:</strong> turnroyal.com
+                <strong>Website:</strong> {site.domain}
               </li>
             </ul>
           </section>

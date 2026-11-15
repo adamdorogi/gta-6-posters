@@ -1,21 +1,12 @@
-# Turn Royal
+# GTA 6 Posters
 
-> Turn Royal is an AI portrait service that transforms uploaded photos into themed artwork. Customers can preview a portrait and then choose a digital download or a printed canvas.
+> GTA 6 Posters turns uploaded photos into custom GTA 6-style artwork. Make a free preview, then order a glossy paper poster or a high-resolution digital download.
 
-Upload a photo, choose a style, and create a portrait preview. The homepage currently offers Royal, Viking, Mafia Boss, Cowboy, and Superhero styles. The site says previews are free and require no account or payment card; its FAQ explains credits, editing previews, photo guidance, products, delivery, and support.
+Use a selfie, couple photo, or group photo. Pets are supported on their own or alongside people. The three styles are Cover Art, Character, and The Album.
 
-The service is designed primarily for pet portraits and also supports people, couples, families, and groups. Turn Royal says its canvas prints are produced in Victoria, Australia. Refer to the live pages below for current product options and policies.
+Paper posters come unframed in A4, A3, A2, or A1 with a digital copy included. Standard shipping is included to eligible destinations worldwide. Prices are in USD.
 
-## Main pages
-
-- [Turn Royal homepage](https://www.turnroyal.com/): Portrait creation, available styles, product information, showcase, and frequently asked questions.
-
-## Policies
-
-- [Privacy Policy](https://www.turnroyal.com/privacy): Information about uploaded photos, personal data, retention, third-party services, and privacy requests.
-- [Terms of Service](https://www.turnroyal.com/terms): Service terms, photo upload responsibilities, generated artwork, purchases, delivery, and refunds.
-
-## Contact
-
-- [Email Turn Royal](mailto:hello@turnroyal.com): Customer support and privacy requests.
-
+- [GTA 6 Posters](https://www.gta6posters.com/) — Create a poster, see the styles, and read the FAQ.
+- [Privacy Policy](https://www.gta6posters.com/privacy) — Photo uploads, personal data, and privacy requests.
+- [Terms of Service](https://www.gta6posters.com/terms) — Purchases, shipping, and refunds.
+- [Customer support](mailto:hello@gta6posters.com)

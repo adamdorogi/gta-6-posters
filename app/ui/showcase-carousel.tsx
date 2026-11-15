@@ -1,112 +1,77 @@
+"use client";
+
+import type { CSSProperties } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
+function PosterTrack({
+  images,
+  horizontal = false,
+  reverse = false,
+}: {
+  images: string[];
+  horizontal?: boolean;
+  reverse?: boolean;
+}) {
+  return (
+    <div
+      className={
+        "poster-motion__track" +
+        (horizontal ? " poster-motion__track--horizontal" : "") +
+        (reverse ? " poster-motion__track--reverse" : "")
+      }
+      style={
+        { "--motion-duration": `${images.length * (horizontal ? 7 : 13)}s` } as CSSProperties
+      }
+    >
+      {[...images, ...images].map((src, index) => (
+        <div key={index} className="poster-motion__tile">
+          <Image
+            src={src}
+            alt=""
+            fill
+            className="object-cover"
+            sizes={horizontal ? "175px" : "(min-width: 1024px) 24vw, 200px"}
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function ShowcaseCarousel({
-  images = [],
+  images,
   layout = "vertical",
 }: {
   images: string[];
   layout?: "vertical" | "horizontal";
 }) {
-  if (layout === "horizontal") {
-    const SECONDS_PER_IMAGE = 6;
-    const duration = Math.max(images.length * SECONDS_PER_IMAGE, 1);
-
-    return (
-      <div className="relative h-full overflow-hidden">
-        <div
-          className="flex h-full w-max gap-3"
-          style={{ animation: `horizontal-slide ${duration}s linear infinite` }}
-        >
-          {[...images, ...images].map((src, idx) => (
-            <div
-              key={idx}
-              className="relative h-full w-39 flex-none overflow-hidden rounded-2xl shadow-md group"
-            >
-              <Image
-                src={src}
-                alt={
-                  src.split("/").pop()?.split(".")[0] ||
-                  `Sample royal portrait ${idx + 1}`
-                }
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="200px"
-                priority
-                fetchPriority="high"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  const col1 = images.filter((_, i) => i % 2 === 0);
-  const col2 = images.filter((_, i) => i % 2 !== 0);
-
-  const SECONDS_PER_IMAGE = 10;
-  const duration1 = Math.max(col1.length * SECONDS_PER_IMAGE, 1);
-  const duration2 = Math.max(col2.length * SECONDS_PER_IMAGE, 1);
+  const [paused, setPaused] = useState(false);
 
   return (
-    <div className="grid grid-cols-2 gap-4 h-full">
-      {/* Column 1 */}
-      <div className="relative overflow-hidden">
-        <div
-          className="flex flex-col"
-          style={{ animation: `vertical-slide ${duration1}s linear infinite` }}
-        >
-          {[...col1, ...col1].map((src, idx) => (
-            <div
-              key={idx}
-              className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl shadow-md group mb-4"
-            >
-              <Image
-                src={src}
-                alt={
-                  src.split("/").pop()?.split(".")[0] ||
-                  `Sample royal portrait ${idx + 1}`
-                }
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="172px"
-                priority
-                fetchPriority="high"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Column 2 */}
-      <div className="relative overflow-hidden">
-        <div
-          className="flex flex-col"
-          style={{
-            animation: `vertical-slide ${duration2}s linear infinite reverse`,
-          }}
-        >
-          {[...col2, ...col2].map((src, idx) => (
-            <div
-              key={idx}
-              className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl shadow-md group mb-4"
-            >
-              <Image
-                src={src}
-                alt={
-                  src.split("/").pop()?.split(".")[0] ||
-                  `Sample royal portrait ${idx + 1}`
-                }
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="172px"
-                priority
-                fetchPriority="high"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+    <div
+      className={`poster-motion ${layout === "vertical" ? "poster-motion__columns" : ""}`}
+      data-paused={paused}
+    >
+      {layout === "horizontal" ? (
+        <PosterTrack images={images} horizontal />
+      ) : (
+        <>
+          <PosterTrack images={images.filter((_, index) => index % 2 === 0)} />
+          <PosterTrack images={images.filter((_, index) => index % 2 !== 0)} reverse />
+        </>
+      )}
+      <button
+        type="button"
+        className="poster-motion__control"
+        aria-label={paused ? "Play carousel" : "Pause carousel"}
+        onClick={() => setPaused((current) => !current)}
+      >
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          {paused ? <path d="M5 3v10l8-5Z" /> : <path d="M4 3h3v10H4zm5 0h3v10H9z" />}
+        </svg>
+      </button>
     </div>
   );
 }

@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-15T16:08:17Z",
+  "title": "Design System: GTA 6 Posters",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Blush",
+        "tonalRamp": [
+          "oklch(15% 0.0782 355.2)",
+          "oklch(26% 0.0782 355.2)",
+          "oklch(37% 0.0782 355.2)",
+          "oklch(49% 0.0782 355.2)",
+          "oklch(60% 0.0782 355.2)",
+          "oklch(72% 0.0782 355.2)",
+          "oklch(84% 0.0782 355.2)",
+          "oklch(95% 0.0782 355.2)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Pale Blush",
+        "tonalRamp": [
+          "oklch(15% 0.0587 356.8)",
+          "oklch(26% 0.0587 356.8)",
+          "oklch(37% 0.0587 356.8)",
+          "oklch(49% 0.0587 356.8)",
+          "oklch(60% 0.0587 356.8)",
+          "oklch(72% 0.0587 356.8)",
+          "oklch(84% 0.0587 356.8)",
+          "oklch(95% 0.0587 356.8)"
+        ]
+      },
+      "primary-foreground": {
+        "role": "primary",
+        "displayName": "Dark Plum Text",
+        "tonalRamp": [
+          "oklch(15% 0.0406 322.8)",
+          "oklch(26% 0.0406 322.8)",
+          "oklch(37% 0.0406 322.8)",
+          "oklch(49% 0.0406 322.8)",
+          "oklch(60% 0.0406 322.8)",
+          "oklch(72% 0.0406 322.8)",
+          "oklch(84% 0.0406 322.8)",
+          "oklch(95% 0.0406 322.8)"
+        ]
+      },
+      "primary-accent": {
+        "role": "primary",
+        "displayName": "Tinted Plum",
+        "tonalRamp": [
+          "oklch(15% 0.0485 312.9)",
+          "oklch(26% 0.0485 312.9)",
+          "oklch(37% 0.0485 312.9)",
+          "oklch(49% 0.0485 312.9)",
+          "oklch(60% 0.0485 312.9)",
+          "oklch(72% 0.0485 312.9)",
+          "oklch(84% 0.0485 312.9)",
+          "oklch(95% 0.0485 312.9)"
+        ]
+      },
+      "accent": {
+        "role": "secondary",
+        "displayName": "Peach",
+        "tonalRamp": [
+          "oklch(15% 0.0827 59.3)",
+          "oklch(26% 0.0827 59.3)",
+          "oklch(37% 0.0827 59.3)",
+          "oklch(49% 0.0827 59.3)",
+          "oklch(60% 0.0827 59.3)",
+          "oklch(72% 0.0827 59.3)",
+          "oklch(84% 0.0827 59.3)",
+          "oklch(95% 0.0827 59.3)"
+        ]
+      },
+      "accent-foreground": {
+        "role": "secondary",
+        "displayName": "Dark Peach-Label Text",
+        "tonalRamp": [
+          "oklch(15% 0.0391 324.7)",
+          "oklch(26% 0.0391 324.7)",
+          "oklch(37% 0.0391 324.7)",
+          "oklch(49% 0.0391 324.7)",
+          "oklch(60% 0.0391 324.7)",
+          "oklch(72% 0.0391 324.7)",
+          "oklch(84% 0.0391 324.7)",
+          "oklch(95% 0.0391 324.7)"
+        ]
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Deep Plum",
+        "tonalRamp": [
+          "oklch(15% 0.0299 292.6)",
+          "oklch(26% 0.0299 292.6)",
+          "oklch(37% 0.0299 292.6)",
+          "oklch(49% 0.0299 292.6)",
+          "oklch(60% 0.0299 292.6)",
+          "oklch(72% 0.0299 292.6)",
+          "oklch(84% 0.0299 292.6)",
+          "oklch(95% 0.0299 292.6)"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Warm Ivory",
+        "tonalRamp": [
+          "oklch(15% 0.0151 54.9)",
+          "oklch(26% 0.0151 54.9)",
+          "oklch(37% 0.0151 54.9)",
+          "oklch(49% 0.0151 54.9)",
+          "oklch(60% 0.0151 54.9)",
+          "oklch(72% 0.0151 54.9)",
+          "oklch(84% 0.0151 54.9)",
+          "oklch(95% 0.0151 54.9)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface Plum",
+        "tonalRamp": [
+          "oklch(15% 0.0424 299.9)",
+          "oklch(26% 0.0424 299.9)",
+          "oklch(37% 0.0424 299.9)",
+          "oklch(49% 0.0424 299.9)",
+          "oklch(60% 0.0424 299.9)",
+          "oklch(72% 0.0424 299.9)",
+          "oklch(84% 0.0424 299.9)",
+          "oklch(95% 0.0424 299.9)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Plum",
+        "tonalRamp": [
+          "oklch(15% 0.0416 302.5)",
+          "oklch(26% 0.0416 302.5)",
+          "oklch(37% 0.0416 302.5)",
+          "oklch(49% 0.0416 302.5)",
+          "oklch(60% 0.0416 302.5)",
+          "oklch(72% 0.0416 302.5)",
+          "oklch(84% 0.0416 302.5)",
+          "oklch(95% 0.0416 302.5)"
+        ]
+      },
+      "muted-foreground": {
+        "role": "neutral",
+        "displayName": "Muted Lavender",
+        "tonalRamp": [
+          "oklch(15% 0.0265 325.8)",
+          "oklch(26% 0.0265 325.8)",
+          "oklch(37% 0.0265 325.8)",
+          "oklch(49% 0.0265 325.8)",
+          "oklch(60% 0.0265 325.8)",
+          "oklch(72% 0.0265 325.8)",
+          "oklch(84% 0.0265 325.8)",
+          "oklch(95% 0.0265 325.8)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Plum Border",
+        "tonalRamp": [
+          "oklch(15% 0.0493 312.7)",
+          "oklch(26% 0.0493 312.7)",
+          "oklch(37% 0.0493 312.7)",
+          "oklch(49% 0.0493 312.7)",
+          "oklch(60% 0.0493 312.7)",
+          "oklch(72% 0.0493 312.7)",
+          "oklch(84% 0.0493 312.7)",
+          "oklch(95% 0.0493 312.7)"
+        ]
+      },
+      "input": {
+        "role": "neutral",
+        "displayName": "Input Plum",
+        "tonalRamp": [
+          "oklch(15% 0.0372 297.8)",
+          "oklch(26% 0.0372 297.8)",
+          "oklch(37% 0.0372 297.8)",
+          "oklch(49% 0.0372 297.8)",
+          "oklch(60% 0.0372 297.8)",
+          "oklch(72% 0.0372 297.8)",
+          "oklch(84% 0.0372 297.8)",
+          "oklch(95% 0.0372 297.8)"
+        ]
+      },
+      "ring": {
+        "role": "primary",
+        "displayName": "Pink Focus Ring",
+        "tonalRamp": [
+          "oklch(15% 0.0864 355.9)",
+          "oklch(26% 0.0864 355.9)",
+          "oklch(37% 0.0864 355.9)",
+          "oklch(49% 0.0864 355.9)",
+          "oklch(60% 0.0864 355.9)",
+          "oklch(72% 0.0864 355.9)",
+          "oklch(84% 0.0864 355.9)",
+          "oklch(95% 0.0864 355.9)"
+        ]
+      },
+      "destructive": {
+        "role": "primary",
+        "displayName": "Error Pink",
+        "tonalRamp": [
+          "oklch(15% 0.0995 5.3)",
+          "oklch(26% 0.0995 5.3)",
+          "oklch(37% 0.0995 5.3)",
+          "oklch(49% 0.0995 5.3)",
+          "oklch(60% 0.0995 5.3)",
+          "oklch(72% 0.0995 5.3)",
+          "oklch(84% 0.0995 5.3)",
+          "oklch(95% 0.0995 5.3)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Hero Heading",
+        "purpose": "The main line of the hero title."
+      },
+      "display-accent": {
+        "displayName": "Hero Accent",
+        "purpose": "The larger blush line of the hero title."
+      },
+      "headline": {
+        "displayName": "Section Heading",
+        "purpose": "Main section and purchase headings."
+      },
+      "title": {
+        "displayName": "Feature Title",
+        "purpose": "Short titles inside feature rows."
+      },
+      "body": {
+        "displayName": "Section Lead",
+        "purpose": "Descriptions beneath section headings."
+      },
+      "label": {
+        "displayName": "Style Legend",
+        "purpose": "The label above the style choices."
+      },
+      "button-label": {
+        "displayName": "Button Label",
+        "purpose": "Labels for filled and outlined actions."
+      }
+    },
+    "shadows": [
+      {
+        "name": "preview-art",
+        "value": "0 1.4rem 3rem -1.75rem #0c0715",
+        "purpose": "Soft shadow under the full-size portrait preview."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "180ms ease-out",
+        "purpose": "Button and tile colors, borders, and carousel indicators."
+      },
+      {
+        "name": "showcase-opacity",
+        "value": "220ms ease-out",
+        "purpose": "Showcase portrait opacity during hover and selection."
+      },
+      {
+        "name": "vertical-poster-loop",
+        "value": "13s per poster, linear, infinite",
+        "purpose": "Two vertical hero tracks loop in opposite directions."
+      },
+      {
+        "name": "horizontal-poster-loop",
+        "value": "7s per poster, linear, infinite",
+        "purpose": "The mobile hero poster strip loops horizontally."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "small",
+        "value": "40rem"
+      },
+      {
+        "name": "purchase-columns",
+        "value": "41rem"
+      },
+      {
+        "name": "medium",
+        "value": "48rem"
+      },
+      {
+        "name": "print-and-preview-columns",
+        "value": "60rem"
+      },
+      {
+        "name": "hero-columns",
+        "value": "64rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Filled Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The blush action for creating a preview or buying a print.",
+      "html": "<button class=\"ds-button-primary\" type=\"button\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z\"/></svg>Create My Free Preview</button>",
+      "css": ".ds-button-primary { display: inline-flex; min-height: 3.125rem; align-items: center; justify-content: center; gap: .625rem; border: 1px solid transparent; border-radius: 100vmax; padding: .625rem 1.25rem; background: var(--primary, #f6b7ce); color: var(--primary-foreground, #28182a); font: 700 .9375rem / 1.5 var(--font-inter, \"Inter\"), sans-serif; cursor: pointer; transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out; }\n.ds-button-primary:not(:disabled):hover { background: #ffcede; }\n.ds-button-primary:focus-visible { outline: 2px solid var(--ring, #ffb9d2); outline-offset: 3px; }\n.ds-button-primary:disabled { opacity: .55; cursor: not-allowed; }"
+    },
+    {
+      "name": "Outlined Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "The plum action for editing a portrait or choosing digital only.",
+      "html": "<button class=\"ds-button-outline\" type=\"button\"><svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125\"/></svg>Edit</button>",
+      "css": ".ds-button-outline { display: inline-flex; min-height: 3.125rem; align-items: center; justify-content: center; gap: .625rem; border: 1px solid var(--border, #51405b); border-radius: 100vmax; padding: .625rem 1.25rem; background: var(--surface, #221a30); color: var(--foreground, #fff4ed); font: 700 .9375rem / 1.5 var(--font-inter, \"Inter\"), sans-serif; cursor: pointer; transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out; }\n.ds-button-outline:not(:disabled):hover { background: var(--primary-accent, #392942); border-color: var(--primary, #f6b7ce); }\n.ds-button-outline:focus-visible { outline: 2px solid var(--ring, #ffb9d2); outline-offset: 3px; }\n.ds-button-outline:disabled { opacity: .55; cursor: not-allowed; }"
+    },
+    {
+      "name": "Carousel Arrow",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "The circular arrow beside the showcase indicators.",
+      "html": "<button class=\"ds-icon-button\" type=\"button\" aria-label=\"Next portrait\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"m10 6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-icon-button { box-sizing: border-box; display: inline-grid; width: 2.75rem; height: 2.75rem; place-items: center; border: 1px solid var(--border, #51405b); border-radius: 50%; background: var(--surface, #221a30); color: var(--foreground, #fff4ed); cursor: pointer; transition: background-color 180ms ease-out, border-color 180ms ease-out; }\n.ds-icon-button:hover { border-color: var(--primary, #f6b7ce); background: var(--primary-accent, #392942); }\n.ds-icon-button:focus-visible { outline: 2px solid var(--ring, #ffb9d2); outline-offset: 3px; }"
+    },
+    {
+      "name": "Personalization Field",
+      "kind": "input",
+      "refersTo": "prompt-field",
+      "description": "The optional instruction field in the portrait editor.",
+      "html": "<div class=\"ds-prompt\"><input class=\"ds-prompt-input\" type=\"text\" aria-label=\"Personalise\" placeholder=\"Personalise — add a crown…\"><span class=\"ds-prompt-status\">Optional</span></div>",
+      "css": ".ds-prompt { position: relative; width: 100%; }\n.ds-prompt-input { box-sizing: border-box; width: 100%; border: 1px solid var(--border, #51405b); border-radius: .5rem; padding: .75rem 6rem .75rem 1rem; background: var(--input, #1d172a); color: var(--foreground, #fff4ed); caret-color: var(--primary, #f6b7ce); font: 400 1rem / 1.5 var(--font-inter, \"Inter\"), sans-serif; transition: border-color 150ms; }\n.ds-prompt-input::placeholder { color: var(--muted-foreground, #cebfce); }\n.ds-prompt-input:focus { border-color: var(--primary, #f6b7ce); }\n.ds-prompt-input:focus-visible { outline: 2px solid var(--ring, #ffb9d2); outline-offset: 3px; }\n.ds-prompt-status { position: absolute; top: 50%; right: .75rem; display: flex; height: 1.75rem; align-items: center; border-radius: 100vmax; padding: 0 .75rem; transform: translateY(-50%); background: var(--primary-accent, #392942); color: var(--muted-foreground, #cebfce); font: 400 .75rem / 1 var(--font-inter, \"Inter\"), sans-serif; pointer-events: none; }"
+    },
+    {
+      "name": "Site Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "The plum header combines the striped wordmark and credits.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-inner\"><a class=\"ds-wordmark\" href=\"/\">GTA 6 Posters</a><div class=\"ds-credits\"><span class=\"ds-credits-item\"><strong>2</strong> credits left</span><span class=\"ds-credits-time\">Resets in <strong>10h 9m 12s</strong></span></div></div></nav>",
+      "css": ".ds-nav { background: #191525; border-bottom: 1px solid #352840; }\n.ds-nav-inner { box-sizing: border-box; display: flex; min-height: 4.25rem; width: min(77rem, calc(100% - 2 * clamp(1.125rem, 4vw, 3.25rem))); margin-inline: auto; align-items: center; justify-content: space-between; gap: .75rem; padding-block: .75rem; }\n.ds-wordmark { display: inline-flex; align-items: center; gap: .6rem; color: var(--foreground, #fff4ed); font: 900 clamp(1.375rem, 6vw, 1.75rem) / .94 var(--font-barlow, \"Barlow Condensed\"), sans-serif; letter-spacing: -.014em; text-decoration: none; text-transform: uppercase; white-space: nowrap; }\n.ds-wordmark::before { width: 1.6rem; height: 1.13rem; background: linear-gradient(to bottom, #ffc99f 0 24%, transparent 24% 37%, #f6b7ce 37% 63%, transparent 63% 76%, #c3aadf 76% 100%); transform: skewX(-18deg); content: \"\"; }\n.ds-wordmark:focus-visible { outline: 2px solid var(--ring, #ffb9d2); outline-offset: 3px; }\n.ds-credits { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0 .375rem; border: 1px solid var(--border, #51405b); border-radius: 100vmax; padding: .375rem .625rem; background: var(--surface, #221a30); color: var(--muted-foreground, #cebfce); font: 500 .65rem / 1.5 var(--font-inter, \"Inter\"), sans-serif; font-variant-numeric: tabular-nums; }\n.ds-credits-item, .ds-credits-time { white-space: nowrap; }\n.ds-credits-time { display: inline-flex; align-items: center; gap: .375rem; }\n.ds-credits-time::before { width: .25rem; height: .25rem; border-radius: 50%; background: var(--primary, #f6b7ce); opacity: .8; content: \"\"; }\n.ds-credits strong { color: var(--primary, #f6b7ce); font-weight: 700; }\n@media (min-width: 40rem) { .ds-credits { padding-inline: .75rem; font-size: .75rem; } }"
+    },
+    {
+      "name": "Credits Pill",
+      "kind": "chip",
+      "refersTo": "credits-chip",
+      "description": "A compact count and reset timer in the navigation.",
+      "html": "<div class=\"ds-credits\"><span class=\"ds-credits-item\"><strong>2</strong> credits left</span><span class=\"ds-credits-time\">Resets in <strong>10h 9m 12s</strong></span></div>",
+      "css": ".ds-credits { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0 .375rem; border: 1px solid var(--border, #51405b); border-radius: 100vmax; padding: .375rem .625rem; background: var(--surface, #221a30); color: var(--muted-foreground, #cebfce); font: 500 .65rem / 1.5 var(--font-inter, \"Inter\"), sans-serif; font-variant-numeric: tabular-nums; }\n.ds-credits-item, .ds-credits-time { white-space: nowrap; }\n.ds-credits-time { display: inline-flex; align-items: center; gap: .375rem; }\n.ds-credits-time::before { width: .25rem; height: .25rem; border-radius: 50%; background: var(--primary, #f6b7ce); opacity: .8; content: \"\"; }\n.ds-credits strong { color: var(--primary, #f6b7ce); font-weight: 700; }\n@media (min-width: 40rem) { .ds-credits { padding-inline: .75rem; font-size: .75rem; } }"
+    },
+    {
+      "name": "Purchase Plan",
+      "kind": "card",
+      "refersTo": "purchase-plan",
+      "description": "The plum purchase card with a condensed title and outlined digital action.",
+      "html": "<article class=\"ds-plan\"><div class=\"ds-plan-header\"><h3>Digital Download</h3><span>Prefer digital only?</span></div><strong class=\"ds-plan-price\">$29</strong><p>No physical print, digital file only</p><button class=\"ds-plan-button\" type=\"button\">Digital Only</button></article>",
+      "css": ".ds-plan { display: grid; gap: 1rem; border: 1px solid var(--border, #51405b); border-radius: .85rem; padding: clamp(1rem, 2vw, 1.55rem); background: var(--surface, #221a30); color: var(--foreground, #fff4ed); font: 400 .875rem / 1.5 var(--font-inter, \"Inter\"), sans-serif; }\n.ds-plan-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25rem .75rem; }\n.ds-plan-header h3 { margin: 0; font: 900 clamp(1.65rem, 2.7vw, 2.125rem) / .96 var(--font-barlow, \"Barlow Condensed\"), sans-serif; text-transform: uppercase; }\n.ds-plan-header span { color: var(--muted-foreground, #cebfce); font-size: .75rem; font-weight: 500; }\n.ds-plan-price { font: 900 2.5rem / 1 var(--font-barlow, \"Barlow Condensed\"), sans-serif; font-variant-numeric: tabular-nums; }\n.ds-plan p { margin: 0; color: var(--muted-foreground, #cebfce); }\n.ds-plan-button { display: inline-flex; min-height: 3.125rem; align-items: center; justify-content: center; gap: .625rem; border: 1px solid var(--border, #51405b); border-radius: 100vmax; padding: .625rem 1.25rem; background: var(--surface, #221a30); color: var(--foreground, #fff4ed); font: 700 .9375rem / 1.5 var(--font-inter, \"Inter\"), sans-serif; cursor: pointer; transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out; }\n.ds-plan-button:not(:disabled):hover { background: var(--primary-accent, #392942); border-color: var(--primary, #f6b7ce); }\n.ds-plan-button:focus-visible { outline: 2px solid var(--ring, #ffb9d2); outline-offset: 3px; }\n.ds-plan-button:disabled { opacity: .55; cursor: not-allowed; }"
+    },
+    {
+      "name": "Style Tiles",
+      "kind": "custom",
+      "refersTo": "style-option",
+      "description": "Three illustrated radio choices shared by the creator and editor.",
+      "html": "<fieldset class=\"ds-style-picker\"><legend>Pick a style</legend><div class=\"ds-style-row\"><label class=\"ds-style-option\"><input class=\"ds-style-radio\" type=\"radio\" name=\"ds-style\" checked><span class=\"ds-style-image\"><img alt=\"\" src=\"/posters/cover-art.webp\"></span><span class=\"ds-style-name\">Cover Art</span></label><label class=\"ds-style-option\"><input class=\"ds-style-radio\" type=\"radio\" name=\"ds-style\"><span class=\"ds-style-image\"><img alt=\"\" src=\"/posters/character.webp\"></span><span class=\"ds-style-name\">Character</span></label><label class=\"ds-style-option\"><input class=\"ds-style-radio\" type=\"radio\" name=\"ds-style\"><span class=\"ds-style-image\"><img alt=\"\" src=\"/posters/the-album.webp\"></span><span class=\"ds-style-name\">The Album</span></label></div></fieldset>",
+      "css": ".ds-style-picker { min-width: 0; margin: 0; border: 0; padding: 0; }\n.ds-style-picker legend { margin-bottom: .625rem; color: var(--primary, #f6b7ce); font: 700 .75rem / 1rem var(--font-inter, \"Inter\"), sans-serif; letter-spacing: .11em; text-transform: uppercase; }\n.ds-style-row { display: flex; gap: .55rem; overflow-x: auto; margin: -.2rem; padding: .2rem; scrollbar-width: thin; }\n.ds-style-option { box-sizing: border-box; position: relative; display: flex; min-width: 5rem; flex: 1 0 calc((100% - 1.1rem) / 3); flex-direction: column; overflow: hidden; border: 1px solid var(--border, #51405b); border-radius: .65rem; background: #20182d; color: var(--foreground, #fff4ed); cursor: pointer; transition: background-color 180ms ease-out, border-color 180ms ease-out; }\n.ds-style-option:hover { border-color: #b492bb; }\n.ds-style-option:has(:checked) { border-color: var(--primary, #f6b7ce); background: var(--primary, #f6b7ce); color: var(--primary-foreground, #28182a); }\n.ds-style-option:has(:focus-visible) { outline: 2px solid var(--ring, #ffb9d2); outline-offset: 1px; }\n.ds-style-radio { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }\n.ds-style-image { position: relative; aspect-ratio: 1.48; }\n.ds-style-image img { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center 27%; }\n.ds-style-option:first-child img { object-position: top; }\n.ds-style-name { padding: .45rem .55rem .5rem; font: 700 clamp(.75rem, 2.8vw, .875rem) / 1.3 var(--font-inter, \"Inter\"), sans-serif; }"
+    },
+    {
+      "name": "Photo Upload",
+      "kind": "input",
+      "refersTo": "upload-target",
+      "description": "The dashed target for dropping a photo or opening the file picker.",
+      "html": "<div class=\"ds-upload\"><label class=\"ds-upload-target\"><input class=\"ds-upload-input\" type=\"file\" accept=\"image/*\" multiple aria-label=\"Upload a photo\"><span class=\"ds-upload-icon\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0-12L8 8m4-4l4 4\"/></svg></span><span class=\"ds-upload-mobile\">Tap to upload a photo</span><span class=\"ds-upload-desktop\">Drop a photo or click to upload</span></label></div>",
+      "css": ".ds-upload { display: flex; width: 100%; }\n.ds-upload-target { box-sizing: border-box; display: flex; width: 100%; min-height: 4.875rem; align-items: center; justify-content: center; gap: .75rem; border: 1px dashed #a87f9c; border-radius: .75rem; padding: .85rem; background: #251934; color: var(--foreground, #fff4ed); font: 700 .9375rem / 1.5 var(--font-inter, \"Inter\"), sans-serif; text-align: center; cursor: pointer; transition: background-color 180ms ease-out, border-color 180ms ease-out; }\n.ds-upload-target:hover { background: #382641; border-color: var(--primary, #f6b7ce); }\n.ds-upload-target:has(:focus-visible) { outline: 2px solid var(--ring, #ffb9d2); outline-offset: 1px; }\n.ds-upload-input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }\n.ds-upload-icon { display: grid; width: 2.5rem; height: 2.5rem; flex: none; place-items: center; border-radius: 50%; background: var(--primary, #f6b7ce); color: #000; }\n.ds-upload-desktop { display: none; }\n@media (min-width: 48rem) { .ds-upload-desktop { display: inline; } .ds-upload-mobile { display: none; } }"
+    },
+    {
+      "name": "Preview Artwork",
+      "kind": "custom",
+      "refersTo": "preview-art",
+      "description": "The portrait frame contains the artwork at its full proportions.",
+      "html": "<div class=\"ds-preview-art\"><img src=\"/posters/character.webp\" alt=\"Illustrated portrait sample\"></div>",
+      "css": ".ds-preview-art { position: relative; width: min(100%, 30rem); aspect-ratio: 1 / 1.41421356; overflow: hidden; border-radius: .65rem; background: #1e172b; box-shadow: 0 1.4rem 3rem -1.75rem #0c0715; }\n.ds-preview-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Coastal Poster Studio",
+    "overview": "Original illustrated posters bring coastal sunsets, palm silhouettes, and saturated color into a deep plum interface. The homepage lets the artwork meet the controls at the edge of the hero. The generation preview gives one portrait a clearly framed place beside its options.\n\nLarge, tightly set headings give sections the weight of a poster title. Controls sit close together around the task at hand. Generous space between sections gives each image and heading room.",
+    "keyCharacteristics": [
+      "Original illustration for the poster samples and coastal backdrop, with a photographic poster mockup.",
+      "Deep plum surfaces with warm ivory text, blush selection, and peach sale details.",
+      "Condensed uppercase headings and Inter for reading and controls.",
+      "Compact form controls, room for portrait images, and visible carousel controls."
+    ],
+    "rules": [
+      {
+        "name": "The Accent Rule",
+        "body": "Use blush to identify the main action or active choice. Use peach to call out a sale or price.",
+        "section": "colors"
+      },
+      {
+        "name": "The Heading Rule",
+        "body": "Use Barlow Condensed for titles and prices. Keep directions, option names, and buttons in Inter.",
+        "section": "typography"
+      },
+      {
+        "name": "The Layering Rule",
+        "body": "Define panels with tonal fills and borders. Use a soft shadow beneath the large preview artwork.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use original artwork for new site imagery and keep the exact generation prompt with each asset in `public/posters`.",
+      "Do keep the whole poster visible in the preview and allow sample images to crop for their tiles.",
+      "Do show selection and keyboard focus with distinct outlines or fills.",
+      "Do preserve the existing copy and the scrolling behavior of both homepage carousels."
+    ],
+    "donts": [
+      "Don't cover the upload and style controls with bright artwork. Use the dark edge of the backdrop or its plum gradient beneath text."
+    ]
+  }
+}

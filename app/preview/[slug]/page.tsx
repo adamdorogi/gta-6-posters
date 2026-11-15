@@ -2,12 +2,13 @@ import Footer from "@/app/ui/footer";
 import NavBar from "@/app/ui/nav-bar";
 import { supabase } from "@/app/utils/supabase";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import PreviewComponent from "@/app/ui/preview-component";
-import { getShowcaseImages } from "@/app/utils/showcase";
 
 export const metadata: Metadata = {
-  title: "Your Royal Portrait",
+  title: "Your Poster Preview",
+  description: "Review your personalized GTA 6-style poster and choose a print or digital download.",
+  robots: { index: false, follow: false, noimageindex: true },
 };
 
 export default async function Preview({
@@ -37,7 +38,7 @@ export default async function Preview({
   }));
 
   if (!generations || generations.length === 0) {
-    redirect("/");
+    notFound();
   }
 
   const styleId = generations[0].generation_groups.style_id;
@@ -52,7 +53,6 @@ export default async function Preview({
         generationGroupId={generationGroupId}
         styleId={styleId}
         userPrompt={userPrompt}
-        portraitFiles={await getShowcaseImages()}
       />
       <Footer />
     </div>

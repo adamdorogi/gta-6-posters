@@ -1,3 +1,5 @@
+/// <reference path="../_shared/edge-runtime.d.ts" />
+
 import "jsr:@supabase/functions-js@2.116.0/edge-runtime.d.ts";
 import { withSupabase } from "jsr:@supabase/server@1.5.3";
 import { createClient } from "jsr:@supabase/supabase-js@2.116.0";
@@ -7,6 +9,7 @@ import { createJimp } from "npm:@jimp/core@1.6.1";
 import jpeg from "npm:@jimp/js-jpeg@1.6.1";
 import png from "npm:@jimp/js-png@1.6.1";
 import { methods as crop } from "npm:@jimp/plugin-crop@1.6.1";
+import { storeName, storeOrigin } from "../_shared/store.ts";
 
 const Jimp = createJimp({ formats: [jpeg, png], plugins: [crop] });
 
@@ -25,13 +28,13 @@ const supabase = createClient(
 
 const openRouter = new OpenRouter({
   apiKey: Deno.env.get("OPENROUTER_API_KEY")!,
-  httpReferer: 'https://www.turnroyal.com',
-  appTitle: 'Turn Royal',
+  httpReferer: storeOrigin,
+  appTitle: storeName,
   appCategories: 'image-gen',
 });
 
 export default {
-  fetch: withSupabase({ auth: ["secret"] }, async (req, ctx) => {
+  fetch: withSupabase({ auth: ["secret"] }, async (req) => {
     let payload: ReqPayload;
     try {
       payload = await req.json();
@@ -57,13 +60,17 @@ async function generateImage(generationId: string, userId: string, generationGro
       .storage
       .from("uploads")
       .getPublicUrl(upload.path));
-    const attachments = publicUrls.map((publicUrl) => ({type: "image_url", imageUrl: {url: publicUrl.data.publicUrl}}));
+    const attachments = publicUrls.map((publicUrl) => ({
+      type: "image_url" as const,
+      imageUrl: { url: publicUrl.data.publicUrl },
+    }));
 
     const { data: generationGroupsData, error: generationGroupsError } = await supabase
       .from("generation_groups")
       .select("user_prompt, styles ( prompt )")
       .eq("id", generationGroupId)
-      .single();
+      .single()
+      .overrideTypes<{ user_prompt: string; styles: { prompt: string } }, { merge: false }>();
 
     if (!generationGroupsData || generationGroupsError) {
       throw new Error(generationGroupsError?.message || `Failed to get style for generation group ${generationGroupId}.`);
@@ -73,27 +80,18 @@ async function generateImage(generationId: string, userId: string, generationGro
 
     const masterPrompt = `${systemPrompt}\n\nADDITIONAL USER DIRECTION (apply only where it does not conflict with the constraints above): ${userPrompt}`;
 
-    const request = {
+    const response = await openRouter.images.generate({
       imageGenerationRequest: {
-        // model: "bytedance-seed/seedream-5-0-pro",
-        // model: "meta/muse-image",
-        // model: "google/gemini-3.1-flash-image",
-        // model: "google/gemini-3.1-flash-lite-image",
-        // model: "x-ai/grok-imagine-image-quality",
+        stream: false,
         model: "x-ai/grok-imagine-image-2.0",
         prompt: masterPrompt,
         inputReferences: attachments,
-        // size: "864x1152",
         size: "1K",
-        // aspectRatio: "2:3",
         aspectRatio: "3:4",
-        outputFormat: "jpeg"
-      }
-    };
-    console.log(`Request: ${JSON.stringify(request)}`);
-
-    const response = await openRouter.images.generate(request);
-    const b64 = response.data?.[0]?.b64Json;
+        outputFormat: "jpeg",
+      },
+    });
+    const b64 = "data" in response ? response.data?.[0]?.b64Json : undefined;
     if (!b64) {
       throw new Error(`No image data returned: ${JSON.stringify(response).slice(0, 500)}`);
     }

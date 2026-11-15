@@ -1,15 +1,15 @@
 import type { MetadataRoute } from "next";
-import { metadata } from "./layout";
+import { site } from "./utils/site";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Turn Royal: Turn Your Pet Into Royalty",
-    short_name: "Turn Royal",
-    description: metadata.description!,
+    name: site.name,
+    short_name: site.name,
+    description: site.description,
     start_url: "/",
     display: "standalone",
-    background_color: "#392f5a",
-    theme_color: "#392f5a",
+    background_color: "#161322",
+    theme_color: "#161322",
     icons: [
       {
         src: "/icon-192.png",

@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
-import { metadata } from "./layout";
+import { site } from "./utils/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/preview/", "/api/"],
+      disallow: "/api/",
     },
-    sitemap: `${metadata.metadataBase}sitemap.xml`,
+    sitemap: new URL("/sitemap.xml", site.origin).href,
   };
 }
