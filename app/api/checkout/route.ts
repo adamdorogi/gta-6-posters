@@ -1,6 +1,7 @@
 import { after } from "next/server";
 import Stripe from "stripe";
-import { getProductDetails, isProductSize, storeCurrency } from "@/app/utils/pricing";
+import { defaultCurrency, getProductDetails, isProductSize } from "@/app/utils/pricing";
+import { getStoreCurrency } from "@/app/utils/regional-pricing";
 import { site } from "@/app/utils/site";
 import { supabase } from "@/app/utils/supabase";
 import {
@@ -16,9 +17,14 @@ import { shippingCountries } from "./shipping-countries";
 
 export async function POST(request: Request) {
   try {
-    const { generationId, size, metaEventId, tikTokEventId } = await request.json();
+    const { generationId, size, currency: requestedCurrency = defaultCurrency, metaEventId, tikTokEventId } = await request.json();
     if (typeof generationId !== "string" || !isProductSize(size)) {
       return Response.json({ error: "Invalid poster or size." }, { status: 400 });
+    }
+
+    const currency = await getStoreCurrency();
+    if (requestedCurrency !== currency) {
+      return Response.json({ error: "Regional pricing has changed. Refresh the page and try again." }, { status: 409 });
     }
 
     const { data: generation, error: generationError } = await supabase
@@ -32,7 +38,7 @@ export async function POST(request: Request) {
       return Response.json({ error: "The poster preview is unavailable." }, { status: 400 });
     }
 
-    const product = getProductDetails(size);
+    const product = getProductDetails(size, currency);
     const isPrint = size !== "Digital";
     const origin = process.env.VERCEL_ENV === "production" ? site.origin : new URL(request.url).origin;
     const returnUrl = new URL(`/preview/${generation.generation_group_id}`, origin);
@@ -92,7 +98,7 @@ export async function POST(request: Request) {
               images: [imageUrl],
             },
             unit_amount: product.price,
-            currency: storeCurrency.toLowerCase(),
+            currency: currency.toLowerCase(),
           },
           quantity: 1,
         },
@@ -132,7 +138,7 @@ export async function POST(request: Request) {
                 content_ids: [product.id],
                 content_name: product.name,
                 content_type: "product",
-                currency: storeCurrency,
+                currency,
                 value,
                 num_items: 1,
               },
@@ -172,7 +178,7 @@ export async function POST(request: Request) {
                   content_name: product.name,
                   brand: site.name,
                 }],
-                currency: storeCurrency,
+                currency,
                 value,
                 content_type: "product",
               },

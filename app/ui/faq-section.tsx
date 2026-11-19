@@ -1,8 +1,8 @@
-import { formatPrice, products } from "../utils/pricing";
+import { defaultCurrency, formatPrice, getProductDetails, type StoreCurrency } from "../utils/pricing";
 import { site } from "../utils/site";
 import FaqItem from "./faq-item";
 
-export default function FaqSection() {
+export default function FaqSection({ currency = defaultCurrency }: { currency?: StoreCurrency }) {
   return (
     <section id="qa" className="site-section bg-background">
       <div className="site-container grid items-start gap-7 lg:grid-cols-[0.72fr_1.28fr] lg:gap-x-20">
@@ -56,7 +56,7 @@ export default function FaqSection() {
           <FaqItem
             question="How much does a custom poster cost?"
             answers={[
-              `Printed posters start at ${formatPrice(products.Small.price)} and a digital download costs ${formatPrice(products.Digital.price)}. Prices are in USD. See the available sizes and total after creating your free preview.`,
+              `Printed posters start at ${formatPrice(getProductDetails("Small", currency).price, currency)} and a digital download costs ${formatPrice(getProductDetails("Digital", currency).price, currency)}. Prices are in ${currency}. See the available sizes and total after creating your free preview.`,
             ]}
           />
           <FaqItem

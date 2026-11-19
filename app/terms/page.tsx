@@ -278,7 +278,8 @@ export default function Terms() {
               6.1 Pricing
             </h3>
             <p>
-              All prices are displayed in US dollars (USD) and are
+              Prices are displayed in Hungarian forints (HUF) for visitors in
+              Hungary and US dollars (USD) elsewhere, and are
               inclusive of applicable taxes unless otherwise stated. We reserve
               the right to change prices at any time without notice. Price
               changes do not affect orders that have already been completed.

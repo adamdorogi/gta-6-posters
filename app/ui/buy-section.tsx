@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import BuyButton from "./buy-button";
-import { formatPrice, printSizes, products, storeCurrency } from "@/app/utils/pricing";
+import { formatPrice, getProductDetails, printSizes, products, type StoreCurrency } from "@/app/utils/pricing";
 
 type Generation = {
   publicUrl: string | null;
@@ -47,14 +47,17 @@ function PlanFeatures({ items }: { items: string[] }) {
 
 export default function BuySection({
   selectedGeneration,
+  currency,
   position = "below",
 }: {
   selectedGeneration: Generation;
+  currency: StoreCurrency;
   position?: "beside-artwork" | "below";
 }) {
   const [unit, setUnit] = useState<"cm" | "in">("cm");
   const [selectedSize, setSelectedSize] = useState<(typeof printSizes)[number]>("Medium");
   const selectedPrint = products[selectedSize];
+  const selectedPrice = getProductDetails(selectedSize, currency).price;
   const printDimension = (mm: number) =>
     unit === "cm" ? mm / 10 : (mm / 25.4).toFixed(1);
 
@@ -70,8 +73,8 @@ export default function BuySection({
           <h3 className="purchase-plan__title">Poster + Digital Download</h3>
           <div>
             <div className="purchase-price">
-              <span className="text-accent">{formatPrice(selectedPrint.price)}</span>
-              <span className="text-sm text-muted-foreground">{storeCurrency}</span>
+              <span className="text-accent">{formatPrice(selectedPrice, currency)}</span>
+              <span className="text-sm text-muted-foreground">{currency}</span>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               A paper print for your wall and a digital copy sent to your inbox.
@@ -104,7 +107,7 @@ export default function BuySection({
                   className="purchase-size"
                 >
                   <span className="purchase-size__dimensions">{products[size].label}</span>
-                  <span className="text-xs text-muted-foreground">{formatPrice(products[size].price)}</span>
+                  <span className="text-xs text-muted-foreground">{formatPrice(getProductDetails(size, currency).price, currency)}</span>
                 </button>
               ))}
             </div>
@@ -115,6 +118,7 @@ export default function BuySection({
 
           <PlanFeatures items={printFeatures} />
           <BuyButton
+            currency={currency}
             disabled={!selectedGeneration?.path}
             size={selectedSize}
             generationId={selectedGeneration.id}
@@ -130,13 +134,14 @@ export default function BuySection({
           </div>
           <div>
             <div className="purchase-price">
-              <span>{formatPrice(products.Digital.price)}</span>
-              <span className="text-sm text-muted-foreground">{storeCurrency}</span>
+              <span>{formatPrice(getProductDetails("Digital", currency).price, currency)}</span>
+              <span className="text-sm text-muted-foreground">{currency}</span>
             </div>
             <p className="mt-2 text-sm text-muted-foreground">Save your artwork or print it yourself.</p>
           </div>
           <PlanFeatures items={digitalFeatures} />
           <BuyButton
+            currency={currency}
             disabled={!selectedGeneration?.path}
             size="Digital"
             generationId={selectedGeneration.id}

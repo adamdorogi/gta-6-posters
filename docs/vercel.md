@@ -4,6 +4,19 @@ The existing project is `gta-6-posters` under `adamdorogis-projects`. It uses
 the Next.js preset and Node.js 26.x. The repository contains a pinned Vercel
 CLI command. Run these commands from the repository root.
 
+## Regional pricing
+
+The website reads Vercel's `x-vercel-ip-country` request header on the server.
+Visitors in Hungary (`HU`) receive the fixed HUF prices in
+`app/utils/pricing.ts`. All other countries, including requests without a
+country header, receive the USD prices. Checkout independently checks the
+region and uses the server's price list. A currency mismatch refreshes the
+page prices before the buyer can open another checkout.
+
+For local verification, send `x-vercel-ip-country: HU` to the dev server.
+Vercel supplies this header on deployed requests. Pricing is rendered per
+request, including on the homepage FAQ and preview pages.
+
 ## Work with the existing project
 
 ```sh

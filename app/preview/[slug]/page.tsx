@@ -4,6 +4,7 @@ import { supabase } from "@/app/utils/supabase";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PreviewComponent from "@/app/ui/preview-component";
+import { getStoreCurrency } from "@/app/utils/regional-pricing";
 
 export const metadata: Metadata = {
   title: "Your Poster Preview",
@@ -17,7 +18,7 @@ export default async function Preview({
   params: Promise<{ slug: string }>;
 }) {
   const generationGroupId = (await params).slug;
-  const [{ data: generations }, { data: styles }] = await Promise.all([
+  const [{ data: generations }, { data: styles }, currency] = await Promise.all([
     supabase
       .from("generations")
       .select("id, status, path, generation_groups(style_id, user_prompt)")
@@ -27,6 +28,7 @@ export default async function Preview({
       .from("styles")
       .select("id, name")
       .order("rank", { ascending: true }),
+    getStoreCurrency(),
   ]);
 
   const generationsWithUrls = generations?.map((gen) => ({
@@ -53,6 +55,7 @@ export default async function Preview({
         generationGroupId={generationGroupId}
         styleId={styleId}
         userPrompt={userPrompt}
+        currency={currency}
       />
       <Footer />
     </div>

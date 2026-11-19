@@ -13,6 +13,7 @@ import { Metadata } from "next";
 import ShowcaseSection from "./ui/showcase-section";
 import MockupSection from "./ui/mockup-section";
 import { site } from "./utils/site";
+import { getStoreCurrency } from "./utils/regional-pricing";
 
 export const metadata: Metadata = {
   title: { absolute: `Custom Posters From Your Photos | ${site.name}` },
@@ -75,10 +76,13 @@ const features = [
 ];
 
 export default async function Home() {
-  const { data: styles } = await supabase
-    .from("styles")
-    .select("id, name")
-    .order("rank", { ascending: true });
+  const [{ data: styles }, currency] = await Promise.all([
+    supabase
+      .from("styles")
+      .select("id, name")
+      .order("rank", { ascending: true }),
+    getStoreCurrency(),
+  ]);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -171,7 +175,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <QASection />
+        <QASection currency={currency} />
         <TryFreeSection />
       </main>
       <Footer />

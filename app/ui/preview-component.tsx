@@ -7,6 +7,7 @@ import BuySection from "./buy-section";
 import { useState } from "react";
 import ShowcaseSection from "./showcase-section";
 import MockupSection from "./mockup-section";
+import type { StoreCurrency } from "../utils/pricing";
 
 export default function PreviewComponent({
   generations,
@@ -14,6 +15,7 @@ export default function PreviewComponent({
   generationGroupId,
   styleId,
   userPrompt,
+  currency,
 }: {
   generations: {
     publicUrl: string | null;
@@ -29,6 +31,7 @@ export default function PreviewComponent({
   generationGroupId: string;
   styleId: string;
   userPrompt: string;
+  currency: StoreCurrency;
 }) {
   const [selectedIndex, setSelectedIndex] = useState(generations.length - 1);
 
@@ -46,13 +49,13 @@ export default function PreviewComponent({
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
           />
-          <BuySection selectedGeneration={generations[selectedIndex]} position="beside-artwork" />
+          <BuySection selectedGeneration={generations[selectedIndex]} currency={currency} position="beside-artwork" />
         </div>
       </div>
       <MockupSection hideScrollButton={true} />
       <ShowcaseSection />
-      <FaqSection />
-      <BuySection selectedGeneration={generations[selectedIndex]} />
+      <FaqSection currency={currency} />
+      <BuySection selectedGeneration={generations[selectedIndex]} currency={currency} />
     </main>
   );
 }

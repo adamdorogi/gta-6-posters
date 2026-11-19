@@ -1,4 +1,5 @@
-export const storeCurrency = "USD";
+export const defaultCurrency = "USD";
+export type StoreCurrency = "USD" | "HUF";
 
 export const printSizes = ["Small", "Medium", "Large", "XL"] as const;
 
@@ -12,28 +13,50 @@ export const products = {
 
 export type ProductSize = keyof typeof products;
 
+// Stripe represents both USD and HUF charges in hundredths of the currency.
+const hungarianPrices: Record<ProductSize, number> = {
+  Small: 325000,
+  Medium: 525000,
+  Large: 725000,
+  XL: 1125000,
+  Digital: 100000,
+};
+
+export function getCurrencyForCountry(country: string | null | undefined): StoreCurrency {
+  return country?.trim().toUpperCase() === "HU" ? "HUF" : defaultCurrency;
+}
+
 export function isProductSize(value: unknown): value is ProductSize {
   return typeof value === "string" && Object.hasOwn(products, value);
 }
 
-const priceFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: storeCurrency,
-  minimumFractionDigits: 0,
-});
+const priceFormatters = {
+  USD: new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+  }),
+  HUF: new Intl.NumberFormat("hu-HU", {
+    style: "currency",
+    currency: "HUF",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }),
+};
 
-export function formatPrice(amount: number) {
-  return priceFormatter.format(amount / 100);
+export function formatPrice(amount: number, currency: StoreCurrency = defaultCurrency) {
+  return priceFormatters[currency].format(amount / 100);
 }
 
-export function getProductDetails(size: ProductSize) {
+export function getProductDetails(size: ProductSize, currency: StoreCurrency = defaultCurrency) {
   const product = products[size];
+  const price = currency === "HUF" ? hungarianPrices[size] : product.price;
   return {
     id: `personalized-poster-${product.label.toLowerCase()}`,
     name:
       size === "Digital"
         ? "Personalized Poster Digital Download"
         : `${product.label} Poster Print + Digital Download`,
-    price: product.price,
+    price,
   };
 }
