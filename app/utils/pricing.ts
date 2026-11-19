@@ -3,10 +3,10 @@ export const storeCurrency = "USD";
 export const printSizes = ["Small", "Medium", "Large", "XL"] as const;
 
 export const products = {
-  Small: { label: "A4", price: 2400, widthMm: 210, heightMm: 297 },
-  Medium: { label: "A3", price: 2900, widthMm: 297, heightMm: 420 },
-  Large: { label: "A2", price: 3400, widthMm: 420, heightMm: 594 },
-  XL: { label: "A1", price: 4400, widthMm: 594, heightMm: 841 },
+  Small: { label: "A4", price: 1000, widthMm: 210, heightMm: 297 },
+  Medium: { label: "A3", price: 1500, widthMm: 297, heightMm: 420 },
+  Large: { label: "A2", price: 2200, widthMm: 420, heightMm: 594 },
+  XL: { label: "A1", price: 3200, widthMm: 594, heightMm: 841 },
   Digital: { label: "Digital", price: 400 },
 } as const;
 
