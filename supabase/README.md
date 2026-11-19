@@ -23,6 +23,42 @@ The generation function labels the first attachment as style guidance and
 sends every upload after it as a subject photo. MiniMax H3 Image handles
 generation and accepts up to 16 images per request, including the style reference.
 
+## Influencer commissions
+
+Checkout accepts Stripe promotion codes. Create the buyer's 10% discount and
+the public promotion code `SZONJA10` in Stripe. Each paid checkout that
+redeems that code earns 15% of the discounted product amount, excluding
+separately charged tax and shipping, before Stripe fees and fulfillment costs.
+Amounts are stored in the currency's smallest unit, such as USD cents.
+
+The order and its commission are saved together. The
+`public.referral_commissions` view shows the code, order number, sale amount,
+commission, manual payments, remaining `amount_due`, and payment status.
+Use `livemode = true` when preparing actual payouts. A repeated webhook
+cannot create a second order or commission for the same Checkout Session.
+Partial refunds reduce earnings proportionally to the refunded payment.
+Full refunds reduce earnings to zero. Recorded manual payments stay intact,
+so a refund after payout appears as a negative balance.
+
+Use this query to see outstanding balances by influencer and currency.
+
+```sql
+select referral_code, currency,
+       sum(commission_amount) as earned,
+       sum(commission_paid_amount) as paid,
+       sum(amount_due) as amount_due
+from public.referral_commissions
+where livemode = true
+group by referral_code, currency;
+```
+
+After sending a payment, update its specific orders in `public.orders`.
+Set `commission_paid_amount` to the total paid for that order, record
+`commission_paid_at`, and enter the bank-transfer reference in
+`commission_payment_reference`. The view calculates payment status and
+the remaining balance automatically. The view is restricted to server and
+database-administrator access.
+
 ## Restore to a new hosted project
 
 Use the [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started)
@@ -68,7 +104,8 @@ You can use `npx supabase@3.1.0` in place of `supabase`.
    `GTA 6 Posters <hello@gta6posters.com>`.
 
 4. Point the live and test Stripe webhook endpoints for
-   `checkout.session.completed` to
+   `checkout.session.completed`, `checkout.session.async_payment_succeeded`,
+   and `charge.refunded` to
    `https://<new-ref>.supabase.co/functions/v1/stripe-webhook`. Use the signing
    secrets for those endpoints as `STRIPE_WEBHOOK_SECRET` and
    `STRIPE_WEBHOOK_SECRET_TEST`. If you receive new signing secrets, update

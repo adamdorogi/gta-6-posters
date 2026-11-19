@@ -55,6 +55,10 @@ export async function POST(request: Request) {
       submit_type: "pay",
       payment_method_types: ["card"],
       adaptive_pricing: { enabled: false },
+      allow_promotion_codes: true,
+      payment_intent_data: {
+        metadata: { store: site.domain, generationId },
+      },
       metadata: {
         generationId,
         size,

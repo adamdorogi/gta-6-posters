@@ -5,7 +5,8 @@ import { withSupabase } from "jsr:@supabase/server@1.4.1";
 import { createClient } from "jsr:@supabase/supabase-js@2.112.3";
 import { Stripe } from "npm:stripe@22.5.0";
 import { encodeHex } from "jsr:@std/encoding@1.0.11/hex";
-import { storeName } from "../_shared/store.ts";
+import { storeName, storeOrigin } from "../_shared/store.ts";
+import { getReferralCommission } from "./referrals.ts";
 
 
 async function hashString(message?: string) {
@@ -41,7 +42,9 @@ export default {
       stripeWebhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET_TEST") as string;
     }
 
-    const stripe = new Stripe(stripeSecretKey);
+    const stripe = new Stripe(stripeSecretKey, {
+      httpClient: Stripe.createFetchHttpClient(),
+    });
     const signature = req.headers.get("stripe-signature");
     try {
       event = await stripe.webhooks.constructEventAsync(
@@ -56,177 +59,228 @@ export default {
       });
     }
 
-    if (event.type === "checkout.session.completed") {
-      console.log(`Webhook request received: ${event.id}`);
+    try {
+      if (event.type === "charge.refunded") {
+        const charge = await stripe.charges.retrieve(event.data.object.id);
+        const paymentIntentId = typeof charge.payment_intent === "string"
+          ? charge.payment_intent
+          : charge.payment_intent?.id;
+        if (!paymentIntentId) return new Response(null, { status: 204 });
 
-      const session = event.data.object;
-      const { generationId, size, productId, productName, printFormat, userAgent, ipAddress, userId, fbc, fbp, ttp, ttclid } = session.metadata ?? {};
-      if (!generationId || !size || session.payment_status !== "paid") {
+        const { data: order, error: orderError } = await supabase
+          .from("orders")
+          .select("id")
+          .eq("stripe_payment_intent_id", paymentIntentId)
+          .eq("stripe_livemode", event.livemode)
+          .maybeSingle();
+        if (orderError) throw new Error("Unable to load the refunded order.");
+        if (!order) {
+          // A refund can arrive before the checkout webhook has saved the order.
+          if (charge.metadata.store === new URL(storeOrigin).hostname.replace(/^www\./, "")) {
+            return Response.json({ error: "The refunded order is awaiting checkout processing." }, { status: 500 });
+          }
+          return new Response(null, { status: 204 });
+        }
+
+        const { error } = await supabase
+          .from("orders")
+          .update({ refunded_amount: charge.amount_refunded })
+          .eq("id", order.id)
+          .lt("refunded_amount", charge.amount_refunded);
+        if (error) throw new Error("Unable to update the refunded commission.");
         return new Response(null, { status: 204 });
       }
 
-      const shipping = session.collected_information?.shipping_details;
-      const { city, country, line1, line2, postal_code: postalCode, state } = shipping?.address ?? {};
-      const customer = session.customer_details;
-      const email = customer?.email || session.customer_email;
-      const customerName = shipping?.name || customer?.name || "";
-      const customerCountry = country || customer?.address?.country;
-      const currency = session.currency?.toUpperCase();
-      const total = session.amount_total;
-      if (!email || !currency || total === null) {
-        return Response.json({ error: "Checkout details are incomplete." }, { status: 500 });
-      }
-      const contentId = productId || "personalized-poster";
-      const contentName = productId ? productName : "Personalized Poster";
+      if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
+        console.log(`Webhook request received: ${event.id}`);
 
-      console.log("Generation ID:", generationId);
-      console.log("Size:", size);
+        const session = event.data.object;
+        const { generationId, size, productId, productName, printFormat, userAgent, ipAddress, userId, fbc, fbp, ttp, ttclid } = session.metadata ?? {};
+        if (!generationId || !size || session.payment_status !== "paid") {
+          return new Response(null, { status: 204 });
+        }
 
-      const { data, error } = await supabase
-        .from("orders")
-        .upsert({
-          generation_id: generationId,
-          size,
-          name: customerName,
-          email,
-          phone: customer?.phone ?? null,
-          city,
-          country: customerCountry,
-          line1,
-          line2,
-          postal_code: postalCode,
-          state,
-          product_name: productName,
-          print_format: printFormat === "paper-poster" ? printFormat : null,
-          stripe_event_id: event.id,
-          total_price: total,
-          currency,
-        }, { onConflict: "stripe_event_id", ignoreDuplicates: true })
-        .select("id, order_number")
-        .maybeSingle();
+        const shipping = session.collected_information?.shipping_details;
+        const { city, country, line1, line2, postal_code: postalCode, state } = shipping?.address ?? {};
+        const customer = session.customer_details;
+        const email = customer?.email || session.customer_email;
+        const customerName = shipping?.name || customer?.name || "";
+        const customerCountry = country || customer?.address?.country;
+        const currency = session.currency?.toUpperCase();
+        const total = session.amount_total;
+        if (!email || !currency || total === null) {
+          return Response.json({ error: "Checkout details are incomplete." }, { status: 500 });
+        }
+        const contentId = productId || "personalized-poster";
+        const contentName = productId ? productName : "Personalized Poster";
+        const commission = await getReferralCommission(stripe, session);
 
-      if (error) {
-        console.error("🚨 Error creating order:", error);
-        return new Response(
-          JSON.stringify({ error: "Failed to create order." }),
-          {
-            status: 500,
-          },
-        );
-      }
+        console.log("Generation ID:", generationId);
+        console.log("Size:", size);
 
-      if (!data) {
-        console.log("Order already exists, returning...");
-        return new Response(null, { status: 204 });
-      }
+        const { data, error } = await supabase
+          .from("orders")
+          .upsert({
+            generation_id: generationId,
+            size,
+            name: customerName,
+            email,
+            phone: customer?.phone ?? null,
+            city,
+            country: customerCountry,
+            line1,
+            line2,
+            postal_code: postalCode,
+            state,
+            product_name: productName,
+            print_format: printFormat === "paper-poster" ? printFormat : null,
+            stripe_event_id: event.id,
+            stripe_checkout_session_id: session.id,
+            stripe_payment_intent_id: typeof session.payment_intent === "string"
+              ? session.payment_intent
+              : session.payment_intent?.id ?? null,
+            stripe_livemode: event.livemode,
+            total_price: total,
+            currency,
+            ...commission,
+          }, { onConflict: "stripe_checkout_session_id", ignoreDuplicates: true })
+          .select("id, order_number")
+          .maybeSingle();
 
-      const orderId = data.id;
-      const orderNumber = data.order_number;
-      console.log(`Order #${orderNumber} (${orderId}) created successfully. Invoking process-order.`);
-
-      // Send Meta tracking event
-      const nameParts = customerName.trim().split(/\s+/);
-      const firstName = nameParts.shift() || "";
-      const lastName = nameParts.join(" ");
-      const metaPayload = {
-        test_event_code: requestJson.livemode ? null : "TEST14619",
-        data: [
-          {
-            event_name: "Purchase",
-            event_time: Math.floor(Date.now() / 1000),
-            action_source: "website",
-            event_source_url: session.cancel_url,
-            event_id: crypto.randomUUID(),
-            user_data: {
-              client_ip_address: ipAddress,
-              client_user_agent: userAgent,
-              fbc: fbc || undefined,
-              fbp: fbp || undefined,
-              external_id: userId,
-              em: await hashString(email?.trim().toLowerCase()),
-              fn: await hashString(firstName?.toLowerCase()),
-              ln: await hashString(lastName?.toLowerCase()),
-              country: await hashString(customerCountry?.trim().toLowerCase()),
-              st: await hashString(state?.trim().toLowerCase()),
-              zp: await hashString(postalCode?.trim().toLowerCase()),
-              ct: await hashString(city?.trim().toLowerCase()),
+        if (error) {
+          if (error.code === "23505") {
+            const { data: existing, error: existingError } = await supabase
+              .from("orders")
+              .select("id")
+              .eq("stripe_event_id", event.id)
+              .maybeSingle();
+            if (existing && !existingError) return new Response(null, { status: 204 });
+          }
+          console.error("🚨 Error creating order:", error);
+          return new Response(
+            JSON.stringify({ error: "Failed to create order." }),
+            {
+              status: 500,
             },
-            custom_data: {
-              content_ids: [contentId],
-              content_name: contentName,
-              content_type: "product",
-              currency,
-              value: total / 100,
-              num_items: 1,
+          );
+        }
+
+        if (!data) {
+          console.log("Order already exists, returning...");
+          return new Response(null, { status: 204 });
+        }
+
+        const orderId = data.id;
+        const orderNumber = data.order_number;
+        console.log(`Order #${orderNumber} (${orderId}) created successfully. Invoking process-order.`);
+
+        // Send Meta tracking event
+        const nameParts = customerName.trim().split(/\s+/);
+        const firstName = nameParts.shift() || "";
+        const lastName = nameParts.join(" ");
+        const metaPayload = {
+          test_event_code: requestJson.livemode ? null : "TEST14619",
+          data: [
+            {
+              event_name: "Purchase",
+              event_time: Math.floor(Date.now() / 1000),
+              action_source: "website",
+              event_source_url: session.cancel_url,
+              event_id: crypto.randomUUID(),
+              user_data: {
+                client_ip_address: ipAddress,
+                client_user_agent: userAgent,
+                fbc: fbc || undefined,
+                fbp: fbp || undefined,
+                external_id: userId,
+                em: await hashString(email?.trim().toLowerCase()),
+                fn: await hashString(firstName?.toLowerCase()),
+                ln: await hashString(lastName?.toLowerCase()),
+                country: await hashString(customerCountry?.trim().toLowerCase()),
+                st: await hashString(state?.trim().toLowerCase()),
+                zp: await hashString(postalCode?.trim().toLowerCase()),
+                ct: await hashString(city?.trim().toLowerCase()),
+              },
+              custom_data: {
+                content_ids: [contentId],
+                content_name: contentName,
+                content_type: "product",
+                currency,
+                value: total / 100,
+                num_items: 1,
+              },
             },
+          ],
+        };
+        EdgeRuntime.waitUntil(fetch(
+          `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${Deno.env.get("META_ACCESS_TOKEN")!}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(metaPayload),
           },
-        ],
-      };
-      EdgeRuntime.waitUntil(fetch(
-        `https://graph.facebook.com/v25.0/1725434085130628/events?access_token=${Deno.env.get("META_ACCESS_TOKEN")!}`,
-        {
+        ).catch(() => {}));
+
+        // Send TikTok tracking event
+        const tikTokPayload = {
+          event_source: "web",
+          event_source_id: "D99O34JC77U7PB56ORFG",
+          test_event_code: requestJson.livemode ? null : "TEST21861",
+          data: [
+            {
+              event: "Purchase",
+              event_time: Math.floor(Date.now() / 1000),
+              event_id: crypto.randomUUID(),
+              user: {
+                email: await hashString(email?.trim().toLowerCase()),
+                ttclid: ttclid || undefined,
+                ttp: ttp || undefined,
+                ip: ipAddress,
+                user_agent: userAgent,
+                external_id: userId,
+              },
+              properties: {
+                contents: [
+                  {
+                    price: total / 100,
+                    quantity: 1,
+                    content_id: contentId,
+                    content_name: contentName,
+                    brand: storeName,
+                  },
+                ],
+                currency,
+                value: total / 100,
+                content_type: "product",
+              },
+              page: {
+                url: session.cancel_url,
+                referrer: session.cancel_url,
+              },
+            },
+          ],
+        };
+        EdgeRuntime.waitUntil(fetch("https://business-api.tiktok.com/open_api/v1.3/event/track/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Access-Token": Deno.env.get("TIKTOK_ACCESS_TOKEN")! as string,
           },
-          body: JSON.stringify(metaPayload),
-        },
-      ).catch(() => {}));
+          body: JSON.stringify(tikTokPayload),
+        }).catch(() => {}));
 
-      // Send TikTok tracking event
-      const tikTokPayload = {
-        event_source: "web",
-        event_source_id: "D99O34JC77U7PB56ORFG",
-        test_event_code: requestJson.livemode ? null : "TEST21861",
-        data: [
-          {
-            event: "Purchase",
-            event_time: Math.floor(Date.now() / 1000),
-            event_id: crypto.randomUUID(),
-            user: {
-              email: await hashString(email?.trim().toLowerCase()),
-              ttclid: ttclid || undefined,
-              ttp: ttp || undefined,
-              ip: ipAddress,
-              user_agent: userAgent,
-              external_id: userId,
-            },
-            properties: {
-              contents: [
-                {
-                  price: total / 100,
-                  quantity: 1,
-                  content_id: contentId,
-                  content_name: contentName,
-                  brand: storeName,
-                },
-              ],
-              currency,
-              value: total / 100,
-              content_type: "product",
-            },
-            page: {
-              url: session.cancel_url,
-              referrer: session.cancel_url,
-            },
-          },
-        ],
-      };
-      EdgeRuntime.waitUntil(fetch("https://business-api.tiktok.com/open_api/v1.3/event/track/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Token": Deno.env.get("TIKTOK_ACCESS_TOKEN")! as string,
-        },
-        body: JSON.stringify(tikTokPayload),
-      }).catch(() => {}));
+        // Process order.
+        await supabase.functions.invoke("process-order", {
+          body: { orderId },
+        });
+      }
 
-      // Process order.
-      await supabase.functions.invoke("process-order", {
-        body: { orderId },
-      });
+      return new Response(null, { status: 204 });
+    } catch (error) {
+      console.error("Unable to process Stripe webhook:", error instanceof Error ? error.message : error);
+      return Response.json({ error: "Payment processing will be retried." }, { status: 500 });
     }
-
-    return new Response(null, { status: 204 });
   }),
 };
