@@ -49,7 +49,7 @@ export default function FaqSection({ currency = defaultCurrency }: { currency?: 
           <FaqItem
             question="What’s the difference between a printed poster and a digital download?"
             answers={[
-              "We print your artwork on glossy paper in A4, A3, A2, or A1 and ship it unframed. A high-resolution digital copy is included. You can also buy the file on its own and print it yourself.",
+              "We print your 12K-resolution artwork on glossy paper in A4, A3, A2, or A1 and ship it unframed. A 12K digital download is included. You can also buy the same 12K file on its own and print it yourself.",
               "Both options remove the preview watermark. Printed colors can vary slightly from what you see on a screen.",
             ]}
           />

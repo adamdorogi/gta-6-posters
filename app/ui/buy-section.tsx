@@ -17,11 +17,16 @@ type Generation = {
 const printFeatures = [
   "Smooth, glossy poster paper",
   "Unframed and ready to display",
-  "High-resolution digital file included",
+  "12K digital download included",
   "Standard shipping included to eligible destinations",
 ];
 
-const digitalFeatures = ["No watermark", "High-resolution file", "Download link by email"];
+const digitalFeatures = ["No watermark", "12K-resolution file", "Download link by email"];
+
+const sizeBadges: Partial<Record<(typeof printSizes)[number], string>> = {
+  Medium: "Most Popular",
+  Large: "★ Best Value",
+};
 
 function PlanFeatures({ items }: { items: string[] }) {
   return (
@@ -65,7 +70,7 @@ export default function BuySection({
     <section className={`purchase ${position === "below" ? "purchase--bottom site-container" : ""}`}>
       <div className="purchase__intro">
         <h2 className="section-title">Order your poster</h2>
-        <p className="mt-2 text-sm text-muted-foreground">Your finished artwork without the preview watermark.</p>
+        <p className="mt-2 text-sm text-muted-foreground">Your finished artwork in 12K resolution, without the preview watermark.</p>
       </div>
 
       <div className="purchase-plans">
@@ -77,7 +82,7 @@ export default function BuySection({
               <span className="text-sm text-muted-foreground">{currency}</span>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              A paper print for your wall and a digital copy sent to your inbox.
+              A poster printed from 12K artwork, with a matching digital download.
             </p>
           </div>
 
@@ -97,7 +102,7 @@ export default function BuySection({
                 ))}
               </div>
             </div>
-            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
+            <div className="purchase-sizes grid grid-cols-4 gap-1.5 sm:gap-2">
               {printSizes.map((size) => (
                 <button
                   key={size}
@@ -106,6 +111,11 @@ export default function BuySection({
                   onClick={() => setSelectedSize(size)}
                   className="purchase-size"
                 >
+                  {sizeBadges[size] && (
+                    <span className="purchase-size-badge" data-highlight={size === "Large"}>
+                      {sizeBadges[size]}
+                    </span>
+                  )}
                   <span className="purchase-size__dimensions">{products[size].label}</span>
                   <span className="text-xs text-muted-foreground">{formatPrice(getProductDetails(size, currency).price, currency)}</span>
                 </button>
@@ -137,7 +147,7 @@ export default function BuySection({
               <span>{formatPrice(getProductDetails("Digital", currency).price, currency)}</span>
               <span className="text-sm text-muted-foreground">{currency}</span>
             </div>
-            <p className="mt-2 text-sm text-muted-foreground">Save your artwork or print it yourself.</p>
+            <p className="mt-2 text-sm text-muted-foreground">Download your 12K artwork to save or print yourself.</p>
           </div>
           <PlanFeatures items={digitalFeatures} />
           <BuyButton

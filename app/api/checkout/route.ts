@@ -92,8 +92,8 @@ export async function POST(request: Request) {
             product_data: {
               name: product.name,
               description: isPrint
-                ? "Unframed glossy paper poster. Standard shipping is included."
-                : "High-resolution digital file with no watermark. The download link is sent by email.",
+                ? "Unframed glossy paper poster printed from 12K artwork. Includes a 12K digital download and standard shipping."
+                : "12K-resolution digital file with no watermark. The download link is sent by email.",
               metadata: { generationId, size },
               images: [imageUrl],
             },

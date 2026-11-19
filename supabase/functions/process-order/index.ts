@@ -129,7 +129,7 @@ async function upscaleUrl(url: string, path: string) {
   // 1. First upscale
   const input1 = {
     image: url,
-    enhance_model: "Standard V2",
+    enhance_model: "CGI",
     output_format: "jpg",
     upscale_factor: "6x",
     face_enhancement: false,
@@ -150,7 +150,7 @@ async function upscaleUrl(url: string, path: string) {
   // 2. Second upscale
   const input2 = {
       image: output1,
-      enhance_model: "Standard V2",
+      enhance_model: "CGI",
       output_format: "jpg",
       upscale_factor: "2x",
       face_enhancement: false,

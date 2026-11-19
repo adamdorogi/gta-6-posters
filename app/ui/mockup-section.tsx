@@ -16,9 +16,9 @@ const details = [
     icon: "/assembly-kit.svg",
   },
   {
-    title: "High-resolution artwork",
+    title: "12K-resolution artwork",
     description:
-      "We upscale your approved design before printing for crisp details.",
+      "We upscale your approved design to 12K resolution for crisp prints and digital downloads.",
     icon: "/download.svg",
   },
   {
@@ -40,7 +40,7 @@ export default function MockupSection({
         <div className="print-layout__intro">
           <h2 className="section-title max-w-[18ch]">Your poster, made for your wall</h2>
           <p className="section-lead mt-4">
-            Bring your favorite preview off the screen. Each print comes with a high-resolution digital download.
+            Bring your favorite preview off the screen. Each print uses 12K artwork and comes with a matching 12K digital download.
           </p>
         </div>
         <figure className="print-layout__image">
